@@ -1,5 +1,5 @@
 <%# locals: (**) -%>
-<%# src/components/blocks/FaqGroups.astro: the faqs global as accordions, grouped by category in the order categories first appear. The block has no fields of its own. %>
+<%# src/components/blocks/FaqGroups.astro: the faqs collection as accordions, grouped by category in the order categories first appear. The block has no fields of its own. %>
 <section class="section" data-c-faq-groups>
   <div class="wrap wrap-narrow" data-c-faq-groups>
     <% stella_faqs.group_by { it[:category] }.each do |category, items| %>

@@ -1,11 +1,9 @@
-<%# locals: (page:) -%>
-<%# src/pages/blog/index.astro: the blog page stands for the posts collection. The latest post is featured; the rest filter by category (stella/blog-filter.js). Title and description are the CMS page's. %>
-<% content_for :head, stella_seo_tags(page, title: page.title) %>
-<% copy = stella_page_copy(:blog) %>
+<%# locals: (data:) -%>
+<%# src/pages/blog/index.astro: the blog's hero (the block's copy), the latest post featured, and the rest filtering by category (stella/blog-filter.js), from the posts collection. %>
 <% posts = stella_posts %>
 <% featured, *rest = stella_posts_by_date(posts) %>
-<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(copy.hero_eyebrow), title: stella_str(copy.hero_heading), form_id: "blog-demo"} do %>
-  <p class="lede" data-c-blog-index><%= stella_str(copy.hero_lede) %></p>
+<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(data.eyebrow), title: stella_str(data.heading), form_id: "blog-demo"} do %>
+  <p class="lede" data-c-blog-index><%= stella_str(data.lede) %></p>
 <% end %>
 
 <% if featured %>
@@ -51,5 +49,3 @@
     <p class="empty" id="post-empty" hidden data-c-blog-index>No posts in that category yet.</p>
   </div>
 </section>
-
-<%= render "website/shared/cta_band" %>

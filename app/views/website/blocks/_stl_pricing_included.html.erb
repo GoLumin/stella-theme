@@ -1,5 +1,5 @@
 <%# locals: (data:) -%>
-<%# src/components/blocks/PricingIncluded.astro: what every level includes (the pricing global's base features). %>
+<%# src/components/blocks/PricingIncluded.astro: what every level includes (the block's own list). %>
 <section class="section section-alt" data-c-pricing-included>
   <div class="wrap" data-c-pricing-included>
     <div class="section-head center" data-c-pricing-included>
@@ -11,7 +11,7 @@
     </div>
 
     <ul class="included" data-c-pricing-included>
-      <% stella_base_features.each do |feature| %>
+      <% stella_list(data.items).each do |feature| %>
         <li data-c-pricing-included><%= feature %></li>
       <% end %>
     </ul>

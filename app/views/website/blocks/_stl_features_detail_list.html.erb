@@ -1,5 +1,5 @@
 <%# locals: (data:) -%>
-<%# src/components/blocks/FeaturesDetailList.astro: the anchor nav and a section per module (the features global). feature_ids picks and orders them; empty, every feature in the global's order. %>
+<%# src/components/blocks/FeaturesDetailList.astro: the anchor nav and a section per module (the features collection). feature_ids picks and orders them; empty, every feature in the collection's order. %>
 <% ids = stella_list(data.feature_ids) %>
 <% by_id = stella_features.index_by { it[:id] } %>
 <% items = ids.any? ? ids.filter_map { by_id[it] } : stella_features %>

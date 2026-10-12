@@ -1117,6 +1117,31 @@
       "defaults": {}
     },
     {
+      "slug": "stl_blog_index",
+      "label": "Blog · Index",
+      "category": "Collections",
+      "version": 1,
+      "fields": [
+        {
+          "name": "eyebrow",
+          "type": "string",
+          "label": "Eyebrow"
+        },
+        {
+          "name": "heading",
+          "type": "string",
+          "label": "Heading",
+          "required": true
+        },
+        {
+          "name": "lede",
+          "type": "text",
+          "label": "Lede"
+        }
+      ],
+      "defaults": {}
+    },
+    {
       "slug": "stl_book_demo_agenda",
       "label": "Book a demo · Agenda",
       "category": "Book a demo",
@@ -1449,6 +1474,41 @@
               "required": true
             }
           ]
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "stl_case_studies_index",
+      "label": "Case studies · Index",
+      "category": "Collections",
+      "version": 1,
+      "fields": [
+        {
+          "name": "eyebrow",
+          "type": "string",
+          "label": "Eyebrow"
+        },
+        {
+          "name": "heading",
+          "type": "string",
+          "label": "Heading",
+          "required": true
+        },
+        {
+          "name": "lede",
+          "type": "text",
+          "label": "Lede"
+        },
+        {
+          "name": "more_label",
+          "type": "string",
+          "label": "More link label"
+        },
+        {
+          "name": "more_href",
+          "type": "string",
+          "label": "More link address"
         }
       ],
       "defaults": {}
@@ -1849,10 +1909,11 @@
         },
         {
           "name": "feature_ids",
-          "type": "string_list",
-          "label": "Feature ids",
+          "type": "record_refs",
+          "label": "Features",
           "required": true,
-          "help": "Ids from the features global, in display order."
+          "help": "The features shown, in display order.",
+          "of_collection": "features"
         },
         {
           "name": "card_link_label",
@@ -1965,6 +2026,31 @@
       "defaults": {}
     },
     {
+      "slug": "stl_featured_customers_index",
+      "label": "Featured customers · Index",
+      "category": "Collections",
+      "version": 1,
+      "fields": [
+        {
+          "name": "eyebrow",
+          "type": "string",
+          "label": "Eyebrow"
+        },
+        {
+          "name": "heading",
+          "type": "string",
+          "label": "Heading",
+          "required": true
+        },
+        {
+          "name": "lede",
+          "type": "text",
+          "label": "Lede"
+        }
+      ],
+      "defaults": {}
+    },
+    {
       "slug": "stl_features_detail_list",
       "label": "Features · Detail list",
       "category": "Features",
@@ -1972,9 +2058,10 @@
       "fields": [
         {
           "name": "feature_ids",
-          "type": "string_list",
-          "label": "Feature ids",
-          "help": "Ids from the Product features global, in display order. Leave empty to show every feature in the order the global defines."
+          "type": "record_refs",
+          "of_collection": "features",
+          "label": "Features",
+          "help": "The features shown and their order; empty shows them all, in the collection's order."
         }
       ],
       "defaults": {}
@@ -3585,6 +3672,17 @@
           "type": "string",
           "label": "Heading",
           "required": true
+        },
+        {
+          "name": "lede_before",
+          "type": "string",
+          "label": "Lede before the price"
+        },
+        {
+          "name": "lede_after",
+          "type": "text",
+          "label": "Lede after the price",
+          "help": "The starting price (general global) sits between the two."
         }
       ],
       "defaults": {}
@@ -3609,6 +3707,11 @@
           "name": "lede",
           "type": "text",
           "label": "Lede"
+        },
+        {
+          "name": "items",
+          "type": "string_list",
+          "label": "Included at every level"
         }
       ],
       "defaults": {}
@@ -4396,6 +4499,43 @@
       }
     },
     {
+      "slug": "faqs",
+      "name": "FAQs",
+      "enable_blocks": false,
+      "schema": {
+        "fields": [
+          {
+            "name": "order",
+            "type": "integer",
+            "label": "Order",
+            "required": true,
+            "help": "Display order, lowest first."
+          },
+          {
+            "name": "answer",
+            "type": "text",
+            "label": "Answer",
+            "required": true
+          },
+          {
+            "name": "category",
+            "type": "select",
+            "label": "Category",
+            "required": true,
+            "options": [
+              "Setup",
+              "Pricing",
+              "Migration",
+              "Product",
+              "Training",
+              "Support"
+            ],
+            "help": "Groups the FAQ page; Pricing ones also show on the pricing page."
+          }
+        ]
+      }
+    },
+    {
       "slug": "featured-customers",
       "name": "Featured customers",
       "enable_blocks": false,
@@ -4468,6 +4608,106 @@
             "type": "string",
             "label": "Attribution",
             "help": "Who said the quote, e.g. Bo Dill, Mobile Attic of Nashville."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "features",
+      "name": "Product features",
+      "enable_blocks": false,
+      "schema": {
+        "fields": [
+          {
+            "name": "order",
+            "type": "integer",
+            "label": "Order",
+            "required": true,
+            "help": "Display order, lowest first."
+          },
+          {
+            "name": "icon",
+            "type": "string",
+            "label": "Icon",
+            "help": "Path to the module's icon, e.g. /images/icons/icon-crm-feature.svg."
+          },
+          {
+            "name": "short",
+            "type": "text",
+            "label": "Short description",
+            "required": true
+          },
+          {
+            "name": "body",
+            "type": "text",
+            "label": "Description",
+            "required": true
+          },
+          {
+            "name": "points",
+            "type": "string_list",
+            "label": "Points"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "integrations",
+      "name": "Integrations",
+      "enable_blocks": false,
+      "schema": {
+        "fields": [
+          {
+            "name": "order",
+            "type": "integer",
+            "label": "Order",
+            "required": true,
+            "help": "Display order, lowest first."
+          },
+          {
+            "name": "logo",
+            "type": "string",
+            "label": "Logo",
+            "required": true,
+            "help": "Path to the logo, e.g. /images/logo/quickbooks.png."
+          },
+          {
+            "name": "note",
+            "type": "string",
+            "label": "Note"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "partners",
+      "name": "Industry partners",
+      "enable_blocks": false,
+      "schema": {
+        "fields": [
+          {
+            "name": "order",
+            "type": "integer",
+            "label": "Order",
+            "required": true,
+            "help": "Display order, lowest first."
+          },
+          {
+            "name": "logo",
+            "type": "string",
+            "label": "Logo",
+            "required": true,
+            "help": "Path to the logo, e.g. /images/logo/boxwell.png."
+          },
+          {
+            "name": "website",
+            "type": "url",
+            "label": "Website"
+          },
+          {
+            "name": "note",
+            "type": "string",
+            "label": "Note"
           }
         ]
       }
@@ -4567,6 +4807,107 @@
       }
     },
     {
+      "slug": "pricing-tiers",
+      "name": "Pricing tiers",
+      "enable_blocks": false,
+      "schema": {
+        "fields": [
+          {
+            "name": "order",
+            "type": "integer",
+            "label": "Order",
+            "required": true,
+            "help": "Display order, lowest first."
+          },
+          {
+            "name": "price",
+            "type": "string",
+            "label": "Price",
+            "required": true,
+            "help": "e.g. \"$99\" or \"Let's talk\"."
+          },
+          {
+            "name": "cadence",
+            "type": "string",
+            "label": "Cadence",
+            "help": "e.g. \"/mo\"."
+          },
+          {
+            "name": "blurb",
+            "type": "text",
+            "label": "Description",
+            "required": true
+          },
+          {
+            "name": "cta",
+            "type": "string",
+            "label": "Button label",
+            "required": true
+          },
+          {
+            "name": "featured",
+            "type": "boolean",
+            "label": "Featured"
+          },
+          {
+            "name": "badge",
+            "type": "string",
+            "label": "Badge",
+            "help": "Shown on a featured tier, e.g. \"Most popular\"."
+          },
+          {
+            "name": "inherits",
+            "type": "string",
+            "label": "Inherits line",
+            "help": "e.g. \"Everything in Standard, plus:\"."
+          },
+          {
+            "name": "features",
+            "type": "string_list",
+            "label": "Features"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "team",
+      "name": "Team",
+      "enable_blocks": false,
+      "schema": {
+        "fields": [
+          {
+            "name": "order",
+            "type": "integer",
+            "label": "Order",
+            "required": true,
+            "help": "Display order, lowest first."
+          },
+          {
+            "name": "role",
+            "type": "string",
+            "label": "Role",
+            "required": true
+          },
+          {
+            "name": "photo",
+            "type": "string",
+            "label": "Photo",
+            "help": "Path to the photo, e.g. /images/team/jane-doe.jpg."
+          },
+          {
+            "name": "email",
+            "type": "string",
+            "label": "Email"
+          },
+          {
+            "name": "bio",
+            "type": "text",
+            "label": "Bio"
+          }
+        ]
+      }
+    },
+    {
       "slug": "testimonials",
       "name": "Testimonials",
       "enable_blocks": false,
@@ -4642,483 +4983,6 @@
           "type": "text",
           "label": "Signup page lede",
           "required": true
-        }
-      ]
-    },
-    {
-      "slug": "blog",
-      "name": "Blog page copy",
-      "data": {
-        "hero_eyebrow": "Resources",
-        "hero_heading": "Notes for people who run portable storage",
-        "hero_lede": "Practical writing on back-office workflow, billing, inventory and growth — argued from how yards actually operate, not from borrowed statistics.",
-        "inline_cta_eyebrow": "See it in practice",
-        "inline_cta_title": "Want this running in your yard?",
-        "inline_cta_body": "Stella puts quoting, dispatch, inventory and billing on one record — so the workflow above stops depending on anyone's memory. We'll walk you through it.",
-        "inline_cta_label": "Schedule your demo",
-        "inline_cta_href": "/book-a-demo"
-      },
-      "fields": [
-        {
-          "name": "hero_eyebrow",
-          "type": "string",
-          "label": "Hero eyebrow"
-        },
-        {
-          "name": "hero_heading",
-          "type": "string",
-          "label": "Hero heading",
-          "required": true
-        },
-        {
-          "name": "hero_lede",
-          "type": "text",
-          "label": "Hero lede",
-          "required": true
-        },
-        {
-          "name": "inline_cta_eyebrow",
-          "type": "string",
-          "label": "Inline cta eyebrow"
-        },
-        {
-          "name": "inline_cta_title",
-          "type": "string",
-          "label": "Inline cta title",
-          "required": true
-        },
-        {
-          "name": "inline_cta_body",
-          "type": "text",
-          "label": "Inline cta body",
-          "required": true
-        },
-        {
-          "name": "inline_cta_label",
-          "type": "string",
-          "label": "Inline cta label"
-        },
-        {
-          "name": "inline_cta_href",
-          "type": "string",
-          "label": "Inline cta href"
-        }
-      ]
-    },
-    {
-      "slug": "case_studies_page",
-      "name": "Case studies page copy",
-      "data": {
-        "hero_eyebrow": "Case studies",
-        "hero_heading": "Operators who put the whole business on one record",
-        "hero_lede": "Every case study below is built from a published customer testimonial. The quotes are verbatim and the outcomes are the customer's own — we don't publish numbers a customer hasn't given us.",
-        "more_label": "Read more from our customers",
-        "more_href": "/testimonials"
-      },
-      "fields": [
-        {
-          "name": "hero_eyebrow",
-          "type": "string",
-          "label": "Hero eyebrow"
-        },
-        {
-          "name": "hero_heading",
-          "type": "string",
-          "label": "Hero heading",
-          "required": true
-        },
-        {
-          "name": "hero_lede",
-          "type": "text",
-          "label": "Hero lede",
-          "required": true
-        },
-        {
-          "name": "more_label",
-          "type": "string",
-          "label": "Link under the grid",
-          "help": "Leave empty to hide it."
-        },
-        {
-          "name": "more_href",
-          "type": "string",
-          "label": "Link target"
-        }
-      ]
-    },
-    {
-      "slug": "faqs",
-      "name": "FAQs",
-      "data": {
-        "items": [
-          {
-            "q": "What calendars do you integrate with?",
-            "a": "<p>Outlook and Google Calendar. Bookings auto-populate with customer information, door direction, container size and number, accessories to bring, depot details including release #, and delivery details.</p>",
-            "category": "Setup"
-          },
-          {
-            "q": "What are your system requirements?",
-            "a": "Stella is Mac and PC friendly. Because Stella is a cloud-based AWS service, internet speed and a modern browser like Google Chrome are important. The only browser we don't recommend using is Internet Explorer.",
-            "category": "Setup"
-          },
-          {
-            "q": "What, if any, are the added costs?",
-            "a": "<p>There will be a 1x set up fee, a monthly license fee, as well as an optional migration fee for existing customers.  We offer optional support packages post training, as well as other after market services like audits, re-training, and more.    Besides Stella, you'll need a credit card processor which we will recommend based on low rates, and a Quick Books Online account.  </p>",
-            "category": "Pricing"
-          },
-          {
-            "q": "Do I need a document signing account?",
-            "a": "No. Our document signing (Signiflow) is built into the cost of Stella.",
-            "category": "Pricing"
-          },
-          {
-            "q": "Do you have a data migration tool to upload my customer information, inventory and zip codes?",
-            "a": "<p>Yes. Stella provides three forms to upload: Inventory, Customer Data, and Zip codes.  There are added migration fees for us to manage, cleanse and upload your existing customer data which we discuss clearly with you.  Or you can fill out our templates yourself and incur no fee.</p>",
-            "category": "Migration"
-          },
-          {
-            "q": "How much does Stella cost?",
-            "a": "<p>Monthly fees start as low as $99/month. Fees are based on the number of containers you have— see the Levels page for what's included in Stella Standard &amp; Stella Plus.</p>",
-            "category": "Pricing"
-          },
-          {
-            "q": "How long does onboarding take?",
-            "a": "<p>Onboarding begins once you sign the license agreement, and can take anywhere from 2 weeks to a month depending on the scope of your customer based and inventory fleet, as well as the speed in which you respond to our Onboarders. Whether a start up or established portable storage company, we prioritize you the same and will get you through our onboarding process with ease and cadence that you are comfortable with.</p>",
-            "category": "Setup"
-          },
-          {
-            "q": "Can Stella handle rent-to-own and sales as well as rentals?",
-            "a": "Yes. Stella manages rentals, sales, rent-to-own and relocations from the same system.",
-            "category": "Product"
-          },
-          {
-            "q": "<p>How many Training Sessions do we receive?</p>",
-            "a": "<p>You will receive 4-5 one hour training sessions paced for your success.  If you have existing customers we are migrating, we add a 5th session.  Once training is complete, we have a one click support button in your Stella, an 800# support line and a training library of documents, tutorials and videos.</p>",
-            "category": "training"
-          },
-          {
-            "q": "<p>Do you charge for Support?</p>",
-            "a": "<p>After your 4th or 5th one hour training session, we provide a runway of repeat support questions to get you launched into the live environment.  The sooner during training you enter the live environment, the more effective training will be.  We provide 3 options for Support packages which only apply to support questions that take longer than a quick response.   Email <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"mailto:support@runstella.com\">support@runstella.com</a> for details.</p>",
-            "category": "support"
-          }
-        ]
-      },
-      "fields": [
-        {
-          "name": "items",
-          "type": "repeater",
-          "label": "Items",
-          "of": [
-            {
-              "name": "q",
-              "type": "text",
-              "label": "Question",
-              "required": true
-            },
-            {
-              "name": "a",
-              "type": "text",
-              "label": "Answer",
-              "required": true
-            },
-            {
-              "name": "category",
-              "type": "string",
-              "label": "Category",
-              "required": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "featured_customers_page",
-      "name": "Featured customers page copy",
-      "data": {
-        "hero_eyebrow": "Featured customer",
-        "hero_heading": "The operators behind the containers",
-        "hero_lede": "Every month we put one Stella customer in the spotlight — who they are, the market they serve and how long they have been at it. These are the businesses doing the work, in their own neighbourhoods."
-      },
-      "fields": [
-        {
-          "name": "hero_eyebrow",
-          "type": "string",
-          "label": "Hero eyebrow"
-        },
-        {
-          "name": "hero_heading",
-          "type": "string",
-          "label": "Hero heading"
-        },
-        {
-          "name": "hero_lede",
-          "type": "text",
-          "label": "Hero lede"
-        }
-      ]
-    },
-    {
-      "slug": "features",
-      "name": "Product features",
-      "data": {
-        "items": [
-          {
-            "id": "crm",
-            "icon": "/images/icons/icon-crm-feature.svg",
-            "title": "CRM & Sales",
-            "short": "Manage and track sales with follow-up reminders built in.",
-            "body": "Leads arrive with follow-up reminders built in, plus the ability to log calls, emails and notes and confirm scheduling. Every lead lands in one place, increasing your conversion rate.",
-            "points": [
-              "Follow-up reminders on every lead",
-              "Log calls, emails and notes against the customer",
-              "Website lead form feeds straight into Stella",
-              "Automated quote via email and SMS",
-              "Staff email and SMS alerts"
-            ]
-          },
-          {
-            "id": "dashboard",
-            "icon": "/images/icons/icon-visual-dashboard.svg",
-            "title": "Visual Dashboards",
-            "short": "Real-time revenue, occupancy and inventory at a glance.",
-            "body": "<p>Open Stella and see where the business actually stands: simple view of totals..   revenue breakouts mirroring your P&amp;L, movement activity, inventory stats &amp; occupancy rates, revenue per container, daily bookings — all live and exportable reports to excel.  Filter and sort by payment date or invoice date, location (mapped to qb location), attribution source, sales person and more.</p>",
-            "points": [
-              "Revenue and daily bookings in real time",
-              "Occupancy rate and revenue per container",
-              "Deep dive into revenue detail — past, present and future",
-              "Revenue by location, source, salesperson and more"
-            ]
-          },
-          {
-            "id": "quoting",
-            "icon": "/images/icons/icon-contract.svg",
-            "title": "Quoting & Booking",
-            "short": "Guide staff through the sales journey, then send in one click.",
-            "body": "Stella walks your team through the sales journey so they deliver consistent, professional service on every quote — capturing ancillary items and box placement details along the way, then auto-sending the quote to the customer.",
-            "points": [
-              "Rental, sales, rent-to-own, yard storage and relocation services",
-              "Automated or user-generated one-click quotes",
-              "Upsell add-ons, accessories and modifications captured",
-              "Built-in one-click e-contract send",
-              "Corporate customer detail management for invoicing & QBO: sub-customer, project manager, PO#/job name and more"
-            ]
-          },
-          {
-            "id": "calendar",
-            "icon": "/images/icons/icon-cloud-based-web-software.svg",
-            "title": "Dispatch/Cal Integration",
-            "short": "<p>Push delivery data straight to an Outlook or Google Calendar.</p>",
-            "body": "<p>Bookings auto-populate Outlook and Google Calendar with the customer name, address, container location, release number, placement details, key accessories to bring or collect at return that your drivers actually need — and drivers can add container numbers and photos from the field.</p>",
-            "points": [
-              "Container location and placement details",
-              "Driver access to add container numbers and photos",
-              "Customer info and all specific container information for efficient dispatching",
-              "Scheduling transportations in an easy flow",
-              "Discuss placement details with the customer to avoid delivery nightmares and save driver time"
-            ]
-          },
-          {
-            "id": "inventory",
-            "icon": "/images/icons/icon-inventory.svg",
-            "title": "Real-Time Inventory",
-            "short": "<p>Know where every container is, what state it's in, and who has it with the history to back it up.</p>",
-            "body": "<p>Keep track of your inventory easily.  Fleet is imported with key data including container #, manufacturer, release #, purchase price, freight cost, date purchased, grade, color, door type, last inspection date, current status, and more.  Stella automates statuses empty, rented, and sold, based on management of the order. Additional statuses allow for proper identification such as damaged, donation, in-house use, to be built, on order. Stella tracks location during the rental journey or the sale keeping historical records of each container.  A Google Maps view of rentals reveal helpful marketing information as well as peace of mind for location tracking.   Filter data by any field and export. Photo upload available</p>",
-            "points": [
-              "Status per container: rented, sold, damaged or empty",
-              "Relocation tracking across yards and sites",
-              "Google Maps View of Rentals",
-              "Sold Inventory Report to track Net Profit"
-            ]
-          },
-          {
-            "id": "billing",
-            "icon": "/images/icons/icon-full-reporting.svg",
-            "title": "Billing & Reporting",
-            "short": "<p>Recurring billing with pro-rating, refunds, voids, pre-payments, partial payments.</p>",
-            "body": "<p>Stella creates QBO customer profiles, automates one-time sale invoices, recurring rental fees and future transportation charges, and handles refunds, voids, re-charges, pre-payments and misc charges. Automated alerts to your office and your customer for failed cards, past-due reminders, online payments and lien alerts mean you're in the know at all times when it comes to your revenue. Setting terms, past-due reminders, late fees, a lien fee and a lien email helps avoid and replace manual billing work. A collections report and a drilled-down monthly activity report give you the detail you need with a click.</p>",
-            "points": [
-              "Automated recurring and transportation charges",
-              "Auto pro-rating",
-              "Customer billing notifications including failed card, past due, late and lien",
-              "Refunds, voids, pre-payments, re-tries, manual charges",
-              "Credit Card processing with Authorize.net gateway ",
-              "Deep dive reporting with filters, search and export"
-            ]
-          },
-          {
-            "id": "maps",
-            "icon": "/images/icons/icon-google-map.svg",
-            "title": "Google Maps",
-            "short": "<p>Embedded Google Maps view within work order and Inventory</p>",
-            "body": "<p>Discuss container placement with customer while looking at an embedded google maps street and birds eye view typing in notes and door facing direction, which push to calendar when dispatching each transportation.   Stella also uses google maps in inventory to see a live view of your rental locations, with a hover pin with detail.</p>",
-            "points": [
-              "Convenient street and birds eye view of google maps in order",
-              "Discuss placement details with customer before driver delivers",
-              "View all rentals in a pinned google maps view in inventory"
-            ]
-          },
-          {
-            "id": "insurance",
-            "icon": "/images/icons/icon-insurance-waiver.svg",
-            "title": "Insurance & Damage Waiver",
-            "short": "Contents insurance and damage waiver options at the point of sale.",
-            "body": "<p>Offer contents insurance and damage waiver during quoting in Stella or within the embedded quote tool for your website.  3rd party reporting and contractual pages included.  Options for customer to provide proof of insurance with automated email reminders to send a binder.  If no proof of insurance, Stella can add them to the lowest level policy.   Attach protection at booking rather than chasing it later!</p>",
-            "points": [
-              "Contents insurance & container damage waiver options",
-              "Upsell in Stella or on Lily Pad, the quote tool",
-              "Reporting and contractual language included",
-              "Email automation to customer to provide proof of insurance ",
-              "Optional automation to add lowest level option if proof of insurance not received"
-            ]
-          },
-          {
-            "id": "promotions",
-            "icon": "/images/icons/icon-promotion-tool.svg",
-            "title": "Promotions Tool",
-            "short": "<p>Run seasonal, monthly or annual discounts with promo codes for the website quote tool.</p>",
-            "body": "<p>Create &amp; manage all promotions in the promotions tool seamlessly.  Build seasonal, monthly or annual discounts and apply them consistently across quotes inside of Stella and on the website quote tool, Lily Pad.  Control what promotions you show in your quote tool and what promo codes consumers can type in.  Deactivate or activate as needed. Embed promo codes in campaigns within redirect links.</p>",
-            "points": [
-              "Feature clickable promotion on website quote tool",
-              "Create seasonal, monthly and annual promotions",
-              "Embed promo codes in redirect links",
-              "Control what promos sales can use within a Work order"
-            ]
-          },
-          {
-            "id": "multibox",
-            "icon": "/images/icons/icon-multi-box.svg",
-            "title": "Multi-Box Booking",
-            "short": "<p>Book several container rentals or sales on a single order.</p>",
-            "body": "<p>Customers who need three rental containers should not take three times the work. Multi-box booking keeps one order, one contract and one invoice from the start.  One click scheduling and dispatching  to calendar, creating a unique calendar entry for each container.  Container sales with multiple containers is a given and easy... one invoice at the time of booking, even if delivery is in the future.</p>",
-            "points": [
-              "Multiple containers per order",
-              "Single contract and invoice",
-              "Only schedule and push to the calendar once",
-              "Pay-by-link capability"
-            ]
-          },
-          {
-            "id": "migration",
-            "icon": "/images/icons/icon-damage-waiver.svg",
-            "title": "Data Migration",
-            "short": "Bring your inventory, customers and postal/zip codes across.",
-            "body": "<p>Stella provides three upload forms — inventory, customer data and zip or postal codes — so switching systems doesn't mean re-keying years of records.</p>",
-            "points": [
-              "Inventory upload",
-              "Customer data upload",
-              "Zip or postal code upload"
-            ]
-          },
-          {
-            "id": "security",
-            "icon": "/images/icons/icon-cloud-based-web-software.svg",
-            "title": "Cloud-Based & Secure",
-            "short": "Nothing to download. Hosted on Amazon Web Services.",
-            "body": "Stella is Mac and PC friendly and runs entirely in the browser on AWS. A modern browser like Chrome and a decent connection is all your team needs — the only browser we don't recommend is Internet Explorer.",
-            "points": [
-              "No download or install",
-              "Mac and PC friendly",
-              "Hosted on Amazon Web Services"
-            ]
-          },
-          {
-            "id": "rental",
-            "icon": "/images/icons/icon-inventory.svg",
-            "title": "Portable Storage Rental",
-            "short": "Container and box rental operators, from one yard to many.",
-            "body": "<p>The rental journey runs end to end on one record: a lead becomes a quote, a quote becomes a signed contract, the contract becomes a delivery on the calendar, and the container becomes a recurring invoice. Statuses move themselves as containers go out and come back, so what you see in inventory is what is actually in the yard.</p>",
-            "points": [
-              "One-click quotes with ancillary items and placement details",
-              "Built-in e-contract signing (Signiflow included)",
-              "Live container status: rented, sold, damaged or empty",
-              "Recurring rental billing straight into QuickBooks Online"
-            ]
-          },
-          {
-            "id": "moving-storage",
-            "icon": "/images/icons/icon-multi-box.svg",
-            "title": "Moving & Storage",
-            "short": "Combined move and store workflows on a single order.",
-            "body": "<p>A customer who is moving and storing should not become two jobs in two systems. Multi-box booking keeps several containers on one order, one contract and one invoice, while each container still gets its own calendar entry so dispatch stays accurate. Relocation services sit alongside rentals and sales rather than in a spreadsheet next to them.</p>",
-            "points": [
-              "Several containers on one order, contract and invoice",
-              "A unique calendar entry per container for dispatch",
-              "Relocation services managed alongside rentals and sales",
-              "Placement details and accessories captured on the order"
-            ]
-          },
-          {
-            "id": "rent-to-own",
-            "icon": "/images/icons/icon-contract.svg",
-            "title": "Rent-to-Own",
-            "short": "R2O agreements managed alongside rentals and sales.",
-            "body": "<p>Rent-to-own is quoted, contracted and billed in the same flow as a rental, not bolted on afterwards. Quoting covers rental, sales, rent-to-own, yard storage and relocation services from the same screen, so staff follow one process whatever the customer signs up for, and the billing follows the agreement automatically.</p>",
-            "points": [
-              "R2O quoted in the same flow as rentals and sales",
-              "One-click e-contract send on the agreement",
-              "Recurring billing that follows the agreement terms",
-              "Sold inventory reporting to track net profit"
-            ]
-          },
-          {
-            "id": "multi-yard",
-            "icon": "/images/icons/icon-google-map.svg",
-            "title": "Multi-Yard Operators",
-            "short": "Track inventory, revenue and movement across locations.",
-            "body": "<p>Running more than one yard means knowing where every container is and which location earned the revenue. Relocation tracking follows containers between yards and sites, a pinned Google Maps view shows live rentals, and reporting breaks revenue out by location and salesperson so each yard can be read on its own or as part of the whole.</p>",
-            "points": [
-              "Relocation tracking across yards and sites",
-              "Pinned Google Maps view of every live rental",
-              "Revenue by location, source and salesperson",
-              "Unlimited users, so every yard's staff are on the system"
-            ]
-          }
-        ]
-      },
-      "fields": [
-        {
-          "name": "items",
-          "type": "repeater",
-          "label": "Items",
-          "of": [
-            {
-              "name": "id",
-              "type": "string",
-              "label": "Id",
-              "required": true,
-              "help": "Anchor id, e.g. \"crm\"."
-            },
-            {
-              "name": "icon",
-              "type": "string",
-              "label": "Icon",
-              "required": true,
-              "help": "Path under public/."
-            },
-            {
-              "name": "title",
-              "type": "string",
-              "label": "Title",
-              "required": true
-            },
-            {
-              "name": "short",
-              "type": "text",
-              "label": "Short",
-              "required": true
-            },
-            {
-              "name": "body",
-              "type": "text",
-              "label": "Body",
-              "required": true
-            },
-            {
-              "name": "points",
-              "type": "string_list",
-              "label": "Points"
-            }
-          ]
         }
       ]
     },
@@ -5371,81 +5235,6 @@
       ]
     },
     {
-      "slug": "integrations",
-      "name": "Integrations",
-      "data": {
-        "items": [
-          {
-            "name": "Amazon Web Services",
-            "src": "/images/logo/amazon-web-services.png",
-            "note": "Cloud hosting"
-          },
-          {
-            "name": "QuickBooks",
-            "src": "/images/logo/quickbooks.png",
-            "note": "Accounting sync, no double entry"
-          },
-          {
-            "name": "Authorize.net",
-            "src": "/images/logo/authorize-net.png",
-            "note": "Payment gateway"
-          },
-          {
-            "name": "Google Maps",
-            "src": "/images/logo/google-map.png",
-            "note": "Box placement and inventory mapping"
-          },
-          {
-            "name": "Outlook Calendar",
-            "src": "/images/logo/outlook-calendar.png",
-            "note": "Delivery and pickup scheduling"
-          },
-          {
-            "name": "Storage Protectors",
-            "src": "/images/logo/storage-protectors.png",
-            "note": "Contents insurance"
-          },
-          {
-            "name": "Signiflow",
-            "src": "/images/logo/signiflow.png",
-            "note": "Contract send and e-signing, included"
-          },
-          {
-            "name": "Google Calendar",
-            "src": "/images/logo/google-calendar.png",
-            "note": "Delivery and pickup scheduling"
-          }
-        ]
-      },
-      "fields": [
-        {
-          "name": "items",
-          "type": "repeater",
-          "label": "Items",
-          "of": [
-            {
-              "name": "name",
-              "type": "string",
-              "label": "Name",
-              "required": true
-            },
-            {
-              "name": "src",
-              "type": "string",
-              "label": "Src",
-              "required": true,
-              "help": "Path under public/, e.g. /images/logo/x.png"
-            },
-            {
-              "name": "note",
-              "type": "string",
-              "label": "Note"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "slug": "nav",
       "name": "Navigation",
       "data": {
@@ -5688,246 +5477,6 @@
       ]
     },
     {
-      "slug": "partners",
-      "name": "Industry partners",
-      "data": {
-        "items": [
-          {
-            "name": "Boxwell",
-            "src": "/images/logo/boxwell.png",
-            "note": "",
-            "href": "https://boxwell.co/"
-          },
-          {
-            "name": "Storage Protectors",
-            "src": "/images/logo/storage-protectors.png",
-            "note": "",
-            "href": "https://www.storageprotectors.com/"
-          },
-          {
-            "name": "Lumin Digital",
-            "src": "/images/logo/lumin.png",
-            "note": "",
-            "href": "https://golumin.io/"
-          },
-          {
-            "name": "Cross Insurance",
-            "src": "/images/logo/crossagency.png",
-            "note": "",
-            "href": "https://www.crossagency.com/"
-          },
-          {
-            "name": "Risely Marketing",
-            "src": "/images/logo/riselymarketing.png",
-            "note": "",
-            "href": "https://riselymarketing.com/"
-          },
-          {
-            "name": "NetViper Interactive",
-            "src": "/images/logo/net-viper.png",
-            "note": "",
-            "href": "https://netviperinc.com/"
-          },
-          {
-            "name": "Vertical Payments",
-            "src": "/images/logo/goverticalpay.png",
-            "note": "",
-            "href": "https://www.goverticalpay.com/"
-          },
-          {
-            "name": "Stax",
-            "src": "/images/logo/stax.png",
-            "note": "",
-            "href": "https://staxpayments.com/"
-          },
-          {
-            "name": "Record360",
-            "src": "/images/logo/record360.png",
-            "note": "",
-            "href": "https://record360.com/"
-          },
-          {
-            "name": "Lily Pad Connect",
-            "src": "/images/logo/lpc_logo.png",
-            "note": "",
-            "href": "/lily-pad"
-          }
-        ]
-      },
-      "fields": [
-        {
-          "name": "items",
-          "type": "repeater",
-          "label": "Items",
-          "of": [
-            {
-              "name": "name",
-              "type": "string",
-              "label": "Name",
-              "required": true
-            },
-            {
-              "name": "src",
-              "type": "string",
-              "label": "Src",
-              "required": true,
-              "help": "Path under public/, e.g. /images/logo/x.png"
-            },
-            {
-              "name": "href",
-              "type": "string",
-              "label": "Website",
-              "help": "Full URL; the logo links here when set."
-            },
-            {
-              "name": "note",
-              "type": "string",
-              "label": "Note"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "pricing",
-      "name": "Pricing",
-      "data": {
-        "base_features": [
-          "Unlimited users",
-          "Rentals, sales, R2O & relocation services",
-          "Visual dashboards",
-          "Email & text quotes",
-          "CRM with follow-up reminders",
-          "Google Maps delivery & inventory views",
-          "Multi-box booking",
-          "eSigning (Signiflow included)",
-          "Outlook & Google calendar integration",
-          "Real-time inventory management",
-          "Billing automation",
-          "QBO Integration",
-          "QuickBooks & Authorize.net integration",
-          "Data import & export"
-        ],
-        "tiers": [
-          {
-            "name": "Stella Standard",
-            "price": "From $99",
-            "cadence": "/month",
-            "blurb": "Everything a portable storage operation needs to run sales, operations and billing in one system.",
-            "cta": "Schedule a demo",
-            "featured": false,
-            "badge": "",
-            "inherits": "",
-            "features": [
-              "Unlimited users",
-              "Rental, sales, R2O & relocation management",
-              "Visual dashboards",
-              "Email & text quotes",
-              "CRM with follow-up reminders",
-              "Google Maps delivery & inventory views",
-              "Multi-box booking",
-              "eSigning (Signiflow included)",
-              "Outlook & Google calendar integration",
-              "Real-time inventory management",
-              "Billing automation",
-              "QuickBooks & Authorize.net integration",
-              "Data export"
-            ]
-          },
-          {
-            "name": "Stella Plus",
-            "price": "Let's talk",
-            "cadence": "",
-            "blurb": "Standard, plus a quote and reservation tool that turns your website into a booking channel.",
-            "cta": "Schedule a demo",
-            "featured": true,
-            "badge": "Most popular",
-            "inherits": "Everything in Standard, plus:",
-            "features": [
-              "Lily Pad 2.0 Quote & Reservation Tool for your website"
-            ]
-          },
-          {
-            "name": "Stella Pro",
-            "price": "Coming 2027",
-            "cadence": "",
-            "blurb": "The next tier of Stella, currently in development. Get in touch to join the early access list.",
-            "cta": "Join the waitlist",
-            "featured": false,
-            "badge": "Coming 2027",
-            "inherits": "Everything in Plus, plus:",
-            "features": [
-              "Additional capabilities — announcing in 2027"
-            ]
-          }
-        ]
-      },
-      "fields": [
-        {
-          "name": "base_features",
-          "type": "string_list",
-          "label": "Base features",
-          "help": "Included at every level."
-        },
-        {
-          "name": "tiers",
-          "type": "repeater",
-          "label": "Tiers",
-          "of": [
-            {
-              "name": "name",
-              "type": "string",
-              "label": "Name",
-              "required": true
-            },
-            {
-              "name": "price",
-              "type": "string",
-              "label": "Price",
-              "required": true
-            },
-            {
-              "name": "cadence",
-              "type": "string",
-              "label": "Cadence"
-            },
-            {
-              "name": "blurb",
-              "type": "text",
-              "label": "Blurb",
-              "required": true
-            },
-            {
-              "name": "cta",
-              "type": "string",
-              "label": "Cta",
-              "required": true
-            },
-            {
-              "name": "featured",
-              "type": "boolean",
-              "label": "Featured"
-            },
-            {
-              "name": "badge",
-              "type": "string",
-              "label": "Badge"
-            },
-            {
-              "name": "inherits",
-              "type": "string",
-              "label": "Inherits"
-            },
-            {
-              "name": "features",
-              "type": "string_list",
-              "label": "Features"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "slug": "scripts",
       "name": "Scripts",
       "data": {
@@ -5958,89 +5507,6 @@
               "label": "Body",
               "type": "text",
               "help": "Pasted just before the closing </body> tag."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "team",
-      "name": "Meet the team",
-      "data": {
-        "items": [
-          {
-            "name": "Edward Smith",
-            "role": "CEO",
-            "photo": "/images/team/edward-smith.jpg",
-            "email": "ed@collegeboundmovers.com"
-          },
-          {
-            "name": "Cathy Putnam",
-            "role": "President",
-            "photo": "/images/team/cathy-putnam.jpg",
-            "email": "cathy@runstella.com"
-          },
-          {
-            "name": "Matt Dudley",
-            "role": "Onboarding & Support Manager",
-            "photo": "/images/team/matt-dudley.jpg",
-            "email": "matt@runstella.com"
-          },
-          {
-            "name": "Shauna Kozinski",
-            "role": "Sales Manager",
-            "photo": "/images/team/shauna-kozinski.jpg",
-            "email": "shauna@runstella.com"
-          },
-          {
-            "name": "Michael Calderone",
-            "role": "Account Manager",
-            "photo": "/images/team/michael-calderone.jpg",
-            "email": "michael@runstella.com"
-          },
-          {
-            "name": "Scott Kelly",
-            "role": "CFO",
-            "photo": "/images/team/scott-kelly.jpg",
-            "email": "scott@collegeboundmovers.com"
-          }
-        ]
-      },
-      "fields": [
-        {
-          "name": "items",
-          "type": "repeater",
-          "label": "Team members",
-          "of": [
-            {
-              "name": "name",
-              "type": "string",
-              "label": "Name",
-              "required": true
-            },
-            {
-              "name": "role",
-              "type": "string",
-              "label": "Role / job title",
-              "required": true
-            },
-            {
-              "name": "photo",
-              "type": "string",
-              "label": "Photo",
-              "help": "Path under public/, e.g. /images/team/kelly.jpg. Leave blank to show initials."
-            },
-            {
-              "name": "email",
-              "type": "string",
-              "label": "Email",
-              "help": "Shown under the name and role on /about."
-            },
-            {
-              "name": "bio",
-              "type": "text",
-              "label": "Short bio",
-              "help": "One or two sentences."
             }
           ]
         }
@@ -6189,6 +5655,9 @@
       "frontmatter": {},
       "seo": {
         "description": "Stella has been building portable storage management software since 2020 — sales, operations and billing in one cloud-based system, backed by real support and training."
+      },
+      "schema": {
+        "fields": []
       }
     },
     {
@@ -6198,34 +5667,59 @@
       "locale": "en",
       "blocks": [
         {
-          "type": "stl_hero",
+          "type": "stl_blog_index",
           "version": 1,
           "data": {
             "eyebrow": "Resources",
-            "heading": "Blog",
-            "subheading": "Operations, growth and industry notes."
+            "heading": "Notes for people who run portable storage",
+            "lede": "Practical writing on back-office workflow, billing, inventory and growth — argued from how yards actually operate, not from borrowed statistics."
           }
         },
         {
-          "type": "collection_list",
+          "type": "stl_cta_band",
           "version": 1,
-          "data": {
-            "collection_slug": "posts",
-            "filter_status": "published",
-            "sort_by": "published_at",
-            "sort_dir": "desc",
-            "limit": 0,
-            "layout": "list"
-          }
+          "data": {}
         }
       ],
       "frontmatter": {
-        "layout": "index",
-        "collection": "posts"
+        "post_cta_eyebrow": "See it in practice",
+        "post_cta_title": "Want this running in your yard?",
+        "post_cta_body": "Stella puts quoting, dispatch, inventory and billing on one record — so the workflow above stops depending on anyone's memory. We'll walk you through it.",
+        "post_cta_label": "Schedule your demo",
+        "post_cta_href": "/book-a-demo"
       },
       "seo": {
         "title": "Blog — Stella",
         "description": "Operations, growth, billing and industry notes for portable storage operators — written by the Stella team."
+      },
+      "schema": {
+        "fields": [
+          {
+            "name": "post_cta_eyebrow",
+            "type": "string",
+            "label": "Post call to action: eyebrow"
+          },
+          {
+            "name": "post_cta_title",
+            "type": "string",
+            "label": "Post call to action: title"
+          },
+          {
+            "name": "post_cta_body",
+            "type": "text",
+            "label": "Post call to action: text"
+          },
+          {
+            "name": "post_cta_label",
+            "type": "string",
+            "label": "Post call to action: button"
+          },
+          {
+            "name": "post_cta_href",
+            "type": "string",
+            "label": "Post call to action: button address"
+          }
+        ]
       }
     },
     {
@@ -6384,6 +5878,9 @@
       "frontmatter": {},
       "seo": {
         "description": "Book a Stella demo on your own numbers. See exactly what running sales, operations and billing on one system puts back on your bottom line. No contract, no pressure."
+      },
+      "schema": {
+        "fields": []
       }
     },
     {
@@ -6393,25 +5890,20 @@
       "locale": "en",
       "blocks": [
         {
-          "type": "stl_hero",
+          "type": "stl_case_studies_index",
           "version": 1,
           "data": {
-            "eyebrow": "Proof",
-            "heading": "Case studies",
-            "subheading": "Real operators, in their own words.*"
+            "eyebrow": "Case studies",
+            "heading": "Operators who put the whole business on one record",
+            "lede": "Every case study below is built from a published customer testimonial. The quotes are verbatim and the outcomes are the customer's own — we don't publish numbers a customer hasn't given us.",
+            "more_label": "Read more from our customers",
+            "more_href": "/testimonials"
           }
         },
         {
-          "type": "collection_list",
+          "type": "stl_cta_band",
           "version": 1,
-          "data": {
-            "collection_slug": "case-studies",
-            "filter_status": "published",
-            "sort_by": "published_at",
-            "sort_dir": "desc",
-            "limit": 0,
-            "layout": "grid"
-          }
+          "data": {}
         }
       ],
       "frontmatter": {
@@ -6421,6 +5913,9 @@
       "seo": {
         "title": "Case studies — Stella",
         "description": "How real portable storage operators run sales, operations and billing on Stella — in their own published words."
+      },
+      "schema": {
+        "fields": []
       }
     },
     {
@@ -6490,6 +5985,9 @@
       "frontmatter": {},
       "seo": {
         "description": "Ready to get started or want to send us a message? Call 1-800-939-5444 or send us a note and we'll get right back to you."
+      },
+      "schema": {
+        "fields": []
       }
     },
     {
@@ -6562,6 +6060,9 @@
       "frontmatter": {},
       "seo": {
         "description": "We'll show you how a yard actually runs — quoting, dispatch, billing and all. No obligation."
+      },
+      "schema": {
+        "fields": []
       }
     },
     {
@@ -6605,6 +6106,9 @@
       "frontmatter": {},
       "seo": {
         "description": "Answers to the questions operators ask about Stella — setup, system requirements, pricing, data migration and what the product does."
+      },
+      "schema": {
+        "fields": []
       }
     },
     {
@@ -6612,11 +6116,29 @@
       "slug": "featured-customers",
       "title": "Featured customers",
       "locale": "en",
-      "blocks": [],
+      "blocks": [
+        {
+          "type": "stl_featured_customers_index",
+          "version": 1,
+          "data": {
+            "eyebrow": "Featured customer",
+            "heading": "The operators behind the containers",
+            "lede": "Every month we put one Stella customer in the spotlight — who they are, the market they serve and how long they have been at it. These are the businesses doing the work, in their own neighbourhoods."
+          }
+        },
+        {
+          "type": "stl_cta_band",
+          "version": 1,
+          "data": {}
+        }
+      ],
       "frontmatter": {},
       "seo": {
         "title": "Featured customers — Stella",
         "description": "Meet the portable storage and moving operators running their business on Stella — one featured customer at a time."
+      },
+      "schema": {
+        "fields": []
       }
     },
     {
@@ -6652,6 +6174,9 @@
       "frontmatter": {},
       "seo": {
         "description": "Every module in Stella — CRM, quoting, inventory, billing, calendar, maps, migration and more — in one cloud-based system built for portable storage operators."
+      },
+      "schema": {
+        "fields": []
       }
     },
     {
@@ -6934,7 +6459,10 @@
         }
       ],
       "frontmatter": {},
-      "seo": {}
+      "seo": {},
+      "schema": {
+        "fields": []
+      }
     },
     {
       "path": "integrations",
@@ -7051,6 +6579,9 @@
       "frontmatter": {},
       "seo": {
         "description": "Stella connects to the tools portable storage operators already run — QuickBooks, Signiflow, Authorize.net, Outlook and Google Calendar, Google Maps — and is hosted on AWS."
+      },
+      "schema": {
+        "fields": []
       }
     },
     {
@@ -7239,6 +6770,9 @@
       "frontmatter": {},
       "seo": {
         "description": "Lily Pad Connect is Stella's embeddable quote & reservation widget — turn any portable-storage website into a booking channel, with every lead flowing into Stella in real time."
+      },
+      "schema": {
+        "fields": []
       }
     },
     {
@@ -7289,6 +6823,9 @@
       "seo": {
         "description": "This page isn't here. It may have moved when the site was rebuilt.",
         "noindex": true
+      },
+      "schema": {
+        "fields": []
       }
     },
     {
@@ -7376,6 +6913,9 @@
       "frontmatter": {},
       "seo": {
         "description": "Stella's partner network spans container manufacturers, insurance, marketing, payments and packaging — the companies portable storage operators rely on every day."
+      },
+      "schema": {
+        "fields": []
       }
     },
     {
@@ -7409,7 +6949,23 @@
           "data": {
             "eyebrow": "Every level",
             "heading": "What's included at every level",
-            "lede": "Sales, operations and billing in one cloud-based system. No modules to unlock, no per-seat maths."
+            "lede": "Sales, operations and billing in one cloud-based system. No modules to unlock, no per-seat maths.",
+            "items": [
+              "Unlimited users",
+              "Rentals, sales, R2O & relocation services",
+              "Visual dashboards",
+              "Email & text quotes",
+              "CRM with follow-up reminders",
+              "Google Maps delivery & inventory views",
+              "Multi-box booking",
+              "eSigning (Signiflow included)",
+              "Outlook & Google calendar integration",
+              "Real-time inventory management",
+              "Billing automation",
+              "QBO Integration",
+              "QuickBooks & Authorize.net integration",
+              "Data import & export"
+            ]
           }
         },
         {
@@ -7433,6 +6989,9 @@
       "frontmatter": {},
       "seo": {
         "description": "Stella pricing levels — Standard, Plus and Pro. Monthly fees start as low as $99/month and every level includes unlimited users."
+      },
+      "schema": {
+        "fields": []
       }
     },
     {
@@ -7455,6 +7014,9 @@
       "frontmatter": {},
       "seo": {
         "description": "Privacy policy for Stella. This document is a working template pending legal review."
+      },
+      "schema": {
+        "fields": []
       }
     },
     {
@@ -7591,6 +7153,9 @@
       "frontmatter": {},
       "seo": {
         "description": "Estimate what better dispatch, container visibility and utilization are worth to your portable storage business — in your browser, with your own numbers."
+      },
+      "schema": {
+        "fields": []
       }
     },
     {
@@ -7643,6 +7208,9 @@
       "frontmatter": {},
       "seo": {
         "description": "Portable storage operators on what changed after moving their sales, operations and billing onto Stella — in their own words."
+      },
+      "schema": {
+        "fields": []
       }
     }
   ],
@@ -7811,6 +7379,146 @@
       "collection": "case-studies"
     },
     {
+      "slug": "what-calendars-do-you-integrate-with",
+      "title": "What calendars do you integrate with?",
+      "locale": "en",
+      "frontmatter": {
+        "order": 1,
+        "answer": "<p>Outlook and Google Calendar. Bookings auto-populate with customer information, door direction, container size and number, accessories to bring, depot details including release #, and delivery details.</p>",
+        "category": "Setup"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "faqs"
+    },
+    {
+      "slug": "what-are-your-system-requirements",
+      "title": "What are your system requirements?",
+      "locale": "en",
+      "frontmatter": {
+        "order": 2,
+        "answer": "Stella is Mac and PC friendly. Because Stella is a cloud-based AWS service, internet speed and a modern browser like Google Chrome are important. The only browser we don't recommend using is Internet Explorer.",
+        "category": "Setup"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "faqs"
+    },
+    {
+      "slug": "what-if-any-are-the-added-costs",
+      "title": "What, if any, are the added costs?",
+      "locale": "en",
+      "frontmatter": {
+        "order": 3,
+        "answer": "<p>There will be a 1x set up fee, a monthly license fee, as well as an optional migration fee for existing customers.  We offer optional support packages post training, as well as other after market services like audits, re-training, and more.    Besides Stella, you'll need a credit card processor which we will recommend based on low rates, and a Quick Books Online account.  </p>",
+        "category": "Pricing"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "faqs"
+    },
+    {
+      "slug": "do-i-need-a-document-signing-account",
+      "title": "Do I need a document signing account?",
+      "locale": "en",
+      "frontmatter": {
+        "order": 4,
+        "answer": "No. Our document signing (Signiflow) is built into the cost of Stella.",
+        "category": "Pricing"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "faqs"
+    },
+    {
+      "slug": "do-you-have-a-data-migration-tool-to-upload-my-customer-info",
+      "title": "Do you have a data migration tool to upload my customer information, inventory and zip codes?",
+      "locale": "en",
+      "frontmatter": {
+        "order": 5,
+        "answer": "<p>Yes. Stella provides three forms to upload: Inventory, Customer Data, and Zip codes.  There are added migration fees for us to manage, cleanse and upload your existing customer data which we discuss clearly with you.  Or you can fill out our templates yourself and incur no fee.</p>",
+        "category": "Migration"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "faqs"
+    },
+    {
+      "slug": "how-much-does-stella-cost",
+      "title": "How much does Stella cost?",
+      "locale": "en",
+      "frontmatter": {
+        "order": 6,
+        "answer": "<p>Monthly fees start as low as $99/month. Fees are based on the number of containers you have— see the Levels page for what's included in Stella Standard &amp; Stella Plus.</p>",
+        "category": "Pricing"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "faqs"
+    },
+    {
+      "slug": "how-long-does-onboarding-take",
+      "title": "How long does onboarding take?",
+      "locale": "en",
+      "frontmatter": {
+        "order": 7,
+        "answer": "<p>Onboarding begins once you sign the license agreement, and can take anywhere from 2 weeks to a month depending on the scope of your customer based and inventory fleet, as well as the speed in which you respond to our Onboarders. Whether a start up or established portable storage company, we prioritize you the same and will get you through our onboarding process with ease and cadence that you are comfortable with.</p>",
+        "category": "Setup"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "faqs"
+    },
+    {
+      "slug": "can-stella-handle-rent-to-own-and-sales-as-well-as-rentals",
+      "title": "Can Stella handle rent-to-own and sales as well as rentals?",
+      "locale": "en",
+      "frontmatter": {
+        "order": 8,
+        "answer": "Yes. Stella manages rentals, sales, rent-to-own and relocations from the same system.",
+        "category": "Product"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "faqs"
+    },
+    {
+      "slug": "how-many-training-sessions-do-we-receive",
+      "title": "How many Training Sessions do we receive?",
+      "locale": "en",
+      "frontmatter": {
+        "order": 9,
+        "answer": "<p>You will receive 4-5 one hour training sessions paced for your success.  If you have existing customers we are migrating, we add a 5th session.  Once training is complete, we have a one click support button in your Stella, an 800# support line and a training library of documents, tutorials and videos.</p>",
+        "category": "Training"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "faqs"
+    },
+    {
+      "slug": "do-you-charge-for-support",
+      "title": "Do you charge for Support?",
+      "locale": "en",
+      "frontmatter": {
+        "order": 10,
+        "answer": "<p>After your 4th or 5th one hour training session, we provide a runway of repeat support questions to get you launched into the live environment.  The sooner during training you enter the live environment, the more effective training will be.  We provide 3 options for Support packages which only apply to support questions that take longer than a quick response.   Email <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"mailto:support@runstella.com\">support@runstella.com</a> for details.</p>",
+        "category": "Support"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "faqs"
+    },
+    {
       "slug": "mobile-attic-nashville",
       "title": "Mobile Attic of Nashville, TN",
       "locale": "en",
@@ -7836,6 +7544,597 @@
       },
       "published_at": null,
       "collection": "featured-customers"
+    },
+    {
+      "slug": "crm",
+      "title": "CRM & Sales",
+      "locale": "en",
+      "frontmatter": {
+        "order": 1,
+        "icon": "/images/icons/icon-crm-feature.svg",
+        "short": "Manage and track sales with follow-up reminders built in.",
+        "body": "Leads arrive with follow-up reminders built in, plus the ability to log calls, emails and notes and confirm scheduling. Every lead lands in one place, increasing your conversion rate.",
+        "points": [
+          "Follow-up reminders on every lead",
+          "Log calls, emails and notes against the customer",
+          "Website lead form feeds straight into Stella",
+          "Automated quote via email and SMS",
+          "Staff email and SMS alerts"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "features"
+    },
+    {
+      "slug": "dashboard",
+      "title": "Visual Dashboards",
+      "locale": "en",
+      "frontmatter": {
+        "order": 2,
+        "icon": "/images/icons/icon-visual-dashboard.svg",
+        "short": "Real-time revenue, occupancy and inventory at a glance.",
+        "body": "<p>Open Stella and see where the business actually stands: simple view of totals..   revenue breakouts mirroring your P&amp;L, movement activity, inventory stats &amp; occupancy rates, revenue per container, daily bookings — all live and exportable reports to excel.  Filter and sort by payment date or invoice date, location (mapped to qb location), attribution source, sales person and more.</p>",
+        "points": [
+          "Revenue and daily bookings in real time",
+          "Occupancy rate and revenue per container",
+          "Deep dive into revenue detail — past, present and future",
+          "Revenue by location, source, salesperson and more"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "features"
+    },
+    {
+      "slug": "quoting",
+      "title": "Quoting & Booking",
+      "locale": "en",
+      "frontmatter": {
+        "order": 3,
+        "icon": "/images/icons/icon-contract.svg",
+        "short": "Guide staff through the sales journey, then send in one click.",
+        "body": "Stella walks your team through the sales journey so they deliver consistent, professional service on every quote — capturing ancillary items and box placement details along the way, then auto-sending the quote to the customer.",
+        "points": [
+          "Rental, sales, rent-to-own, yard storage and relocation services",
+          "Automated or user-generated one-click quotes",
+          "Upsell add-ons, accessories and modifications captured",
+          "Built-in one-click e-contract send",
+          "Corporate customer detail management for invoicing & QBO: sub-customer, project manager, PO#/job name and more"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "features"
+    },
+    {
+      "slug": "calendar",
+      "title": "Dispatch/Cal Integration",
+      "locale": "en",
+      "frontmatter": {
+        "order": 4,
+        "icon": "/images/icons/icon-cloud-based-web-software.svg",
+        "short": "<p>Push delivery data straight to an Outlook or Google Calendar.</p>",
+        "body": "<p>Bookings auto-populate Outlook and Google Calendar with the customer name, address, container location, release number, placement details, key accessories to bring or collect at return that your drivers actually need — and drivers can add container numbers and photos from the field.</p>",
+        "points": [
+          "Container location and placement details",
+          "Driver access to add container numbers and photos",
+          "Customer info and all specific container information for efficient dispatching",
+          "Scheduling transportations in an easy flow",
+          "Discuss placement details with the customer to avoid delivery nightmares and save driver time"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "features"
+    },
+    {
+      "slug": "inventory",
+      "title": "Real-Time Inventory",
+      "locale": "en",
+      "frontmatter": {
+        "order": 5,
+        "icon": "/images/icons/icon-inventory.svg",
+        "short": "<p>Know where every container is, what state it's in, and who has it with the history to back it up.</p>",
+        "body": "<p>Keep track of your inventory easily.  Fleet is imported with key data including container #, manufacturer, release #, purchase price, freight cost, date purchased, grade, color, door type, last inspection date, current status, and more.  Stella automates statuses empty, rented, and sold, based on management of the order. Additional statuses allow for proper identification such as damaged, donation, in-house use, to be built, on order. Stella tracks location during the rental journey or the sale keeping historical records of each container.  A Google Maps view of rentals reveal helpful marketing information as well as peace of mind for location tracking.   Filter data by any field and export. Photo upload available</p>",
+        "points": [
+          "Status per container: rented, sold, damaged or empty",
+          "Relocation tracking across yards and sites",
+          "Google Maps View of Rentals",
+          "Sold Inventory Report to track Net Profit"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "features"
+    },
+    {
+      "slug": "billing",
+      "title": "Billing & Reporting",
+      "locale": "en",
+      "frontmatter": {
+        "order": 6,
+        "icon": "/images/icons/icon-full-reporting.svg",
+        "short": "<p>Recurring billing with pro-rating, refunds, voids, pre-payments, partial payments.</p>",
+        "body": "<p>Stella creates QBO customer profiles, automates one-time sale invoices, recurring rental fees and future transportation charges, and handles refunds, voids, re-charges, pre-payments and misc charges. Automated alerts to your office and your customer for failed cards, past-due reminders, online payments and lien alerts mean you're in the know at all times when it comes to your revenue. Setting terms, past-due reminders, late fees, a lien fee and a lien email helps avoid and replace manual billing work. A collections report and a drilled-down monthly activity report give you the detail you need with a click.</p>",
+        "points": [
+          "Automated recurring and transportation charges",
+          "Auto pro-rating",
+          "Customer billing notifications including failed card, past due, late and lien",
+          "Refunds, voids, pre-payments, re-tries, manual charges",
+          "Credit Card processing with Authorize.net gateway ",
+          "Deep dive reporting with filters, search and export"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "features"
+    },
+    {
+      "slug": "maps",
+      "title": "Google Maps",
+      "locale": "en",
+      "frontmatter": {
+        "order": 7,
+        "icon": "/images/icons/icon-google-map.svg",
+        "short": "<p>Embedded Google Maps view within work order and Inventory</p>",
+        "body": "<p>Discuss container placement with customer while looking at an embedded google maps street and birds eye view typing in notes and door facing direction, which push to calendar when dispatching each transportation.   Stella also uses google maps in inventory to see a live view of your rental locations, with a hover pin with detail.</p>",
+        "points": [
+          "Convenient street and birds eye view of google maps in order",
+          "Discuss placement details with customer before driver delivers",
+          "View all rentals in a pinned google maps view in inventory"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "features"
+    },
+    {
+      "slug": "insurance",
+      "title": "Insurance & Damage Waiver",
+      "locale": "en",
+      "frontmatter": {
+        "order": 8,
+        "icon": "/images/icons/icon-insurance-waiver.svg",
+        "short": "Contents insurance and damage waiver options at the point of sale.",
+        "body": "<p>Offer contents insurance and damage waiver during quoting in Stella or within the embedded quote tool for your website.  3rd party reporting and contractual pages included.  Options for customer to provide proof of insurance with automated email reminders to send a binder.  If no proof of insurance, Stella can add them to the lowest level policy.   Attach protection at booking rather than chasing it later!</p>",
+        "points": [
+          "Contents insurance & container damage waiver options",
+          "Upsell in Stella or on Lily Pad, the quote tool",
+          "Reporting and contractual language included",
+          "Email automation to customer to provide proof of insurance ",
+          "Optional automation to add lowest level option if proof of insurance not received"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "features"
+    },
+    {
+      "slug": "promotions",
+      "title": "Promotions Tool",
+      "locale": "en",
+      "frontmatter": {
+        "order": 9,
+        "icon": "/images/icons/icon-promotion-tool.svg",
+        "short": "<p>Run seasonal, monthly or annual discounts with promo codes for the website quote tool.</p>",
+        "body": "<p>Create &amp; manage all promotions in the promotions tool seamlessly.  Build seasonal, monthly or annual discounts and apply them consistently across quotes inside of Stella and on the website quote tool, Lily Pad.  Control what promotions you show in your quote tool and what promo codes consumers can type in.  Deactivate or activate as needed. Embed promo codes in campaigns within redirect links.</p>",
+        "points": [
+          "Feature clickable promotion on website quote tool",
+          "Create seasonal, monthly and annual promotions",
+          "Embed promo codes in redirect links",
+          "Control what promos sales can use within a Work order"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "features"
+    },
+    {
+      "slug": "multibox",
+      "title": "Multi-Box Booking",
+      "locale": "en",
+      "frontmatter": {
+        "order": 10,
+        "icon": "/images/icons/icon-multi-box.svg",
+        "short": "<p>Book several container rentals or sales on a single order.</p>",
+        "body": "<p>Customers who need three rental containers should not take three times the work. Multi-box booking keeps one order, one contract and one invoice from the start.  One click scheduling and dispatching  to calendar, creating a unique calendar entry for each container.  Container sales with multiple containers is a given and easy... one invoice at the time of booking, even if delivery is in the future.</p>",
+        "points": [
+          "Multiple containers per order",
+          "Single contract and invoice",
+          "Only schedule and push to the calendar once",
+          "Pay-by-link capability"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "features"
+    },
+    {
+      "slug": "migration",
+      "title": "Data Migration",
+      "locale": "en",
+      "frontmatter": {
+        "order": 11,
+        "icon": "/images/icons/icon-damage-waiver.svg",
+        "short": "Bring your inventory, customers and postal/zip codes across.",
+        "body": "<p>Stella provides three upload forms — inventory, customer data and zip or postal codes — so switching systems doesn't mean re-keying years of records.</p>",
+        "points": [
+          "Inventory upload",
+          "Customer data upload",
+          "Zip or postal code upload"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "features"
+    },
+    {
+      "slug": "security",
+      "title": "Cloud-Based & Secure",
+      "locale": "en",
+      "frontmatter": {
+        "order": 12,
+        "icon": "/images/icons/icon-cloud-based-web-software.svg",
+        "short": "Nothing to download. Hosted on Amazon Web Services.",
+        "body": "Stella is Mac and PC friendly and runs entirely in the browser on AWS. A modern browser like Chrome and a decent connection is all your team needs — the only browser we don't recommend is Internet Explorer.",
+        "points": [
+          "No download or install",
+          "Mac and PC friendly",
+          "Hosted on Amazon Web Services"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "features"
+    },
+    {
+      "slug": "rental",
+      "title": "Portable Storage Rental",
+      "locale": "en",
+      "frontmatter": {
+        "order": 13,
+        "icon": "/images/icons/icon-inventory.svg",
+        "short": "Container and box rental operators, from one yard to many.",
+        "body": "<p>The rental journey runs end to end on one record: a lead becomes a quote, a quote becomes a signed contract, the contract becomes a delivery on the calendar, and the container becomes a recurring invoice. Statuses move themselves as containers go out and come back, so what you see in inventory is what is actually in the yard.</p>",
+        "points": [
+          "One-click quotes with ancillary items and placement details",
+          "Built-in e-contract signing (Signiflow included)",
+          "Live container status: rented, sold, damaged or empty",
+          "Recurring rental billing straight into QuickBooks Online"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "features"
+    },
+    {
+      "slug": "moving-storage",
+      "title": "Moving & Storage",
+      "locale": "en",
+      "frontmatter": {
+        "order": 14,
+        "icon": "/images/icons/icon-multi-box.svg",
+        "short": "Combined move and store workflows on a single order.",
+        "body": "<p>A customer who is moving and storing should not become two jobs in two systems. Multi-box booking keeps several containers on one order, one contract and one invoice, while each container still gets its own calendar entry so dispatch stays accurate. Relocation services sit alongside rentals and sales rather than in a spreadsheet next to them.</p>",
+        "points": [
+          "Several containers on one order, contract and invoice",
+          "A unique calendar entry per container for dispatch",
+          "Relocation services managed alongside rentals and sales",
+          "Placement details and accessories captured on the order"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "features"
+    },
+    {
+      "slug": "rent-to-own",
+      "title": "Rent-to-Own",
+      "locale": "en",
+      "frontmatter": {
+        "order": 15,
+        "icon": "/images/icons/icon-contract.svg",
+        "short": "R2O agreements managed alongside rentals and sales.",
+        "body": "<p>Rent-to-own is quoted, contracted and billed in the same flow as a rental, not bolted on afterwards. Quoting covers rental, sales, rent-to-own, yard storage and relocation services from the same screen, so staff follow one process whatever the customer signs up for, and the billing follows the agreement automatically.</p>",
+        "points": [
+          "R2O quoted in the same flow as rentals and sales",
+          "One-click e-contract send on the agreement",
+          "Recurring billing that follows the agreement terms",
+          "Sold inventory reporting to track net profit"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "features"
+    },
+    {
+      "slug": "multi-yard",
+      "title": "Multi-Yard Operators",
+      "locale": "en",
+      "frontmatter": {
+        "order": 16,
+        "icon": "/images/icons/icon-google-map.svg",
+        "short": "Track inventory, revenue and movement across locations.",
+        "body": "<p>Running more than one yard means knowing where every container is and which location earned the revenue. Relocation tracking follows containers between yards and sites, a pinned Google Maps view shows live rentals, and reporting breaks revenue out by location and salesperson so each yard can be read on its own or as part of the whole.</p>",
+        "points": [
+          "Relocation tracking across yards and sites",
+          "Pinned Google Maps view of every live rental",
+          "Revenue by location, source and salesperson",
+          "Unlimited users, so every yard's staff are on the system"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "features"
+    },
+    {
+      "slug": "amazon-web-services",
+      "title": "Amazon Web Services",
+      "locale": "en",
+      "frontmatter": {
+        "order": 1,
+        "logo": "/images/logo/amazon-web-services.png",
+        "note": "Cloud hosting"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "integrations"
+    },
+    {
+      "slug": "quickbooks",
+      "title": "QuickBooks",
+      "locale": "en",
+      "frontmatter": {
+        "order": 2,
+        "logo": "/images/logo/quickbooks.png",
+        "note": "Accounting sync, no double entry"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "integrations"
+    },
+    {
+      "slug": "authorize-net",
+      "title": "Authorize.net",
+      "locale": "en",
+      "frontmatter": {
+        "order": 3,
+        "logo": "/images/logo/authorize-net.png",
+        "note": "Payment gateway"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "integrations"
+    },
+    {
+      "slug": "google-maps",
+      "title": "Google Maps",
+      "locale": "en",
+      "frontmatter": {
+        "order": 4,
+        "logo": "/images/logo/google-map.png",
+        "note": "Box placement and inventory mapping"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "integrations"
+    },
+    {
+      "slug": "outlook-calendar",
+      "title": "Outlook Calendar",
+      "locale": "en",
+      "frontmatter": {
+        "order": 5,
+        "logo": "/images/logo/outlook-calendar.png",
+        "note": "Delivery and pickup scheduling"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "integrations"
+    },
+    {
+      "slug": "storage-protectors",
+      "title": "Storage Protectors",
+      "locale": "en",
+      "frontmatter": {
+        "order": 6,
+        "logo": "/images/logo/storage-protectors.png",
+        "note": "Contents insurance"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "integrations"
+    },
+    {
+      "slug": "signiflow",
+      "title": "Signiflow",
+      "locale": "en",
+      "frontmatter": {
+        "order": 7,
+        "logo": "/images/logo/signiflow.png",
+        "note": "Contract send and e-signing, included"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "integrations"
+    },
+    {
+      "slug": "google-calendar",
+      "title": "Google Calendar",
+      "locale": "en",
+      "frontmatter": {
+        "order": 8,
+        "logo": "/images/logo/google-calendar.png",
+        "note": "Delivery and pickup scheduling"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "integrations"
+    },
+    {
+      "slug": "boxwell",
+      "title": "Boxwell",
+      "locale": "en",
+      "frontmatter": {
+        "order": 1,
+        "logo": "/images/logo/boxwell.png",
+        "website": "https://boxwell.co/"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "partners"
+    },
+    {
+      "slug": "storage-protectors",
+      "title": "Storage Protectors",
+      "locale": "en",
+      "frontmatter": {
+        "order": 2,
+        "logo": "/images/logo/storage-protectors.png",
+        "website": "https://www.storageprotectors.com/"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "partners"
+    },
+    {
+      "slug": "lumin-digital",
+      "title": "Lumin Digital",
+      "locale": "en",
+      "frontmatter": {
+        "order": 3,
+        "logo": "/images/logo/lumin.png",
+        "website": "https://golumin.io/"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "partners"
+    },
+    {
+      "slug": "cross-insurance",
+      "title": "Cross Insurance",
+      "locale": "en",
+      "frontmatter": {
+        "order": 4,
+        "logo": "/images/logo/crossagency.png",
+        "website": "https://www.crossagency.com/"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "partners"
+    },
+    {
+      "slug": "risely-marketing",
+      "title": "Risely Marketing",
+      "locale": "en",
+      "frontmatter": {
+        "order": 5,
+        "logo": "/images/logo/riselymarketing.png",
+        "website": "https://riselymarketing.com/"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "partners"
+    },
+    {
+      "slug": "netviper-interactive",
+      "title": "NetViper Interactive",
+      "locale": "en",
+      "frontmatter": {
+        "order": 6,
+        "logo": "/images/logo/net-viper.png",
+        "website": "https://netviperinc.com/"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "partners"
+    },
+    {
+      "slug": "vertical-payments",
+      "title": "Vertical Payments",
+      "locale": "en",
+      "frontmatter": {
+        "order": 7,
+        "logo": "/images/logo/goverticalpay.png",
+        "website": "https://www.goverticalpay.com/"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "partners"
+    },
+    {
+      "slug": "stax",
+      "title": "Stax",
+      "locale": "en",
+      "frontmatter": {
+        "order": 8,
+        "logo": "/images/logo/stax.png",
+        "website": "https://staxpayments.com/"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "partners"
+    },
+    {
+      "slug": "record360",
+      "title": "Record360",
+      "locale": "en",
+      "frontmatter": {
+        "order": 9,
+        "logo": "/images/logo/record360.png",
+        "website": "https://record360.com/"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "partners"
+    },
+    {
+      "slug": "lily-pad-connect",
+      "title": "Lily Pad Connect",
+      "locale": "en",
+      "frontmatter": {
+        "order": 10,
+        "logo": "/images/logo/lpc_logo.png",
+        "website": "/lily-pad"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "partners"
     },
     {
       "slug": "reduce-back-office-hours-consolidating-systems",
@@ -9623,6 +9922,170 @@
       "seo": {},
       "published_at": null,
       "collection": "posts"
+    },
+    {
+      "slug": "stella-standard",
+      "title": "Stella Standard",
+      "locale": "en",
+      "frontmatter": {
+        "order": 1,
+        "price": "From $99",
+        "cadence": "/month",
+        "blurb": "Everything a portable storage operation needs to run sales, operations and billing in one system.",
+        "cta": "Schedule a demo",
+        "featured": false,
+        "features": [
+          "Unlimited users",
+          "Rental, sales, R2O & relocation management",
+          "Visual dashboards",
+          "Email & text quotes",
+          "CRM with follow-up reminders",
+          "Google Maps delivery & inventory views",
+          "Multi-box booking",
+          "eSigning (Signiflow included)",
+          "Outlook & Google calendar integration",
+          "Real-time inventory management",
+          "Billing automation",
+          "QuickBooks & Authorize.net integration",
+          "Data export"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "pricing-tiers"
+    },
+    {
+      "slug": "stella-plus",
+      "title": "Stella Plus",
+      "locale": "en",
+      "frontmatter": {
+        "order": 2,
+        "price": "Let's talk",
+        "blurb": "Standard, plus a quote and reservation tool that turns your website into a booking channel.",
+        "cta": "Schedule a demo",
+        "badge": "Most popular",
+        "inherits": "Everything in Standard, plus:",
+        "featured": true,
+        "features": [
+          "Lily Pad 2.0 Quote & Reservation Tool for your website"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "pricing-tiers"
+    },
+    {
+      "slug": "stella-pro",
+      "title": "Stella Pro",
+      "locale": "en",
+      "frontmatter": {
+        "order": 3,
+        "price": "Coming 2027",
+        "blurb": "The next tier of Stella, currently in development. Get in touch to join the early access list.",
+        "cta": "Join the waitlist",
+        "badge": "Coming 2027",
+        "inherits": "Everything in Plus, plus:",
+        "featured": false,
+        "features": [
+          "Additional capabilities — announcing in 2027"
+        ]
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "pricing-tiers"
+    },
+    {
+      "slug": "edward-smith",
+      "title": "Edward Smith",
+      "locale": "en",
+      "frontmatter": {
+        "order": 1,
+        "role": "CEO",
+        "photo": "/images/team/edward-smith.jpg",
+        "email": "ed@collegeboundmovers.com"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "team"
+    },
+    {
+      "slug": "cathy-putnam",
+      "title": "Cathy Putnam",
+      "locale": "en",
+      "frontmatter": {
+        "order": 2,
+        "role": "President",
+        "photo": "/images/team/cathy-putnam.jpg",
+        "email": "cathy@runstella.com"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "team"
+    },
+    {
+      "slug": "matt-dudley",
+      "title": "Matt Dudley",
+      "locale": "en",
+      "frontmatter": {
+        "order": 3,
+        "role": "Onboarding & Support Manager",
+        "photo": "/images/team/matt-dudley.jpg",
+        "email": "matt@runstella.com"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "team"
+    },
+    {
+      "slug": "shauna-kozinski",
+      "title": "Shauna Kozinski",
+      "locale": "en",
+      "frontmatter": {
+        "order": 4,
+        "role": "Sales Manager",
+        "photo": "/images/team/shauna-kozinski.jpg",
+        "email": "shauna@runstella.com"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "team"
+    },
+    {
+      "slug": "michael-calderone",
+      "title": "Michael Calderone",
+      "locale": "en",
+      "frontmatter": {
+        "order": 5,
+        "role": "Account Manager",
+        "photo": "/images/team/michael-calderone.jpg",
+        "email": "michael@runstella.com"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "team"
+    },
+    {
+      "slug": "scott-kelly",
+      "title": "Scott Kelly",
+      "locale": "en",
+      "frontmatter": {
+        "order": 6,
+        "role": "CFO",
+        "photo": "/images/team/scott-kelly.jpg",
+        "email": "scott@collegeboundmovers.com"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "team"
     },
     {
       "slug": "inbox-portable-storage-southern-nh-northeast-massachusetts-1",

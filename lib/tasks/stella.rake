@@ -13,7 +13,7 @@ namespace :stella do
       "block_types" => BlockType.order(:slug).map { keep.(it, "slug", "label", "category", "version", "fields", "defaults") },
       "collections" => Collection.order(:slug).map { keep.(it, "slug", "name", "enable_blocks", "schema") },
       "globals" => Global.order(:slug).map { keep.(it, "slug", "name", "data").merge("fields" => it.fields) },
-      "pages" => Page.live.order(:path).map { keep.(it, "path", "slug", "title", "locale", "blocks", "frontmatter", "seo") },
+      "pages" => Page.live.order(:path).map { keep.(it, "path", "slug", "title", "locale", "blocks", "frontmatter", "seo", "schema") },
       "entries" => CollectionEntry.live.includes(:collection).sort_by { [it.collection.slug, it.id] }.map do |entry|
         keep.(entry, "slug", "title", "locale", "frontmatter", "body_markdown", "seo", "published_at").merge("collection" => entry.collection.slug)
       end,

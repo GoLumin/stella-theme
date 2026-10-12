@@ -39,14 +39,11 @@ RSpec.describe "The Stella website", type: :request, website: true do
       get path
 
       expect(response).to have_http_status(:ok)
-      expect(html.at_css("title").text).to eq(title_for(page["title"])) unless %w[blog case-studies featured-customers].include?(page["path"])
+      expect(html.at_css("title").text).to eq(title_for(page["title"]))
       if (description = page.dig("seo", "description"))
         expect(html.at_css("meta[name=description]")["content"]).to eq(description)
       end
-      unless %w[blog case-studies featured-customers].include?(page["path"])
-        page["blocks"].each { expect(PARTIALS).to include(it["type"]) }
-        expect(html.at_css("body")).to have_attribute("data-blocks")
-      end
+      page["blocks"].each { expect(PARTIALS).to include(it["type"]) }
     end
   end
 
@@ -75,10 +72,12 @@ RSpec.describe "The Stella website", type: :request, website: true do
     end
   end
 
-  it "has no pages for testimonials, and lists them only where the blocks show them" do
-    entry = SNAPSHOT["entries"].find { it["collection"] == "testimonials" }
-    get "/testimonials/#{entry["slug"]}"
-    expect(response).to have_http_status(:not_found)
+  it "has no pages for the shared lists' entries" do
+    %w[testimonials features faqs team integrations partners pricing-tiers].each do |collection|
+      entry = SNAPSHOT["entries"].find { it["collection"] == collection }
+      get "/#{collection}/#{entry["slug"]}"
+      expect(response).to have_http_status(:not_found), collection
+    end
   end
 
   it "has a partial only for block types the CMS has" do
@@ -110,7 +109,7 @@ RSpec.describe "The Stella website", type: :request, website: true do
       patch page_path(page.path, website_preview: 1), params: {page: {title: page.title, slug: page.slug, status: "published", lock_version: page.lock_version, blocks:}}
 
       expect(response).to have_http_status(:ok), page.path
-      expect(response.body).to include("⁣"), page.path unless %w[blog case-studies featured-customers].include?(page.path) || page.blocks.empty?
+      expect(response.body).to include("⁣"), page.path unless page.blocks.empty?
       marked = html.css("[href], [action], [src]").select { (it["href"] || it["action"] || it["src"]).match?(/[⁣⁤​‌‍⁠]/) }
       expect(marked.map(&:to_html)).to be_empty, page.path
     end
@@ -201,13 +200,23 @@ RSpec.describe "The Stella website", type: :request, website: true do
     expect(body.scan("data-cms-repeat").size + body.scan("{{").size).to eq(0)
   end
 
-  it "lists posts at /blog/<slug> in the sitemap, and no testimonials" do
+  it "lists posts at /blog/<slug> in the sitemap, and nothing from the collections without pages" do
     get "/sitemap.xml"
 
     locs = Nokogiri::XML(response.body).remove_namespaces!.css("loc").map(&:text)
     expect(locs.grep(%r{/posts/})).to be_empty
     expect(locs.grep(%r{/blog/.+})).not_to be_empty
-    expect(locs.grep(%r{/testimonials/})).to be_empty
+    %w[testimonials features faqs team integrations partners pricing-tiers].each { |slug| expect(locs.grep(%r{/#{slug}/})).to be_empty, slug }
+  end
+
+  it "reads the shared lists from their collections, in their order" do
+    get "/pricing"
+    tiers = SNAPSHOT["entries"].select { it["collection"] == "pricing-tiers" }.sort_by { it.dig("frontmatter", "order") }
+    expect(html.css(".tier-name").map { it.text.strip }).to eq(tiers.map { it["title"] })
+
+    get "/faq"
+    categories = SNAPSHOT["entries"].select { it["collection"] == "faqs" }.sort_by { it.dig("frontmatter", "order") }.map { it.dig("frontmatter", "category") }.uniq
+    expect(html.css(".group-title").map { it.text.strip }).to eq(categories)
   end
 
   it "serves its own scripts, stylesheet and fonts, and the Astro site's public files, with nothing compiled" do

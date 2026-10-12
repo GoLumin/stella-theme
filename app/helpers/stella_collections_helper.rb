@@ -29,6 +29,13 @@ module StellaCollectionsHelper
     trailing_slash ? domain.chomp("/") : domain
   end
 
+  # The call to action on every post: the blog page's own fields (post_cta_*),
+  # or nil without a live blog page.
+  def stella_post_cta
+    page = Page.live.find_by(path: "blog")
+    page && website_fields(page)
+  end
+
   # A post's <head>: its cover, when it has one, as the share image (Layout.astro's `image`).
   def stella_post_seo_tags(post)
     tags = stella_seo_tags(post[:entry], title: post[:title], description: post[:excerpt])

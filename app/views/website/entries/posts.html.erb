@@ -1,8 +1,8 @@
 <%# locals: (entry:) -%>
-<%# src/pages/blog/[slug].astro: a post, at /blog/<slug> (Stella::WebsiteController#post). Its sections, the inline call to action (the blog global), its tags, the demo form beside it, and up to three related posts (same category first, newest first). %>
+<%# src/pages/blog/[slug].astro: a post, at /blog/<slug> (Stella::WebsiteController#post). Its sections, the call to action on every post (the blog page's own fields), its tags, the demo form beside it, and up to three related posts (same category first, newest first). %>
 <% post = stella_post(entry) %>
 <% content_for :head, stella_post_seo_tags(post) %>
-<% copy = stella_page_copy(:blog) %>
+<% copy = stella_post_cta %>
 <% others = stella_posts_by_date(stella_posts.reject { it[:slug] == post[:slug] }) %>
 <% same_category = others.select { it[:category] == post[:category] } %>
 <% related = (same_category.any? ? same_category : others).first(3) %>
@@ -46,12 +46,14 @@
           </section>
         <% end %>
 
+        <% if copy %>
         <aside class="inline-cta" data-c-blog-post>
-          <span class="eyebrow" data-c-blog-post><%= stella_str(copy.inline_cta_eyebrow) %></span>
-          <h3 data-c-blog-post><%= stella_str(copy.inline_cta_title) %></h3>
-          <p data-c-blog-post><%= stella_str(copy.inline_cta_body) %></p>
-          <%= link_to stella_str(copy.inline_cta_label), stella_href(copy.inline_cta_href), class: "btn btn-primary", data: {c_blog_post: ""} %>
+          <span class="eyebrow" data-c-blog-post><%= stella_str(copy.post_cta_eyebrow) %></span>
+          <h3 data-c-blog-post><%= stella_str(copy.post_cta_title) %></h3>
+          <p data-c-blog-post><%= stella_str(copy.post_cta_body) %></p>
+          <%= link_to stella_str(copy.post_cta_label), stella_href(copy.post_cta_href), class: "btn btn-primary", data: {c_blog_post: ""} %>
         </aside>
+        <% end %>
 
         <div class="tags" data-c-blog-post>
           <span class="tags-label" data-c-blog-post>Filed under</span>

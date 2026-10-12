@@ -45,10 +45,13 @@ module Stella
         importmap: Importmap::Map.new.draw(Stella::Engine.root.join("config/importmap.rb"))
 
       # The sitemap as the Astro site published it: posts at /blog/<slug>, and
-      # no addresses for the testimonials (a collection with no pages).
+      # entries only of the collections the theme draws pages for (the shared
+      # lists — testimonials, features, FAQs, team, logos, pricing tiers — have none).
       Cms::Plugins.filter(:stella, "sitemap.entries") do |entries|
+        drawn = Stella::Engine.root.glob("app/views/website/entries/*.html.erb").map { it.basename.to_s.delete_suffix(".html.erb") }
         entries.filter_map do |entry|
-          next if entry.collection_slug == "testimonials"
+          next entry unless entry.collection_slug
+          next unless drawn.include?(entry.collection_slug)
 
           entry.collection_slug == "posts" ? entry.dup.tap { it.loc = entry.loc.sub(%r{\A/posts/}, "/blog/") } : entry
         end

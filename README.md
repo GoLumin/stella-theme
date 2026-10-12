@@ -20,12 +20,23 @@ calculator, a Svelte island there, is plain markup and a module here. Fonts
 | Address | From |
 | --- | --- |
 | `/`, `/about`, `/pricing`, … every CMS page | the page's blocks, in order (`app/views/website/blocks/_<type>`) |
-| `/blog`, `/case-studies`, `/featured-customers` | the collection and its page-copy global (`app/views/website/collections`), as the Astro site's index pages |
-| `/blog/<slug>` | a `posts` entry (`entries/posts`); the CMS's own `/posts/<slug>` redirects there, and the sitemap lists `/blog/<slug>` |
+| `/blog`, `/case-studies`, `/featured-customers` | the page's blocks too: an index block (`stl_blog_index`, `stl_case_studies_index`, `stl_featured_customers_index`) holds the hero copy and lists the collection |
+| `/blog/<slug>` | a `posts` entry (`entries/posts`), with the call to action from the blog page's own fields (`post_cta_*`); the CMS's own `/posts/<slug>` redirects there, and the sitemap lists `/blog/<slug>` |
 | `/case-studies/<slug>`, `/featured-customers/<slug>` | `entries/<collection>` |
 | `/academy`, `/academy/login`, `/academy/signup`, `/academy/<slug>` | the Astro site's static Academy design preview (`app/views/website/academy`, `StellaAcademyHelper`) |
 | anything else | Tools › Redirects, then the CMS's `not-found` page, with a 404 and noindex |
 | header, footer | the `nav`, `footer` and `general` globals |
+
+## The content model
+
+| Kind | What |
+| --- | --- |
+| Pages | every page, as blocks; `blog` also has fields of its own (the call to action on every post) |
+| Collections with pages | `posts`, `case-studies`, `featured-customers` |
+| Collections drawn where blocks show them (no pages, not in the sitemap) | `features` (the home cards and the features list pick them, `record_refs` by slug), `faqs` (grouped by their category select), `team`, `integrations`, `partners`, `pricing-tiers`, `testimonials` |
+| Globals | `general` (name, phone, pricing line, share image), `nav`, `footer`, `scripts`, `academy_page` (the Academy preview's copy) |
+
+Every list is in its entries' `order` field.
 | `/images/…`, `/favicon.*` | the Astro site's `public/` (`public/` here), which the CMS's content points at by path |
 
 CMS values are copy, never markup, as on the Astro site: rich text is

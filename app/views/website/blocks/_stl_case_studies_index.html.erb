@@ -1,9 +1,7 @@
-<%# locals: (page:) -%>
-<%# src/pages/case-studies/index.astro: the case-studies page stands for its collection, in the collection's order. Title and description are the CMS page's; the hero copy is the case_studies_page global's. %>
-<% content_for :head, stella_seo_tags(page, title: page.title) %>
-<% copy = stella_page_copy(:case_studies_page) %>
-<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(copy.hero_eyebrow), title: stella_str(copy.hero_heading), form_id: "solutions-demo"} do %>
-  <p class="lede" data-c-case-studies-index><%= stella_str(copy.hero_lede) %></p>
+<%# locals: (data:) -%>
+<%# src/pages/case-studies/index.astro: the case studies' hero and "more" link (the block's copy), and every case study in the collection's order. %>
+<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(data.eyebrow), title: stella_str(data.heading), form_id: "solutions-demo"} do %>
+  <p class="lede" data-c-case-studies-index><%= stella_str(data.lede) %></p>
 <% end %>
 
 <section class="section" data-c-case-studies-index>
@@ -32,12 +30,10 @@
       <% end %>
     </div>
 
-    <% if (more_label = stella_str(copy.more_label)).present? && (more_href = stella_href(copy.more_href)) %>
+    <% if (more_label = stella_str(data.more_label)).present? && (more_href = stella_href(data.more_href)) %>
       <div class="cs-more" data-c-case-studies-index>
         <%= link_to more_label, more_href, class: "btn btn-ink", data: {c_case_studies_index: ""} %>
       </div>
     <% end %>
   </div>
 </section>
-
-<%= render "website/shared/cta_band" %>

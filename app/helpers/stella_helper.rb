@@ -90,44 +90,53 @@ module StellaHelper
     end
   end
 
-  # ── src/data/content.ts ──────────────────────────────────────────────────
+  # ── The shared lists: one collection each, in their `order` ──────────────
 
+  # The product modules (features): the home page's cards pick them by slug
+  # (record_refs), /features lists them all, and /features#<slug> links to one.
   def stella_features
-    @stella_features ||= website_global(:features).items.map do |item|
-      {id: stella_str(item.id), icon: stella_str(item.icon), title: stella_str(item.title), short: stella_str(item.short),
-       body: stella_str(item.body), points: stella_list(item.points)}
+    @stella_features ||= website_entries(:features).map do |entry|
+      fields = website_fields(entry)
+      {id: entry.slug, icon: stella_str(fields.icon), title: stella_str(entry.title), short: stella_str(fields.short),
+       body: stella_str(fields.body), points: stella_list(fields.points)}
     end
   end
 
-  def stella_integrations = @stella_integrations ||= stella_logos(website_global(:integrations).items, href: false)
+  def stella_integrations = @stella_integrations ||= stella_logos(:integrations)
 
-  def stella_partners = @stella_partners ||= stella_logos(website_global(:partners).items, href: true)
+  def stella_partners = @stella_partners ||= stella_logos(:partners)
 
-  def stella_logos(items, href:)
-    items.map do |item|
-      {name: stella_str(item[:name]), src: stella_str(item.src), href: (stella_str(item.href).presence if href), note: stella_str(item.note).presence}.compact
+  # Logos (integrations, partners): name, image path, the partner's website, a note.
+  def stella_logos(collection)
+    website_entries(collection).map do |entry|
+      fields = website_fields(entry)
+      website = stella_str(fields.website).presence if collection == :partners
+      {name: stella_str(entry.title), src: stella_str(fields.logo), href: website, note: stella_str(fields.note).presence}.compact
     end
   end
 
   def stella_team
-    @stella_team ||= website_global(:team).items.map do |item|
-      {name: stella_str(item[:name]), role: stella_str(item.role), photo: stella_str(item.photo).presence,
-       email: stella_str(item.email).presence, bio: stella_str(item.bio).presence}.compact
+    @stella_team ||= website_entries(:team).map do |entry|
+      fields = website_fields(entry)
+      {name: stella_str(entry.title), role: stella_str(fields.role), photo: stella_str(fields.photo).presence,
+       email: stella_str(fields.email).presence, bio: stella_str(fields.bio).presence}.compact
     end
   end
 
-  def stella_base_features = stella_list(website_global(:pricing).base_features)
-
   def stella_tiers
-    @stella_tiers ||= website_global(:pricing).tiers.map do |tier|
-      {name: stella_str(tier[:name]), price: stella_str(tier.price), cadence: stella_str(tier.cadence), blurb: stella_str(tier.blurb),
+    @stella_tiers ||= website_entries(:"pricing-tiers").map do |entry|
+      tier = website_fields(entry)
+      {name: stella_str(entry.title), price: stella_str(tier.price), cadence: stella_str(tier.cadence), blurb: stella_str(tier.blurb),
        cta: stella_str(tier.cta), featured: (true if website_truthy?(tier.featured)), badge: stella_str(tier.badge).presence,
        inherits: stella_str(tier.inherits).presence, features: stella_list(tier.features)}.compact
     end
   end
 
   def stella_faqs
-    @stella_faqs ||= website_global(:faqs).items.map { {q: stella_str(it.q), a: stella_str(it.a), category: stella_str(it.category)} }
+    @stella_faqs ||= website_entries(:faqs).map do |entry|
+      fields = website_fields(entry)
+      {q: stella_str(entry.title), a: stella_str(fields.answer), category: stella_str(fields.category)}
+    end
   end
 
   # ── Collections (src/data/testimonials.ts, posts.ts, caseStudies.ts, featuredCustomers.ts)
@@ -181,7 +190,7 @@ module StellaHelper
      body: entry.body_markdown.presence, entry:}.compact
   end
 
-  # ── src/data/pages.ts: a page-copy global (blog, case_studies_page, …) ──
+  # ── A page-copy global (academy_page) ──
 
   def stella_page_copy(slug) = website_global(slug)
 

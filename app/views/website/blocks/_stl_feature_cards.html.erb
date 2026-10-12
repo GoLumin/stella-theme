@@ -1,5 +1,5 @@
 <%# locals: (data:) -%>
-<%# src/components/blocks/HomeModules.astro: module cards, chosen by id from the features global (six defaults when the block names none). %>
+<%# src/components/blocks/HomeModules.astro: module cards, chosen from the features collection (record_refs, by slug) (six defaults when the block names none). %>
 <% ids = stella_list(data.feature_ids).presence || %w[crm dashboard quoting inventory billing calendar] %>
 <% modules = ids.filter_map { |id| stella_features.find { it[:id] == id } } %>
 <section class="v-section v-alt" data-c-home-modules>

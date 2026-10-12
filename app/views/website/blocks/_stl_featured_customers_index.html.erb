@@ -1,10 +1,8 @@
-<%# locals: (page:) -%>
-<%# src/pages/featured-customers/index.astro: the featured-customers page stands for its collection. Title and description are the CMS page's; the hero copy is the featured_customers_page global's. %>
-<% content_for :head, stella_seo_tags(page, title: page.title) %>
-<% copy = stella_page_copy(:featured_customers_page) %>
+<%# locals: (data:) -%>
+<%# src/pages/featured-customers/index.astro: the featured customers' hero (the block's copy) and every featured customer. %>
 <% customers = stella_featured_customers %>
-<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(copy.hero_eyebrow, "Featured customer"), title: stella_str(copy.hero_heading, "The operators behind the containers"), form_id: "featured-demo"} do %>
-  <p class="lede" data-c-featured-customers-index><%= stella_str(copy.hero_lede) %></p>
+<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(data.eyebrow, "Featured customer"), title: stella_str(data.heading, "The operators behind the containers"), form_id: "featured-demo"} do %>
+  <p class="lede" data-c-featured-customers-index><%= stella_str(data.lede) %></p>
 <% end %>
 
 <section class="section" data-c-featured-customers-index>
@@ -39,5 +37,3 @@
     <% end %>
   </div>
 </section>
-
-<%= render "website/shared/cta_band" %>
