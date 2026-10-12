@@ -1,0 +1,16 @@
+<%# locals: (eyebrow: nil, title: nil, body: nil) -%>
+<%# src/components/CtaBand.astro: the dark call to action that closes most pages. Blank copy takes the component's defaults. %>
+<section class="cta" data-c-cta-band>
+  <div class="wrap cta-in" data-c-cta-band>
+    <div data-c-cta-band>
+      <span class="eyebrow" data-c-cta-band><%= eyebrow.nil? ? "Ready when you are" : eyebrow %></span>
+      <h2 data-c-cta-band><%= title.nil? ? "See Stella running your workflow" : title %></h2>
+      <p class="lede" data-c-cta-band><%= body.nil? ? "We'll show you how a yard actually runs — quoting, dispatch, billing and all." : body %></p>
+    </div>
+    <div class="cta-actions" data-c-cta-band>
+      <a href="/book-a-demo" class="btn btn-primary btn-lg" data-c-cta-band>Schedule your demo</a>
+      <a href="<%= stella_site[:phone_href] %>" class="btn btn-outline btn-lg" data-c-cta-band>Call <%= stella_site[:phone] %></a>
+      <p class="cta-note" data-c-cta-band>No download required · Unlimited users · From <%= stella_site[:starting_price] %>/month</p>
+    </div>
+  </div>
+</section>

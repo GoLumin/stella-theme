@@ -1,0 +1,10 @@
+<%# locals: (page:) -%>
+<%# Every CMS page, from its blocks in order (src/pages/[slug].astro, index.astro). The three collection indexes are drawn as the Astro site drew them, from their collections and page-copy globals rather than the page's own blocks (src/pages/blog, case-studies, featured-customers). %>
+<% case page.path %>
+<% when "blog", "case-studies", "featured-customers" %>
+  <%= render "website/collections/#{page.path.underscore}", page: %>
+<% else %>
+  <% content_for :head, stella_seo_tags(page, title: page.title) %>
+  <% content_for :blocks_page, "yes" %>
+  <%= website_blocks page %>
+<% end %>

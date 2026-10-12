@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script nonce="<%= content_security_policy_nonce %>">document.documentElement.classList.add("js");</script>
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <%= yield :head %>
+    <meta name="theme-color" content="#111318">
+    <%# The theme's files come from the theme itself (Stella::AssetsController), not the asset pipeline. %>
+    <% %w[archivo.woff2 inter.woff2 ibm-plex-mono-400.woff2].each do |font| %>
+      <link rel="preload" href="<%= stella_asset_path(font) %>" as="font" type="font/woff2" crossorigin="anonymous">
+    <% end %>
+    <link rel="stylesheet" href="<%= stella_asset_path("site.css") %>">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="sitemap" href="/sitemap.xml">
+    <% if content_for?(:turnstile) %>
+      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer nonce="<%= content_security_policy_nonce %>"></script>
+    <% end %>
+    <%= website_scripts("head") %>
+    <%= stella_javascript_tags %>
+  </head>
+  <%# data-blocks: a page drawn from CMS blocks, which on the Astro site loaded the block bundle (and its closers' mobile body padding). %>
+  <body<% if content_for?(:blocks_page) %> data-blocks<% end %>>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <%= render "website/shared/header" %>
+    <main id="main">
+      <%= yield %>
+    </main>
+    <%= render "website/shared/footer" %>
+    <%= website_scripts("body") %>
+  </body>
+</html>

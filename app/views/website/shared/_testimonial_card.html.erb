@@ -1,0 +1,13 @@
+<%# locals: (item:, compact: false) -%>
+<%# src/components/TestimonialCard.astro: one testimonial (a hash from stella_testimonials). %>
+<figure class="<%= class_names("t-card", compact:) %>" data-c-testimonial-card>
+  <div class="stars" aria-label="5 out of 5" data-c-testimonial-card>★★★★★</div>
+  <blockquote data-c-testimonial-card><%= item[:quote] %></blockquote>
+  <figcaption data-c-testimonial-card>
+    <% if item[:logo] %><img src="<%= item[:logo] %>" alt="" class="t-logo" loading="lazy" data-c-testimonial-card><% end %>
+    <div data-c-testimonial-card>
+      <span class="t-name" data-c-testimonial-card><%= item[:name] %></span>
+      <span class="t-meta" data-c-testimonial-card><%= "#{item[:role]}, " if item[:role] %><%= item[:company] %><%= " · #{item[:location]}" if item[:location] %></span>
+    </div>
+  </figcaption>
+</figure>

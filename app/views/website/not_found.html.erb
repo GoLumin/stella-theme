@@ -1,0 +1,6 @@
+<%# locals: () -%>
+<%# src/pages/404.astro: the CMS's "not-found" page, its blocks, never indexed. %>
+<% page = Page.live.find_by(path: "not-found") %>
+<% content_for :head, stella_seo_tags(page, title: page&.title.presence || "Page not found", noindex: true) %>
+<% content_for :blocks_page, "yes" %>
+<%= website_blocks page if page %>

@@ -1,0 +1,58 @@
+<%# locals: () -%>
+<%# src/components/Footer.astro: the call to action, the readout, the link columns (the footer global) and the legal line. The cookie-settings link shows while the Consent plugin's banner is on (it opens the banner again). %>
+<% site = stella_site %>
+<% consent = defined?(Consent) && Cms::Plugins.enabled?(:consent) && Consent.settings["banner"] %>
+<footer class="v2f" data-c-footer>
+  <div class="wrap" data-c-footer>
+    <div class="v2f-top reg" data-c-footer>
+      <div class="v2f-cta" data-c-footer>
+        <span class="v-eyebrow" data-c-footer>Ready when you are</span>
+        <p class="v2f-cta-title" data-c-footer>Let's get your yard running on one system.</p>
+        <div class="v-btn-row" data-c-footer>
+          <a href="/book-a-demo" class="v-btn v-btn-primary v-btn-lg" data-c-footer>Book your demo</a>
+          <a href="<%= site[:phone_href] %>" class="v-btn v-btn-ghost v-btn-lg" data-c-footer>Call <%= site[:phone] %></a>
+        </div>
+      </div>
+      <div class="v2f-readout" aria-hidden="true" data-c-footer>
+        <span class="ro-line" data-c-footer><b data-c-footer>SYS</b> stella-cloud · aws-us</span>
+        <span class="ro-line" data-c-footer><b data-c-footer>PLAN</b> from <%= site[:starting_price] %>/mo · unlimited users</span>
+        <span class="ro-line" data-c-footer><b data-c-footer>UPTIME</b> <em data-c-footer>online</em> since <%= site[:founded_year] %></span>
+      </div>
+    </div>
+
+    <div class="v2f-grid" data-c-footer>
+      <div class="v2f-brand" data-c-footer>
+        <img src="/images/logo/logo-stella.svg" alt="Stella" width="140" height="24" class="v2f-logo" data-c-footer>
+        <p data-c-footer><%= site[:tagline] %>. Sales, operations and billing for portable-storage operators — in one cloud system.</p>
+        <a href="<%= site[:phone_href] %>" class="v2f-phone" data-c-footer><%= site[:phone] %></a>
+      </div>
+
+      <% stella_footer_nav.each do |column| %>
+        <nav class="v2f-col" aria-label="<%= column[:heading] %>" data-c-footer>
+          <p class="v2f-head" data-c-footer><%= column[:heading] %></p>
+          <ul data-c-footer>
+            <% column[:links].each do |link| %>
+              <li data-c-footer><a href="<%= link[:href] %>" data-c-footer><%= link[:label] %></a></li>
+            <% end %>
+          </ul>
+        </nav>
+      <% end %>
+    </div>
+
+    <% if stella_footer_disclaimer.present? %>
+      <p class="v2f-disclaimer" data-c-footer><%= stella_footer_disclaimer %></p>
+    <% end %>
+
+    <div class="v2f-bot" data-c-footer>
+      <p data-c-footer>© <%= stella_year %> <%= site[:name] %>. All rights reserved.</p>
+      <div class="v2f-legal" data-c-footer>
+        <a href="/privacy" data-c-footer>Privacy</a>
+        <a href="<%= site[:login_url] %>" data-c-footer>Login</a>
+        <a href="/contact" data-c-footer>Contact</a>
+        <% if consent && stella_footer_consent_label.present? %>
+          <a href="#cookie-settings" data-c-footer><%= stella_footer_consent_label %></a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</footer>

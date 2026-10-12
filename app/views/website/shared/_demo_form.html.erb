@@ -1,0 +1,63 @@
+<%# locals: (id: "demo-form", tone: "light", stacked: false) -%>
+<%# src/components/v2/DemoForm.astro: the quick demo request, posted to the CMS form "quick-demo" (stella/forms.js). Its inputs' names must be the form's fields. %>
+<% form = stella_form("quick-demo", fields: %w[name company email phone preferred_date website]) %>
+<% site = stella_site %>
+<% turnstile = stella_turnstile %>
+<form class="<%= class_names("demo-card", "reg", "demo-card-dark": tone == "dark", "demo-stacked": stacked) %>" id="<%= id %>" method="post" action="<%= form[:submit_url] %>" data-cms-form="quick-demo" data-success="<%= form[:success_message] %>" data-honeypot="<%= Form::HONEYPOT_FIELD if defined?(Form) %>" novalidate data-c-demo-form>
+  <div class="demo-head" data-c-demo-form>
+    <span class="demo-tag" data-c-demo-form>◵ WORK ORDER · DEMO REQUEST</span>
+    <h3 class="demo-title" data-c-demo-form>Book your demo</h3>
+    <p class="demo-sub" data-c-demo-form>We'll show you how a yard actually runs — quoting, dispatch, billing and all.</p>
+  </div>
+
+  <div class="demo-rating" role="img" aria-label="Rated 5 out of 5 by portable-storage operators" data-c-demo-form>
+    <span class="stars" aria-hidden="true" data-c-demo-form>
+      <% 5.times do %>
+        <svg viewBox="0 0 20 20" fill="currentColor" data-c-demo-form><path d="M10 1.6l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.9l-4.94 2.6.94-5.5-4-3.9 5.53-.8z" data-c-demo-form></path></svg>
+      <% end %>
+    </span>
+    <span class="rating-text" data-c-demo-form><b data-c-demo-form>5.0</b> · loved by operators nationwide</span>
+  </div>
+
+  <div class="demo-fields" data-c-demo-form>
+    <label class="demo-field" data-c-demo-form>
+      <span data-c-demo-form>Full name</span>
+      <input type="text" name="name" autocomplete="name" placeholder="Jordan Reyes" required data-c-demo-form>
+    </label>
+    <label class="demo-field" data-c-demo-form>
+      <span data-c-demo-form>Company</span>
+      <input type="text" name="company" autocomplete="organization" placeholder="Acme Mobile Storage" required data-c-demo-form>
+    </label>
+    <label class="demo-field" data-c-demo-form>
+      <span data-c-demo-form>Work email</span>
+      <input type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@company.com" required data-c-demo-form>
+    </label>
+    <label class="demo-field" data-c-demo-form>
+      <span data-c-demo-form>Phone</span>
+      <input type="tel" name="phone" autocomplete="tel" inputmode="numeric" maxlength="14" placeholder="(555) 555-5555" data-format="phone" required data-c-demo-form>
+    </label>
+    <label class="demo-field demo-field-wide" data-c-demo-form>
+      <span data-c-demo-form>Preferred day <em data-c-demo-form>(optional)</em></span>
+      <input type="date" name="preferred_date" data-c-demo-form>
+    </label>
+    <label class="demo-field demo-field-wide" data-c-demo-form>
+      <span data-c-demo-form>Company website <em data-c-demo-form>(optional)</em></span>
+      <input type="url" name="website" autocomplete="url" inputmode="url" placeholder="yourcompany.com" data-format="url" data-c-demo-form>
+    </label>
+  </div>
+
+  <% if turnstile %>
+    <% content_for :turnstile, "on" %>
+    <div class="cf-turnstile" data-sitekey="<%= turnstile[:site_key] %>" data-theme="<%= tone == "dark" ? "dark" : turnstile[:theme] %>" data-size="flexible"></div>
+  <% end %>
+
+  <button type="submit" class="v-btn v-btn-primary v-btn-lg v-btn-block" data-c-demo-form>
+    <%= form[:submit_label] %>
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" data-c-demo-form><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-c-demo-form></path></svg>
+  </button>
+
+  <p class="demo-fine" data-c-demo-form>
+    <span class="fine-line" data-c-demo-form>No pressure, no obligation. Prefer to talk now?</span>
+    <span class="fine-call" data-c-demo-form>Call <a href="<%= site[:phone_href] %>" data-c-demo-form><%= site[:phone] %></a></span>
+  </p>
+</form>

@@ -1,0 +1,111 @@
+<%# locals: () -%>
+<%# src/components/Header.astro: the utility rail, the main bar with its mega menus (the nav global) and the mobile menu. Its script is stella/header.js. %>
+<% site = stella_site %>
+<% nav = stella_nav %>
+<header class="v2h" id="site-header" data-c-header>
+  <div class="v2h-rail" data-c-header>
+    <div class="wrap v2h-rail-in" data-c-header>
+      <span class="rail-note" data-c-header><span class="rail-dot" data-c-header></span>Portable-storage software, built by people who know the yard.</span>
+      <div class="rail-right" data-c-header>
+        <span class="rail-since" data-c-header>EST. <%= site[:founded_year] %> · AWS-HOSTED</span>
+        <a href="<%= site[:phone_href] %>" class="rail-phone" data-c-header>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" data-c-header><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 4.5 4.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" data-c-header></path></svg>
+          <%= site[:phone] %>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap v2h-bar" data-c-header>
+    <a href="/" class="v2h-brand" aria-label="<%= site[:name] %> home" data-c-header>
+      <img src="/images/logo/logo-stella.svg" alt="Stella" width="132" height="22" data-c-header>
+    </a>
+
+    <nav class="v2h-nav" aria-label="Main" data-c-header>
+      <ul class="v2h-list" data-c-header>
+        <% nav.each do |item| %>
+          <% mega = item[:mega] %>
+          <li class="<%= class_names("v2h-item", "has-mega": mega) %>" data-c-header>
+            <%= tag.a href: item[:href], class: "v2h-link", "aria-haspopup": ("true" if mega), "aria-expanded": ("false" if mega), data: {c_header: ""} do %>
+              <%= item[:label] %>
+              <% if mega %>
+                <svg class="v2h-caret" viewBox="0 0 10 6" aria-hidden="true" data-c-header><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" data-c-header></path></svg>
+              <% end %>
+            <% end %>
+            <% if mega %>
+              <div class="v2h-mega" data-c-header>
+                <div class="v2h-mega-in reg" style="--mega-cols:<%= mega[:columns].size %>" data-c-header>
+                  <div class="v2h-mega-cols" data-c-header>
+                    <% mega[:columns].each_with_index do |column, index| %>
+                      <div class="v2h-mega-col" data-c-header>
+                        <p class="v2h-mega-head" data-c-header><%= (index + 1).to_s.rjust(2, "0") %> · <%= column[:heading] %></p>
+                        <ul class="v2h-mega-links" data-c-header>
+                          <% column[:links].each do |link| %>
+                            <li data-c-header>
+                              <a href="<%= link[:href] %>" data-c-header>
+                                <span class="ml-title" data-c-header><%= link[:label] %></span>
+                                <% if link[:desc] %><span class="ml-desc" data-c-header><%= link[:desc] %></span><% end %>
+                              </a>
+                            </li>
+                          <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
+                  </div>
+                  <% if (feature = mega[:feature]) %>
+                    <a class="v2h-feature reg" href="<%= feature[:href] %>" data-c-header>
+                      <span class="v-eyebrow" data-c-header><%= feature[:eyebrow] %></span>
+                      <span class="mf-title" data-c-header><%= feature[:title] %></span>
+                      <span class="mf-body" data-c-header><%= feature[:body] %></span>
+                      <span class="v-arrow" data-c-header><%= feature[:cta] %></span>
+                    </a>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+
+    <div class="v2h-actions" data-c-header>
+      <a href="<%= site[:login_url] %>" class="v2h-login" data-c-header>Login</a>
+      <a href="/book-a-demo" class="v-btn v-btn-primary v-btn-sm" data-c-header>Book a demo</a>
+      <button class="v2h-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-mobile" data-c-header>
+        <span data-c-header></span><span data-c-header></span><span data-c-header></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="v2h-mobile" id="site-mobile" hidden data-c-header>
+    <div class="wrap" data-c-header>
+      <% nav.each do |item| %>
+        <details class="v2m-group" data-c-header>
+          <summary data-c-header>
+            <a href="<%= item[:href] %>" data-c-header><%= item[:label] %></a>
+            <% if item[:mega] %><span class="v2m-plus" aria-hidden="true" data-c-header>+</span><% end %>
+          </summary>
+          <% if item[:mega] %>
+            <div class="v2m-body" data-c-header>
+              <% item[:mega][:columns].each do |column| %>
+                <div data-c-header>
+                  <p class="v2h-mega-head" data-c-header><%= column[:heading] %></p>
+                  <ul class="v2h-mega-links" data-c-header>
+                    <% column[:links].each do |link| %>
+                      <li data-c-header><a href="<%= link[:href] %>" data-c-header><%= link[:label] %></a></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </details>
+      <% end %>
+      <div class="v2m-actions" data-c-header>
+        <a href="/book-a-demo" class="v-btn v-btn-primary v-btn-block" data-c-header>Book a demo</a>
+        <a href="<%= site[:login_url] %>" class="v-btn v-btn-ghost v-btn-block" data-c-header>Login</a>
+        <a href="<%= site[:phone_href] %>" class="v2m-phone" data-c-header><%= site[:phone] %></a>
+      </div>
+    </div>
+  </div>
+</header>

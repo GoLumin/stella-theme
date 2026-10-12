@@ -1,0 +1,22 @@
+<%# locals: (items:, show_notes: false) -%>
+<%# src/components/LogoWall.astro: logos (integrations or partners), each a link when it has one (another site's in a new tab), with its name and note when asked. %>
+<ul class="<%= class_names("wall", notes: show_notes) %>" data-c-logo-wall>
+  <% items.each do |logo| %>
+    <% external = logo[:href].present? && !logo[:href].start_with?("/") %>
+    <li data-c-logo-wall>
+      <% if logo[:href].present? %>
+        <%= tag.a href: logo[:href], class: "w-link", target: ("_blank" if external), rel: ("noopener noreferrer" if external), "aria-label": logo[:name], data: {c_logo_wall: ""} do %>
+          <img src="<%= logo[:src] %>" alt="<%= logo[:name] %>" loading="lazy" data-c-logo-wall>
+        <% end %>
+      <% else %>
+        <img src="<%= logo[:src] %>" alt="<%= logo[:name] %>" loading="lazy" data-c-logo-wall>
+      <% end %>
+      <% if show_notes %>
+        <div data-c-logo-wall>
+          <span class="w-name" data-c-logo-wall><%= logo[:name] %></span>
+          <% if logo[:note] %><span class="w-note" data-c-logo-wall><%= logo[:note] %></span><% end %>
+        </div>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
