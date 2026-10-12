@@ -26,6 +26,7 @@ calculator, a Svelte island there, is plain markup and a module here. Fonts
 | `/academy`, `/academy/login`, `/academy/signup`, `/academy/<slug>` | the Astro site's static Academy design preview (`app/views/website/academy`, `StellaAcademyHelper`) |
 | anything else | Tools › Redirects, then the CMS's `not-found` page, with a 404 and noindex |
 | header, footer | the `nav`, `footer` and `general` globals |
+| `/images/…`, `/favicon.*` | the Astro site's `public/` (`public/` here), which the CMS's content points at by path |
 
 ## The content model
 
@@ -37,7 +38,6 @@ calculator, a Svelte island there, is plain markup and a module here. Fonts
 | Globals | `general` (name, phone, pricing line, share image), `nav`, `footer`, `scripts`, `academy_page` (the Academy preview's copy) |
 
 Every list is in its entries' `order` field.
-| `/images/…`, `/favicon.*` | the Astro site's `public/` (`public/` here), which the CMS's content points at by path |
 
 CMS values are copy, never markup, as on the Astro site: rich text is
 flattened to plain text (`stella_str`, after its `src/lib/richtext.mjs`).
