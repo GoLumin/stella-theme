@@ -1,0 +1,20 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/DemoProof.astro: the first few testimonials (the testimonials collection, in order), compact. %>
+<% limit = data.limit.nil? ? 3 : data.limit.to_i %>
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="eyebrow"><%= stella_str(data.eyebrow) %></span>
+      <h2><%= stella_str(data.heading) %></h2>
+      <p class="lede"><%= stella_str(data.lede) %></p>
+    </div>
+    <div class="grid grid-3">
+      <% stella_testimonials.first(limit).each do |item| %>
+        <%= render "website/shared/testimonial_card", item:, compact: true %>
+      <% end %>
+    </div>
+    <div class="center" style="margin-top:40px">
+      <a href="<%= stella_href(data.cta_href) %>" class="link-arrow"><%= stella_str(data.cta_label) %></a>
+    </div>
+  </div>
+</section>

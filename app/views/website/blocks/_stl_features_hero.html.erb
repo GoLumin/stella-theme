@@ -1,0 +1,7 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/FeaturesHero.astro: the lead-capture hero (HeroWithForm), the copy from the block. %>
+<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(data.eyebrow, "The product"), title: stella_str(data.heading, "One system for sales, operations and billing"), form_id: "features-demo"} do %>
+  <p class="lede">
+    <%= stella_str(data.lede, "Stella was built for portable storage from the ground up. Every module below sits on the same customer record, so a lead becomes a quote, a contract, a delivery and an invoice without anyone re-keying it.") %>
+  </p>
+<% end %>

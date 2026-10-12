@@ -1,0 +1,22 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/AboutStory.astro: the story and the capabilities list. %>
+<section class="section" id="story" data-c-about-story>
+  <div class="wrap story" data-c-about-story>
+    <div data-c-about-story>
+      <span class="eyebrow" data-c-about-story><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-about-story><%= stella_str(data.heading) %></h2>
+      <% stella_list(data.paragraphs).each do |paragraph| %>
+        <p data-c-about-story><%= paragraph %></p>
+      <% end %>
+    </div>
+
+    <div class="caps" data-c-about-story>
+      <h3 data-c-about-story><%= stella_str(data.caps_heading) %></h3>
+      <ul class="ticks" data-c-about-story>
+        <% stella_list(data.ticks).each do |tick| %>
+          <li data-c-about-story><%= tick %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</section>

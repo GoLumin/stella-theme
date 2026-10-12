@@ -1,0 +1,48 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/HomeHero.astro: the home page's opener, its two-line headline (the second in amber), the lede with one phrase picked out, the demo form, and the integrations strip. %>
+<% site = stella_site %>
+<% lede = stella_str(data.lede) %>
+<% split = stella_split(lede, stella_str(data.lede_highlight)) %>
+<section class="hero" data-c-home-hero>
+  <div class="hero-fx" aria-hidden="true" data-c-home-hero></div>
+  <div class="v-wrap v-wrap-wide hero-in" data-c-home-hero>
+    <div class="hero-copy" data-c-home-hero>
+      <span class="v-pill hi" style="--d:0ms" data-c-home-hero><span class="live" data-c-home-hero></span><%= stella_str(data.pill) %></span>
+      <h1 class="hi" style="--d:70ms" data-c-home-hero>
+        <%= stella_str(data.heading_line1) %><br data-c-home-hero><span class="hl" data-c-home-hero><%= stella_str(data.heading_line2) %></span>
+      </h1>
+      <p class="v-lede hi" style="--d:150ms" data-c-home-hero>
+        <% if split %><%= split[0] %><span class="hl" data-c-home-hero><%= split[1] %></span><%= split[2] %><% else %><%= lede %><% end %>
+      </p>
+      <div class="v-btn-row hi" style="--d:230ms" data-c-home-hero>
+        <a href="#demo" class="v-btn v-btn-primary v-btn-lg" data-c-home-hero><%= stella_str(data.primary_label, "Book a demo") %></a>
+        <a href="<%= site[:phone_href] %>" class="v-btn v-btn-ghost v-btn-lg" data-c-home-hero>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" data-c-home-hero><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 4.5 4.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" data-c-home-hero></path></svg>
+          <%= site[:phone] %>
+        </a>
+      </div>
+      <ul class="hero-ticks hi" style="--d:310ms" data-c-home-hero>
+        <% stella_list(data.ticks).each do |tick| %>
+          <li data-c-home-hero><%= tick %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="hero-form hi" style="--d:200ms" data-c-home-hero>
+      <%= render "website/shared/demo_form", id: "demo", tone: "dark" %>
+    </div>
+  </div>
+
+  <div class="hero-strip" data-c-home-hero>
+    <div class="v-wrap v-wrap-wide" data-c-home-hero>
+      <p class="strip-label" data-c-home-hero><%= stella_str(data.strip_label) %></p>
+      <div class="strip-logos" data-c-home-hero>
+        <% stella_integrations.each do |logo| %>
+          <div class="strip-logo" title="<%= logo[:name] %>" data-c-home-hero>
+            <%= tag.img src: logo[:src], alt: logo[:name], loading: "lazy", data: {c_home_hero: ""} %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

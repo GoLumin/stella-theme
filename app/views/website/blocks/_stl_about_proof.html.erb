@@ -1,0 +1,27 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/AboutProof.astro: the proof cards and the call line. %>
+<section class="section" data-c-about-proof>
+  <div class="wrap" data-c-about-proof>
+    <div class="section-head center" data-c-about-proof>
+      <span class="eyebrow" data-c-about-proof><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-about-proof><%= stella_str(data.heading) %></h2>
+      <p class="lede" data-c-about-proof>
+        <%= stella_str(data.lede) %>
+      </p>
+    </div>
+
+    <div class="grid grid-2 proof" data-c-about-proof>
+      <% data.cards.each do |card| %>
+        <a class="card card-hover proof-card" href="<%= stella_href(card.href) %>" data-c-about-proof>
+          <h3 data-c-about-proof><%= stella_str(card.title) %></h3>
+          <p data-c-about-proof><%= stella_str(card.body) %></p>
+          <span class="link-arrow" data-c-about-proof><%= stella_str(card.cta_label) %></span>
+        </a>
+      <% end %>
+    </div>
+
+    <p class="talk center" data-c-about-proof>
+      Prefer to talk it through? Call <a href="<%= stella_site[:phone_href] %>" data-c-about-proof><%= stella_site[:phone] %></a>.
+    </p>
+  </div>
+</section>

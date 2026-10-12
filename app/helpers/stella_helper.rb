@@ -102,13 +102,13 @@ module StellaHelper
 
   def stella_logos(items, href:)
     items.map do |item|
-      {name: stella_str(item.name), src: stella_str(item.src), href: (stella_str(item.href).presence if href), note: stella_str(item.note).presence}.compact
+      {name: stella_str(item[:name]), src: stella_str(item.src), href: (stella_str(item.href).presence if href), note: stella_str(item.note).presence}.compact
     end
   end
 
   def stella_team
     @stella_team ||= website_global(:team).items.map do |item|
-      {name: stella_str(item.name), role: stella_str(item.role), photo: stella_str(item.photo).presence,
+      {name: stella_str(item[:name]), role: stella_str(item.role), photo: stella_str(item.photo).presence,
        email: stella_str(item.email).presence, bio: stella_str(item.bio).presence}.compact
     end
   end
@@ -117,7 +117,7 @@ module StellaHelper
 
   def stella_tiers
     @stella_tiers ||= website_global(:pricing).tiers.map do |tier|
-      {name: stella_str(tier.name), price: stella_str(tier.price), cadence: stella_str(tier.cadence), blurb: stella_str(tier.blurb),
+      {name: stella_str(tier[:name]), price: stella_str(tier.price), cadence: stella_str(tier.cadence), blurb: stella_str(tier.blurb),
        cta: stella_str(tier.cta), featured: (true if website_truthy?(tier.featured)), badge: stella_str(tier.badge).presence,
        inherits: stella_str(tier.inherits).presence, features: stella_list(tier.features)}.compact
     end
@@ -135,7 +135,7 @@ module StellaHelper
   def stella_testimonials
     @stella_testimonials ||= stella_entries(:testimonials).map do |entry|
       fields = website_fields(entry)
-      {quote: stella_str(fields.quote), name: stella_str(fields.name), role: stella_str(fields.role).presence, company: stella_str(fields.company),
+      {quote: stella_str(fields.quote), name: stella_str(fields[:name]), role: stella_str(fields.role).presence, company: stella_str(fields.company),
        location: stella_str(fields.location).presence, logo: stella_str(fields.logo).presence, featured: (true if website_truthy?(fields.featured))}.compact
     end
   end

@@ -1,0 +1,26 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/HomeLilyPad.astro: the Lily Pad Connect promo, its lede led by the product name in bold, beside the widget mock (shared/_lily_widget). %>
+<section class="v-section lily-sec" id="lily-pad" data-c-home-lily-pad>
+  <div class="v-wrap v-wrap-wide lily-in" data-c-home-lily-pad>
+    <div class="lily-copy reveal" data-c-home-lily-pad>
+      <span class="v-eyebrow" data-c-home-lily-pad><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-home-lily-pad><%= stella_str(data.heading) %></h2>
+      <p class="v-lede" data-c-home-lily-pad>
+        <b data-c-home-lily-pad><%= stella_str(data.lede_name) %></b><%= stella_str(data.lede) %>
+      </p>
+      <ul class="lily-ticks" data-c-home-lily-pad>
+        <% stella_list(data.ticks).each do |tick| %>
+          <li data-c-home-lily-pad><%= tick %></li>
+        <% end %>
+      </ul>
+      <div class="v-btn-row" data-c-home-lily-pad>
+        <a href="<%= stella_href(stella_str(data.primary_href, "/lily-pad")) %>" class="v-btn v-btn-primary v-btn-lg" data-c-home-lily-pad><%= stella_str(data.primary_label) %></a>
+        <a href="#demo" class="v-btn v-btn-ghost v-btn-lg" data-c-home-lily-pad><%= stella_str(data.secondary_label) %></a>
+      </div>
+    </div>
+
+    <div class="lily-widget-wrap reveal" style="--d:120ms" data-c-home-lily-pad>
+      <%= render "website/shared/lily_widget" %>
+    </div>
+  </div>
+</section>

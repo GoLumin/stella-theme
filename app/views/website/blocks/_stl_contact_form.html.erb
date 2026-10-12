@@ -1,0 +1,57 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/ContactForm.astro: the contact form, posted to the CMS form "contact" (stella/forms.js). Its inputs' names must be the form's fields. %>
+<% form = stella_form("contact", fields: %w[name email phone subject message]) %>
+<% turnstile = stella_turnstile %>
+<section class="section section-alt" data-c-contact-form>
+  <div class="wrap wrap-narrow" data-c-contact-form>
+    <div class="section-head center" data-c-contact-form>
+      <span class="eyebrow" data-c-contact-form><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-contact-form><%= stella_str(data.heading) %></h2>
+      <p class="lede" data-c-contact-form>
+        <%= stella_str(data.lede) %>
+      </p>
+    </div>
+
+    <div class="form-card" data-c-contact-form>
+      <form class="form" method="post" action="<%= form[:submit_url] %>" data-cms-form="contact" data-success="<%= form[:success_message] %>" data-honeypot="<%= Form::HONEYPOT_FIELD if defined?(Form) %>" data-c-contact-form>
+        <p class="req-note" data-c-contact-form>Fields marked <span class="req" data-c-contact-form>*</span> are required.</p>
+
+        <div class="field-row" data-c-contact-form>
+          <div class="field" data-c-contact-form>
+            <label for="name" data-c-contact-form>Full name <span class="req" aria-hidden="true" data-c-contact-form>*</span></label>
+            <input type="text" id="name" name="name" autocomplete="name" required aria-required="true" data-c-contact-form>
+          </div>
+
+          <div class="field" data-c-contact-form>
+            <label for="email" data-c-contact-form>Email <span class="req" aria-hidden="true" data-c-contact-form>*</span></label>
+            <input type="email" id="email" name="email" autocomplete="email" required aria-required="true" data-c-contact-form>
+          </div>
+        </div>
+
+        <div class="field-row" data-c-contact-form>
+          <div class="field" data-c-contact-form>
+            <label for="phone" data-c-contact-form>Phone <span class="opt" data-c-contact-form>(optional)</span></label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" data-c-contact-form>
+          </div>
+
+          <div class="field" data-c-contact-form>
+            <label for="subject" data-c-contact-form>Subject <span class="req" aria-hidden="true" data-c-contact-form>*</span></label>
+            <input type="text" id="subject" name="subject" autocomplete="off" required aria-required="true" data-c-contact-form>
+          </div>
+        </div>
+
+        <div class="field" data-c-contact-form>
+          <label for="message" data-c-contact-form>Message <span class="req" aria-hidden="true" data-c-contact-form>*</span></label>
+          <textarea id="message" name="message" rows="6" autocomplete="off" required aria-required="true" data-c-contact-form></textarea>
+        </div>
+
+        <% if turnstile %>
+          <% content_for :turnstile, "on" %>
+          <div class="cf-turnstile" data-sitekey="<%= turnstile[:site_key] %>" data-theme="<%= turnstile[:theme] %>" data-size="flexible"></div>
+        <% end %>
+
+        <button type="submit" class="btn btn-primary btn-lg form-submit" data-c-contact-form><%= form[:submit_label] %></button>
+      </form>
+    </div>
+  </div>
+</section>

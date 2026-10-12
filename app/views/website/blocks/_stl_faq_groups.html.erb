@@ -1,0 +1,24 @@
+<%# locals: (**) -%>
+<%# src/components/blocks/FaqGroups.astro: the faqs global as accordions, grouped by category in the order categories first appear. The block has no fields of its own. %>
+<section class="section" data-c-faq-groups>
+  <div class="wrap wrap-narrow" data-c-faq-groups>
+    <% stella_faqs.group_by { it[:category] }.each do |category, items| %>
+      <div class="group" data-c-faq-groups>
+        <h2 class="group-title" data-c-faq-groups><%= category %></h2>
+        <div class="qa-list" data-c-faq-groups>
+          <% items.each do |faq| %>
+            <details class="qa" data-c-faq-groups>
+              <summary data-c-faq-groups>
+                <span class="q" data-c-faq-groups><%= faq[:q] %></span>
+                <span class="mark" aria-hidden="true" data-c-faq-groups></span>
+              </summary>
+              <div class="a" data-c-faq-groups>
+                <p data-c-faq-groups><%= faq[:a] %></p>
+              </div>
+            </details>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

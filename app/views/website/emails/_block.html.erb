@@ -1,0 +1,54 @@
+<%# locals: (block:, c:, head:, sans:, mono:) -%>
+<%# One of a form email's blocks (the Forms plugin's email blocks), as a table row. %>
+<% data = block["data"].is_a?(Hash) ? block["data"] : {} %>
+<% align = data["align"] == "center" ? "center" : "left" %>
+<% case block["type"] %>
+<% when "email_heading" %>
+  <% size = {"h1" => 28, "h2" => 22, "h3" => 18}.fetch(data["level"], 28) %>
+  <tr>
+    <td align="<%= align %>" style="padding:0 0 16px;font-family:<%= head %>;font-size:<%= size %>px;line-height:1.2;font-weight:700;color:<%= c[:ink] %>;"><%= data["text"] %></td>
+  </tr>
+<% when "email_text" %>
+  <tr>
+    <td style="padding:0 0 16px;font-family:<%= sans %>;font-size:16px;line-height:1.6;color:<%= c[:text] %>;"><%= website_rich_text(data["body"]) %></td>
+  </tr>
+<% when "email_button" %>
+  <tr>
+    <td align="<%= align %>" style="padding:8px 0 24px;">
+      <%= tag.a "#{data["label"]} →", href: data["url"].to_s,
+        style: "display:inline-block;background:#{c[:amber]};color:#{c[:steel]};font-family:#{head};font-size:15px;font-weight:700;text-decoration:none;padding:13px 24px;border-radius:6px;" %>
+    </td>
+  </tr>
+<% when "email_image" %>
+  <% src = website_image_url(data["asset"]) %>
+  <% if src %>
+    <tr>
+      <td align="<%= align %>" style="padding:0 0 20px;">
+        <% image = tag.img(src:, alt: data["alt"].to_s, width: 526, style: "display:block;width:100%;max-width:526px;height:auto;border-radius:8px;border:0;") %>
+        <%= data["url"].present? ? tag.a(image, href: data["url"]) : image %>
+      </td>
+    </tr>
+  <% end %>
+<% when "email_divider" %>
+  <tr>
+    <td style="padding:8px 0 24px;"><div style="border-top:1px solid <%= c[:rule] %>;font-size:0;line-height:0;">&nbsp;</div></td>
+  </tr>
+<% when "email_spacer" %>
+  <tr>
+    <td style="height:<%= {"small" => 12, "medium" => 24, "large" => 40}.fetch(data["size"], 24) %>px;font-size:0;line-height:0;">&nbsp;</td>
+  </tr>
+<% when "email_submission" %>
+  <tr>
+    <td style="padding:0 0 16px;">
+      <% if data["title"].present? %>
+        <p style="margin:0 0 10px;font-family:<%= mono %>;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:<%= c[:muted] %>;"><%= data["title"] %></p>
+      <% end %>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:<%= c[:tint] %>;border-radius:8px;">
+        <tr data-cms-repeat="answers" data-cms-skip-empty="<%= data["skip_empty"] == true %>">
+          <td valign="top" style="padding:10px 14px;width:38%;font-family:<%= sans %>;font-size:13px;font-weight:600;color:<%= c[:muted] %>;border-bottom:1px solid <%= c[:rule] %>;">{{answer.label}}</td>
+          <td valign="top" style="padding:10px 14px;font-family:<%= sans %>;font-size:15px;line-height:1.5;color:<%= c[:ink] %>;border-bottom:1px solid <%= c[:rule] %>;">{{answer.value}}</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+<% end %>

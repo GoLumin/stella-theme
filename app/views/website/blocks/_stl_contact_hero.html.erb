@@ -1,0 +1,9 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/ContactHero.astro: the lead-capture hero (HeroWithForm), the phone number set inside the lede. %>
+<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(data.eyebrow, "Contact"), title: stella_str(data.heading, "Get in Touch With Us"), form_id: "contact-demo"} do %>
+  <p class="lede" data-c-contact-hero>
+    <%= stella_str(data.lede_before, "Ready to get started or want to send us a message? Give us a call at") %>
+    <a href="<%= stella_site[:phone_href] %>" class="phone-link" data-c-contact-hero><%= stella_site[:phone] %></a>
+    <%= stella_str(data.lede_after, "today or fill out the form below and we'll get right back to you!") %>
+  </p>
+<% end %>

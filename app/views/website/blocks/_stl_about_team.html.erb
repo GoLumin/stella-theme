@@ -1,0 +1,37 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/AboutTeam.astro: the team (the team global), with the group photo when public/images/team has one. %>
+<% team = stella_team %>
+<% group = %w[jpg jpeg png webp avif].map { "images/team/group.#{it}" }.find { Stella::AssetsController.public_files.key?(it) } %>
+<% if team.any? %>
+  <section class="section section-alt" id="team" data-c-about-team>
+    <div class="wrap" data-c-about-team>
+      <div class="section-head center" data-c-about-team>
+        <span class="eyebrow" data-c-about-team><%= stella_str(data.eyebrow, "Meet the team") %></span>
+        <h2 data-c-about-team><%= stella_str(data.heading, "The people behind Stella") %></h2>
+      </div>
+      <% if group %>
+        <figure class="team-group" data-c-about-team>
+          <%= tag.img src: "/#{group}", alt: stella_str(data.group_photo_alt, "The Stella and Lily Pad Connect team"), loading: "lazy", data: {c_about_team: ""} %>
+        </figure>
+      <% end %>
+      <div class="grid grid-3 team" data-c-about-team>
+        <% team.each do |member| %>
+          <div class="card team-card" data-c-about-team>
+            <% if member[:photo] %>
+              <%= tag.img class: "team-photo", src: member[:photo], alt: member[:name], width: 96, height: 96, loading: "lazy", data: {c_about_team: ""} %>
+            <% else %>
+              <span class="team-photo team-initials" aria-hidden="true" data-c-about-team><%= member[:name].split(" ").map { it[0] }.first(2).join %></span>
+            <% end %>
+            <h3 data-c-about-team><%= member[:name] %></h3>
+            <p class="team-role" data-c-about-team><%= member[:role] %></p>
+            <% if member[:email] %>
+              <p class="team-email" data-c-about-team>
+                <a href="mailto:<%= member[:email] %>" data-c-about-team><%= member[:email] %></a>
+              </p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>

@@ -1,0 +1,21 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/HomeWorkflow.astro: the numbered workflow band. %>
+<section class="v-section v-alt flow-sec" data-c-home-workflow>
+  <div class="v-wrap v-wrap-wide" data-c-home-workflow>
+    <div class="v-head reveal" data-c-home-workflow>
+      <span class="v-eyebrow" data-c-home-workflow><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-home-workflow><%= stella_str(data.heading) %></h2>
+      <p class="v-lede" data-c-home-workflow><%= stella_str(data.lede) %></p>
+    </div>
+
+    <ol class="flow" data-c-home-workflow>
+      <% data.steps.each_with_index do |step, index| %>
+        <li class="flow-step reveal" style="--d:<%= index * 70 %>ms" data-c-home-workflow>
+          <span class="flow-num" data-c-home-workflow><%= stella_str(step.step) %></span>
+          <h3 data-c-home-workflow><%= stella_str(step.title) %></h3>
+          <p data-c-home-workflow><%= stella_str(step.body) %></p>
+        </li>
+      <% end %>
+    </ol>
+  </div>
+</section>

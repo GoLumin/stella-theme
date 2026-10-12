@@ -1,0 +1,36 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/HomeProof.astro: quotes from the testimonials collection, chosen by company (six defaults when the block names none), each cut at 260 characters. %>
+<% companies = data.companies.map { stella_str(it.company) }.presence ||
+     ["911 Storage", "Mobile Storage Solutions", "Cows Mobile Storage of Orlando", "Rent-A-Container Team", "My Stack Box", "Chatt Mobile Storage"] %>
+<% proof = companies.filter_map { |company| stella_testimonials.find { it[:company] == company } } %>
+<section class="v-section proof-sec" data-c-home-proof>
+  <div class="v-wrap v-wrap-wide" data-c-home-proof>
+    <div class="v-head v-center reveal" data-c-home-proof>
+      <span class="v-eyebrow" data-c-home-proof><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-home-proof><%= stella_str(data.heading) %></h2>
+      <p class="v-lede mx-auto" data-c-home-proof><%= stella_str(data.lede) %></p>
+    </div>
+
+    <div class="proof-grid" data-c-home-proof>
+      <% proof.each_with_index do |item, index| %>
+        <% quote = item[:quote].length > 260 ? "#{item[:quote][0, 257].rstrip}…" : item[:quote] %>
+        <figure class="quote v-card reveal" style="--d:<%= (index % 3) * 70 %>ms" data-c-home-proof>
+          <span class="q-mark" aria-hidden="true" data-c-home-proof>"</span>
+          <blockquote data-c-home-proof><%= quote %></blockquote>
+          <figcaption data-c-home-proof>
+            <% if item[:logo] %><%= tag.img class: "q-logo", src: item[:logo], alt: "", loading: "lazy", data: {c_home_proof: ""} %><% end %>
+            <span class="q-who" data-c-home-proof>
+              <b data-c-home-proof><%= item[:name] %></b>
+              <% if item[:role] || item[:location] %><em data-c-home-proof><%= [item[:role], item[:location]].compact.join(" · ") %></em><% end %>
+            </span>
+          </figcaption>
+        </figure>
+      <% end %>
+    </div>
+
+    <div class="v-center" style="margin-top:44px" data-c-home-proof>
+      <a href="<%= stella_href(stella_str(data.primary_href, "/testimonials")) %>" class="v-btn v-btn-ghost" data-c-home-proof><%= stella_str(data.primary_label) %></a>
+      <a href="<%= stella_href(stella_str(data.secondary_href, "/case-studies")) %>" class="v-btn v-btn-primary" style="margin-left:12px" data-c-home-proof><%= stella_str(data.secondary_label) %></a>
+    </div>
+  </div>
+</section>

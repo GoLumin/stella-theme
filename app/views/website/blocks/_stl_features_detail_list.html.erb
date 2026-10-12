@@ -1,0 +1,40 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/FeaturesDetailList.astro: the anchor nav and a section per module (the features global). feature_ids picks and orders them; empty, every feature in the global's order. %>
+<% ids = stella_list(data.feature_ids) %>
+<% by_id = stella_features.index_by { it[:id] } %>
+<% items = ids.any? ? ids.filter_map { by_id[it] } : stella_features %>
+<nav class="anchors" aria-label="Feature sections" data-c-features-detail-list>
+  <div class="wrap" data-c-features-detail-list>
+    <ul data-c-features-detail-list>
+      <% items.each do |feature| %>
+        <li data-c-features-detail-list><a href="#<%= feature[:id] %>" data-c-features-detail-list><%= feature[:title] %></a></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
+<div class="details" data-c-features-detail-list>
+  <% items.each do |feature| %>
+    <section class="detail" id="<%= feature[:id] %>" data-c-features-detail-list>
+      <div class="wrap detail-in" data-c-features-detail-list>
+        <div class="detail-copy reveal" data-c-features-detail-list>
+          <div class="card-icon" data-c-features-detail-list>
+            <%= tag.img src: feature[:icon], alt: "", loading: "lazy", data: {c_features_detail_list: ""} %>
+          </div>
+          <h2 data-c-features-detail-list><%= feature[:title] %></h2>
+          <p class="lede" data-c-features-detail-list><%= feature[:short] %></p>
+          <p data-c-features-detail-list><%= feature[:body] %></p>
+        </div>
+
+        <div class="detail-points reveal" style="--d:110ms" data-c-features-detail-list>
+          <span class="points-label" data-c-features-detail-list>What you get</span>
+          <ul class="ticks" data-c-features-detail-list>
+            <% feature[:points].each do |point| %>
+              <li data-c-features-detail-list><%= point %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </section>
+  <% end %>
+</div>

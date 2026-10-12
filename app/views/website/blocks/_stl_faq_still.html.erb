@@ -1,0 +1,18 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/FaqStill.astro: the closing "still have a question" prompt. %>
+<% site = stella_site %>
+<section class="section section-alt" data-c-faq-still>
+  <div class="wrap wrap-narrow" data-c-faq-still>
+    <div class="still center" data-c-faq-still>
+      <span class="eyebrow" data-c-faq-still><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-faq-still><%= stella_str(data.heading) %></h2>
+      <p class="lede" data-c-faq-still>
+        Call <%= site[:phone] %> and we'll answer it directly, or send us the details and we'll come back to you.
+      </p>
+      <div class="btn-row" data-c-faq-still>
+        <a href="<%= site[:phone_href] %>" class="btn btn-ink btn-lg" data-c-faq-still>Call <%= site[:phone] %></a>
+        <a href="/contact" class="btn btn-outline btn-lg" data-c-faq-still>Contact us</a>
+      </div>
+    </div>
+  </div>
+</section>

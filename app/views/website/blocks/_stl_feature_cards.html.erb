@@ -1,0 +1,31 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/HomeModules.astro: module cards, chosen by id from the features global (six defaults when the block names none). %>
+<% ids = stella_list(data.feature_ids).presence || %w[crm dashboard quoting inventory billing calendar] %>
+<% modules = ids.filter_map { |id| stella_features.find { it[:id] == id } } %>
+<section class="v-section v-alt" data-c-home-modules>
+  <div class="v-wrap v-wrap-wide" data-c-home-modules>
+    <div class="v-head reveal" data-c-home-modules>
+      <span class="v-eyebrow" data-c-home-modules><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-home-modules><%= stella_str(data.heading) %></h2>
+      <p class="v-lede" data-c-home-modules><%= stella_str(data.lede) %></p>
+    </div>
+
+    <div class="mod-grid" data-c-home-modules>
+      <% modules.each_with_index do |feature, index| %>
+        <a class="mod v-card v-card-hover reveal" href="/features#<%= feature[:id] %>" style="--d:<%= (index % 3) * 70 %>ms" data-c-home-modules>
+          <div class="mod-top" data-c-home-modules>
+            <span class="mod-icon" data-c-home-modules><%= tag.img src: feature[:icon], alt: "", loading: "lazy", data: {c_home_modules: ""} %></span>
+            <span class="mod-code" data-c-home-modules>MOD.<%= (index + 1).to_s.rjust(2, "0") %></span>
+          </div>
+          <h3 data-c-home-modules><%= feature[:title] %></h3>
+          <p data-c-home-modules><%= feature[:short] %></p>
+          <span class="v-arrow" data-c-home-modules><%= stella_str(data.card_link_label, "Open module") %></span>
+        </a>
+      <% end %>
+    </div>
+
+    <div class="v-center" style="margin-top:44px" data-c-home-modules>
+      <a href="<%= stella_href(stella_str(data.cta_href, "/features")) %>" class="v-btn v-btn-ghost" data-c-home-modules><%= stella_str(data.cta_label) %></a>
+    </div>
+  </div>
+</section>

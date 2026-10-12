@@ -1,0 +1,22 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/LegalPage.astro: a policy page (privacy): its head, the template warning, and the body (Markdown). %>
+<section class="section-sm policy-head" data-c-legal-page>
+  <div class="wrap wrap-narrow" data-c-legal-page>
+    <span class="eyebrow" data-c-legal-page><%= stella_str(data.eyebrow) %></span>
+    <h1 data-c-legal-page><%= stella_str(data.title) %></h1>
+    <p class="meta" data-c-legal-page><%= stella_str(data.meta) %></p>
+  </div>
+</section>
+
+<section class="section-sm policy" data-c-legal-page>
+  <div class="wrap wrap-narrow" data-c-legal-page>
+    <aside class="warning" role="note" aria-labelledby="tmpl-warning" data-c-legal-page>
+      <h2 id="tmpl-warning" data-c-legal-page><%= stella_str(data.warning_heading) %></h2>
+      <% stella_list(data.warning_body).each do |paragraph| %>
+        <p data-c-legal-page><%= sanitize(paragraph, tags: Markdown::TAGS, attributes: Markdown::ATTRIBUTES) %></p>
+      <% end %>
+    </aside>
+
+    <div class="prose" data-c-legal-page><%= website_markdown(stella_str(data.body)) %></div>
+  </div>
+</section>

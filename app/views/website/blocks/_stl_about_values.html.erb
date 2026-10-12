@@ -1,0 +1,19 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/AboutValues.astro: the values grid. %>
+<section class="section section-alt" data-c-about-values>
+  <div class="wrap" data-c-about-values>
+    <div class="section-head center" data-c-about-values>
+      <span class="eyebrow" data-c-about-values><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-about-values><%= stella_str(data.heading) %></h2>
+    </div>
+
+    <div class="grid values-grid" data-c-about-values>
+      <% data.cards.each do |card| %>
+        <div class="card card-hover" data-c-about-values>
+          <h3 data-c-about-values><%= stella_str(card.title) %></h3>
+          <p data-c-about-values><%= stella_str(card.body) %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

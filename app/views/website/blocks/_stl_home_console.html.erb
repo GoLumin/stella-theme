@@ -1,0 +1,88 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/HomeConsole.astro: a mock of the product's ops console, drawn in HTML. Its labels are content; the chart's bar heights and which cells of the yard map are lit are drawing, so they stay here. %>
+<% chart_bars = [38, 52, 44, 66, 58, 78, 71, 88, 82, 96] %>
+<% pin_on = [3, 7, 11, 14, 19, 22, 26, 31, 35] %>
+<% pin_hot = [9, 24] %>
+<section class="v-section v-dark console-sec" id="console" data-c-home-console>
+  <div class="v-wrap v-wrap-wide" data-c-home-console>
+    <div class="v-head reveal" data-c-home-console>
+      <span class="v-eyebrow" data-c-home-console><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-home-console><%= stella_str(data.heading) %></h2>
+      <p class="v-lede" data-c-home-console><%= stella_str(data.lede) %></p>
+    </div>
+
+    <div class="console reg reveal" data-c-home-console>
+      <div class="con-bar" data-c-home-console>
+        <span class="con-dots" data-c-home-console><i data-c-home-console></i><i data-c-home-console></i><i data-c-home-console></i></span>
+        <span class="con-title" data-c-home-console><%= stella_str(data.window_title) %></span>
+        <span class="con-meta" data-c-home-console><%= stella_str(data.window_meta) %></span>
+        <span class="v-pill con-live" data-c-home-console><span class="live" data-c-home-console></span><%= stella_str(data.live_label, "LIVE") %></span>
+      </div>
+
+      <div class="con-body" data-c-home-console>
+        <aside class="con-rail" data-c-home-console>
+          <div class="rail-block" data-c-home-console>
+            <p class="rail-h" data-c-home-console><%= stella_str(data.dispatch_heading) %></p>
+            <ul class="rail-list" data-c-home-console>
+              <% data.dispatch.each do |row| %>
+                <li data-c-home-console>
+                  <span class="d-time" data-c-home-console><%= stella_str(row.time) %></span>
+                  <span class="d-box" data-c-home-console><%= stella_str(row.box) %></span>
+                  <span class="d-route" data-c-home-console><%= stella_str(row.route) %></span>
+                  <span class="d-dot <%= row.status %>" title="<%= row.status %>" data-c-home-console></span>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="rail-block" data-c-home-console>
+            <p class="rail-h" data-c-home-console><%= stella_str(data.map_heading) %></p>
+            <div class="rail-map" data-c-home-console>
+              <% 40.times do |i| %>
+                <span class="<%= class_names("pin", on: pin_on.include?(i), hot: pin_hot.include?(i)) %>" data-c-home-console></span>
+              <% end %>
+            </div>
+            <p class="rail-legend" data-c-home-console><i class="d-dot rented" data-c-home-console></i><%= stella_str(data.legend_rented, "Rented") %> <i class="d-dot transit" data-c-home-console></i><%= stella_str(data.legend_transit, "In transit") %> <i class="d-dot empty" data-c-home-console></i><%= stella_str(data.legend_empty, "Empty") %></p>
+          </div>
+        </aside>
+
+        <div class="con-main" data-c-home-console>
+          <div class="kpi-row" data-c-home-console>
+            <% data.kpis.each do |kpi| %>
+              <div class="kpi" data-c-home-console>
+                <span class="kpi-l" data-c-home-console><%= stella_str(kpi.label) %></span>
+                <span class="kpi-v" data-c-home-console><% if stella_str(kpi.prefix).present? %><i data-c-home-console><%= stella_str(kpi.prefix) %></i><% end %><%= stella_str(kpi.value) %><% if stella_str(kpi.suffix).present? %><i data-c-home-console><%= stella_str(kpi.suffix) %></i><% end %></span>
+                <span class="kpi-d up" data-c-home-console><%= stella_str(kpi.delta) %></span>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="con-chart" data-c-home-console>
+            <div class="chart-head" data-c-home-console><span data-c-home-console><%= stella_str(data.chart_heading) %></span><span class="chart-tag" data-c-home-console><%= stella_str(data.chart_tag) %></span></div>
+            <div class="chart-bars" data-c-home-console>
+              <% chart_bars.each_with_index do |height, i| %>
+                <span class="bar" style="--h:<%= height %>%" data-c-home-console><% if i == chart_bars.size - 1 %><em class="bar-flag" data-c-home-console><%= stella_str(data.chart_flag) %></em><% end %></span>
+              <% end %>
+            </div>
+            <div class="chart-axis" data-c-home-console><span data-c-home-console><%= stella_str(data.axis_start) %></span><span data-c-home-console><%= stella_str(data.axis_mid) %></span><span data-c-home-console><%= stella_str(data.axis_end) %></span></div>
+            <span class="scan" aria-hidden="true" data-c-home-console></span>
+          </div>
+
+          <div class="con-rows" data-c-home-console>
+            <% data.rows.each do |row| %>
+              <div class="c-row" data-c-home-console><span class="d-dot <%= row.status %>" data-c-home-console></span><%= stella_str(row.label) %><span class="c-amt" data-c-home-console><%= stella_str(row.amount) %></span></div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <% stella_list(data.callouts).each_with_index do |callout, i| %>
+        <%= tag.span callout, class: ["cal", "cal-#{i + 1}"], data: {c_home_console: ""} %>
+      <% end %>
+    </div>
+
+    <div class="v-btn-row v-center console-cta reveal" style="justify-content:center" data-c-home-console>
+      <a href="#demo" class="v-btn v-btn-primary v-btn-lg" data-c-home-console><%= stella_str(data.primary_label) %></a>
+      <a href="<%= stella_href(stella_str(data.secondary_href, "/features")) %>" class="v-btn v-btn-ghost v-btn-lg" data-c-home-console><%= stella_str(data.secondary_label) %></a>
+    </div>
+  </div>
+</section>

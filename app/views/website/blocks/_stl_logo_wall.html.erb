@@ -1,0 +1,20 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/LogoWallBlock.astro: a section of logos, the integrations or the partners global (shared/_logo_wall). %>
+<% items = data.source == "partners" ? stella_partners : stella_integrations %>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head<%= " center" if website_truthy?(data.center) %>">
+      <span class="eyebrow"><%= stella_str(data.eyebrow) %></span>
+      <h2><%= stella_str(data.heading) %></h2>
+      <p class="lede">
+        <%= stella_str(data.lede) %>
+      </p>
+    </div>
+    <%= render "website/shared/logo_wall", items:, show_notes: data.show_notes == true %>
+    <% if stella_str(data.link_href).present? %>
+      <div class="center" style="margin-top:36px">
+        <a href="<%= stella_href(data.link_href) %>" class="link-arrow"><%= stella_str(data.link_label) %></a>
+      </div>
+    <% end %>
+  </div>
+</section>

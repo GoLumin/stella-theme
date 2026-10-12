@@ -1,0 +1,3 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/CtaBandBlock.astro: the call to action band (shared/_cta_band), its copy from the block; a field never set takes the band's default. %>
+<%= render "website/shared/cta_band", eyebrow: (stella_str(data.eyebrow) unless data.eyebrow.nil?), title: (stella_str(data.title) unless data.title.nil?), body: (stella_str(data.body) unless data.body.nil?) %>

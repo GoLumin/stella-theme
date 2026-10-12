@@ -1,0 +1,20 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/AboutTimeline.astro: the timeline band. %>
+<section class="section section-ink" data-c-about-timeline>
+  <div class="wrap" data-c-about-timeline>
+    <div class="section-head" data-c-about-timeline>
+      <span class="eyebrow" data-c-about-timeline><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-about-timeline><%= stella_str(data.heading) %></h2>
+    </div>
+
+    <ol class="timeline" data-c-about-timeline>
+      <% data.items.each do |item| %>
+        <li data-c-about-timeline>
+          <span class="t-year" data-c-about-timeline><%= stella_str(item.year) %></span>
+          <h3 data-c-about-timeline><%= stella_str(item.title) %></h3>
+          <p data-c-about-timeline><%= stella_str(item.body) %></p>
+        </li>
+      <% end %>
+    </ol>
+  </div>
+</section>

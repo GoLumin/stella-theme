@@ -1,0 +1,16 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/ContactMethods.astro: the ways to reach the team, as cards. %>
+<section class="section-sm" data-c-contact-methods>
+  <div class="wrap" data-c-contact-methods>
+    <div class="grid grid-3" data-c-contact-methods>
+      <% data.cards.each do |card| %>
+        <% external = website_truthy?(card.external) %>
+        <div class="card method" data-c-contact-methods>
+          <h2 data-c-contact-methods><%= stella_str(card.title) %></h2>
+          <p data-c-contact-methods><%= stella_str(card.body) %></p>
+          <%= tag.a stella_str(card.cta_label), href: stella_href(card.href), class: "link-arrow", target: ("_blank" if external), rel: ("noopener noreferrer" if external), data: {c_contact_methods: ""} %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

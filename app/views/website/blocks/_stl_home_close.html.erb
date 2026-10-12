@@ -1,0 +1,32 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/HomeClose.astro: the closing demo form section, and the sticky call/demo bar shown under 720px. The last tick ends in the phone number from the general global. %>
+<% site = stella_site %>
+<section class="v-section v-dark close-sec" id="get-started" data-c-home-close>
+  <div class="close-fx" aria-hidden="true" data-c-home-close></div>
+  <div class="v-wrap v-wrap-wide close-in" data-c-home-close>
+    <div class="close-copy reveal" data-c-home-close>
+      <span class="v-eyebrow" data-c-home-close><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-home-close><%= stella_str(data.heading_line1) %><br data-c-home-close><%= stella_str(data.heading_line2) %></h2>
+      <p class="v-lede" data-c-home-close><%= stella_str(data.body) %></p>
+      <ul class="close-ticks" data-c-home-close>
+        <% stella_list(data.ticks).each do |tick| %>
+          <li data-c-home-close><%= tick %></li>
+        <% end %>
+        <% if stella_str(data.phone_tick_prefix).present? %>
+          <li data-c-home-close><%= stella_str(data.phone_tick_prefix) %> <a href="<%= site[:phone_href] %>" data-c-home-close><%= site[:phone] %></a></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="close-form reveal" style="--d:120ms" data-c-home-close>
+      <%= render "website/shared/demo_form", id: "demo-2", tone: "dark" %>
+    </div>
+  </div>
+</section>
+
+<div class="mbar" aria-hidden="false" data-c-home-close>
+  <a href="<%= site[:phone_href] %>" class="mbar-call" data-c-home-close>
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" data-c-home-close><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 4.5 4.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" data-c-home-close></path></svg>
+    <%= stella_str(data.bar_call_label, "Call") %>
+  </a>
+  <a href="#demo" class="mbar-demo" data-c-home-close><%= stella_str(data.bar_demo_label, "Book a demo") %></a>
+</div>

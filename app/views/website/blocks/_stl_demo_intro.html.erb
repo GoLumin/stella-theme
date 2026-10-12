@@ -1,0 +1,116 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/DemoIntro.astro: the demo page's pitch and its request form, posted to the CMS form "demo" (stella/forms.js). Its inputs' names must be the form's fields. %>
+<% site = stella_site %>
+<% form = stella_form("demo", fields: %w[name company email phone fleet current_software message]) %>
+<% turnstile = stella_turnstile %>
+<section class="section demo" data-c-demo-intro>
+  <div class="wrap demo-in" data-c-demo-intro>
+    <div class="pitch" data-c-demo-intro>
+      <span class="eyebrow" data-c-demo-intro><%= stella_str(data.eyebrow) %></span>
+      <h1 data-c-demo-intro><%= stella_str(data.heading) %></h1>
+      <p class="lede" data-c-demo-intro>
+        <%= stella_str(data.lede) %>
+      </p>
+
+      <h2 class="sub" data-c-demo-intro>What we'll walk through</h2>
+      <ol class="agenda" data-c-demo-intro>
+        <% data.agenda.each do |item| %>
+          <li data-c-demo-intro>
+            <h3 data-c-demo-intro><%= stella_str(item.title) %></h3>
+            <p data-c-demo-intro><%= stella_str(item.body) %></p>
+          </li>
+        <% end %>
+      </ol>
+
+      <h2 class="sub" data-c-demo-intro>What to bring</h2>
+      <ul class="bring" data-c-demo-intro>
+        <% stella_list(data.bring).each do |item| %>
+          <li data-c-demo-intro><%= item %></li>
+        <% end %>
+      </ul>
+
+      <div class="no-obligation" data-c-demo-intro>
+        <h3 data-c-demo-intro><%= stella_str(data.no_obligation_heading) %></h3>
+        <p data-c-demo-intro>
+          <%= stella_str(data.no_obligation_body) %>
+        </p>
+      </div>
+
+      <div class="call-alt" data-c-demo-intro>
+        <span class="eyebrow" data-c-demo-intro><%= stella_str(data.call_alt_eyebrow) %></span>
+        <p data-c-demo-intro><%= stella_str(data.call_alt_body) %></p>
+        <a href="<%= site[:phone_href] %>" class="btn btn-ink btn-lg" data-c-demo-intro>Call <%= site[:phone] %></a>
+      </div>
+    </div>
+
+    <div class="form-col" data-c-demo-intro>
+      <div class="form-card" data-c-demo-intro>
+        <h2 class="form-title" data-c-demo-intro><%= stella_str(data.form_title) %></h2>
+        <p class="form-sub" data-c-demo-intro>
+          <%= stella_str(data.form_sub) %>
+        </p>
+
+        <form class="form" method="post" action="<%= form[:submit_url] %>" data-cms-form="demo" data-success="<%= form[:success_message] %>" data-honeypot="<%= Form::HONEYPOT_FIELD if defined?(Form) %>" data-c-demo-intro>
+          <p class="req-note" data-c-demo-intro>Fields marked <span class="req" data-c-demo-intro>*</span> are required.</p>
+
+          <div class="field" data-c-demo-intro>
+            <label for="name" data-c-demo-intro>Full name <span class="req" aria-hidden="true" data-c-demo-intro>*</span></label>
+            <input type="text" id="name" name="name" autocomplete="name" required aria-required="true" data-c-demo-intro>
+          </div>
+
+          <div class="field" data-c-demo-intro>
+            <label for="company" data-c-demo-intro>Company <span class="req" aria-hidden="true" data-c-demo-intro>*</span></label>
+            <input type="text" id="company" name="company" autocomplete="organization" required aria-required="true" data-c-demo-intro>
+          </div>
+
+          <div class="field-row" data-c-demo-intro>
+            <div class="field" data-c-demo-intro>
+              <label for="email" data-c-demo-intro>Email <span class="req" aria-hidden="true" data-c-demo-intro>*</span></label>
+              <input type="email" id="email" name="email" autocomplete="email" required aria-required="true" data-c-demo-intro>
+            </div>
+
+            <div class="field" data-c-demo-intro>
+              <label for="phone" data-c-demo-intro>Phone <span class="req" aria-hidden="true" data-c-demo-intro>*</span></label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" required aria-required="true" data-c-demo-intro>
+            </div>
+          </div>
+
+          <div class="field" data-c-demo-intro>
+            <label for="fleet" data-c-demo-intro>
+              Containers or boxes in your fleet <span class="req" aria-hidden="true" data-c-demo-intro>*</span>
+            </label>
+            <select id="fleet" name="fleet" required aria-required="true" data-c-demo-intro>
+              <option value="" data-c-demo-intro>Select a range</option>
+              <% stella_list(data.fleet_ranges).each do |range| %>
+                <option value="<%= range %>" data-c-demo-intro><%= range %></option>
+              <% end %>
+            </select>
+          </div>
+
+          <div class="field" data-c-demo-intro>
+            <label for="current-software" data-c-demo-intro>
+              Current software <span class="opt" data-c-demo-intro>(optional)</span>
+            </label>
+            <input type="text" id="current-software" name="current_software" autocomplete="off" placeholder="Spreadsheets, QuickBooks, another platform…" data-c-demo-intro>
+          </div>
+
+          <div class="field" data-c-demo-intro>
+            <label for="message" data-c-demo-intro>
+              Anything you'd like us to focus on? <span class="opt" data-c-demo-intro>(optional)</span>
+            </label>
+            <textarea id="message" name="message" rows="4" autocomplete="off" data-c-demo-intro></textarea>
+          </div>
+
+          <% if turnstile %>
+            <% content_for :turnstile, "on" %>
+            <div class="cf-turnstile" data-sitekey="<%= turnstile[:site_key] %>" data-theme="<%= turnstile[:theme] %>" data-size="flexible"></div>
+          <% end %>
+
+          <button type="submit" class="btn btn-primary btn-lg form-submit" data-c-demo-intro>
+            <%= form[:submit_label] %>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

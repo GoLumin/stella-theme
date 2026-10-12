@@ -1,0 +1,5 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/FaqHero.astro: the lead-capture hero (HeroWithForm), the copy from the block. %>
+<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(data.eyebrow, "Answers"), title: stella_str(data.heading, "Frequently asked questions"), form_id: "faq-demo"} do %>
+  <p class="lede"><%= stella_str(data.lede, "Setup, system requirements, costs, migration and what Stella actually does. If your question isn't here, call us — a human picks up.") %></p>
+<% end %>

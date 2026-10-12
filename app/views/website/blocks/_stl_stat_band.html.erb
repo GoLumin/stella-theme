@@ -1,0 +1,26 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/HomeStats.astro: the stat band. Numbers count up from zero (stella/motion.js reads data-count, data-prefix, data-suffix); a tile with text instead of a count shows a word. %>
+<section class="v-section-sm stats-sec" data-c-home-stats>
+  <div class="v-wrap v-wrap-wide" data-c-home-stats>
+    <div class="stats-grid" data-c-home-stats>
+      <% data.stats.each_with_index do |stat, index| %>
+        <% prefix = stella_str(stat.prefix) %>
+        <% suffix = stella_str(stat.suffix) %>
+        <div class="stat reveal" style="--d:<%= index * 80 %>ms" data-c-home-stats>
+          <span class="stat-code" data-c-home-stats><%= (index + 1).to_s.rjust(2, "0") %></span>
+          <% if stella_str(stat.text).present? %>
+            <span class="stat-val stat-word" data-c-home-stats><%= stella_str(stat.text) %></span>
+          <% else %>
+            <%= tag.span "#{prefix}0#{suffix}", class: "stat-val", data: {count: stat.count, prefix:, suffix:, c_home_stats: ""} %>
+          <% end %>
+          <span class="stat-label" data-c-home-stats><%= stella_str(stat.label) %></span>
+          <span class="stat-note" data-c-home-stats><%= stella_str(stat.note) %></span>
+        </div>
+      <% end %>
+    </div>
+    <p class="stats-foot" data-c-home-stats><%= stella_str(data.foot) %></p>
+    <% if stella_str(data.demo_label).present? %>
+      <p class="stats-demo" data-c-home-stats><a href="<%= stella_href(stella_str(data.demo_href, "/book-a-demo")) %>" class="v-arrow" data-c-home-stats><%= stella_str(data.demo_label) %></a></p>
+    <% end %>
+  </div>
+</section>
