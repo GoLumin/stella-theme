@@ -1,0 +1,5 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/PartnersHero.astro: the lead-capture hero, with the block's copy. %>
+<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(data.eyebrow, "Industry partners"), title: stella_str(data.heading, "Plugged into the portable storage industry"), form_id: "partners-demo"} do %>
+  <p class="lede"><%= stella_str(data.lede, "Stella has been built for this industry since development began in June 2020, and that means knowing the people in it. Our partner network covers container manufacturers, insurance, marketing, payments and packaging — so when a customer needs something outside the software, we can point them at someone who already does it well.") %></p>
+<% end %>

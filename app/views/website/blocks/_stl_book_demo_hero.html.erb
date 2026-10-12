@@ -1,0 +1,54 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/BookDemoHero.astro: the book-a-demo opener. The headline and lede each carry one emphasised word, stored as the plain strings either side of it; the logo strip is the integrations global. %>
+<% site = stella_site %>
+<section class="bd-hero" data-c-book-demo-hero>
+  <div class="bd-hero-fx" aria-hidden="true" data-c-book-demo-hero></div>
+  <div class="wrap bd-hero-in" data-c-book-demo-hero>
+    <div class="bd-copy" data-c-book-demo-hero>
+      <span class="bd-eyebrow hi" style="--d:0ms" data-c-book-demo-hero><span class="live" data-c-book-demo-hero></span><%= stella_str(data.eyebrow) %></span>
+
+      <div class="bd-rating hi" style="--d:60ms" data-c-book-demo-hero>
+        <span class="bd-stars" aria-hidden="true" data-c-book-demo-hero>
+          <% 5.times do %>
+            <svg viewBox="0 0 20 20" fill="currentColor" data-c-book-demo-hero><path d="M10 1.6l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.9l-4.94 2.6.94-5.5-4-3.9 5.53-.8z" data-c-book-demo-hero></path></svg>
+          <% end %>
+        </span>
+        <span data-c-book-demo-hero><b data-c-book-demo-hero><%= stella_str(data.rating_score, "5.0") %></b> · <%= stella_str(data.rating_note) %></span>
+      </div>
+
+      <h1 class="hi" style="--d:120ms" data-c-book-demo-hero><%= stella_str(data.title_before) %> <span class="hl" data-c-book-demo-hero><%= stella_str(data.title_highlight) %></span> <%= stella_str(data.title_after) %></h1>
+      <p class="bd-lede hi" style="--d:200ms" data-c-book-demo-hero>
+        <%= stella_str(data.lede_before) %> <em data-c-book-demo-hero><%= stella_str(data.lede_emphasis) %></em><%= stella_str(data.lede_after) %>
+      </p>
+
+      <ul class="bd-ticks hi" style="--d:280ms" data-c-book-demo-hero>
+        <% stella_list(data.ticks).each do |tick| %>
+          <li data-c-book-demo-hero><%= tick %></li>
+        <% end %>
+      </ul>
+
+      <div class="bd-cta-row hi" style="--d:340ms" data-c-book-demo-hero>
+        <a href="<%= site[:phone_href] %>" class="v-btn v-btn-ghost v-btn-lg bd-ghost" data-c-book-demo-hero>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" data-c-book-demo-hero><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 4.5 4.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" data-c-book-demo-hero></path></svg>
+          Call <%= site[:phone] %>
+        </a>
+        <a href="#the-math" class="bd-scroll" data-c-book-demo-hero><%= stella_str(data.scroll_label, "See the math ↓") %></a>
+      </div>
+    </div>
+
+    <div class="bd-form hi" style="--d:180ms" data-c-book-demo-hero>
+      <%= render "website/shared/demo_form", id: "demo", tone: "dark" %>
+    </div>
+  </div>
+
+  <div class="bd-strip" data-c-book-demo-hero>
+    <div class="wrap" data-c-book-demo-hero>
+      <p class="bd-strip-label" data-c-book-demo-hero><%= stella_str(data.strip_label) %></p>
+      <div class="bd-logos" data-c-book-demo-hero>
+        <% stella_integrations.each do |logo| %>
+          <div class="bd-logo" title="<%= logo[:name] %>" data-c-book-demo-hero><%= tag.img src: logo[:src], alt: logo[:name], loading: "lazy", data: {c_book_demo_hero: ""} %></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

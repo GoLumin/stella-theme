@@ -1,0 +1,19 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/PartnersJoin.astro: the "partner with us" section. %>
+<section class="section" data-c-partners-join>
+  <div class="wrap" data-c-partners-join>
+    <div class="join" data-c-partners-join>
+      <div data-c-partners-join>
+        <span class="eyebrow" data-c-partners-join><%= stella_str(data.eyebrow) %></span>
+        <h2 data-c-partners-join><%= stella_str(data.heading) %></h2>
+        <p class="lede" data-c-partners-join>
+          <%= stella_str(data.lede) %>
+        </p>
+      </div>
+      <div class="join-actions" data-c-partners-join>
+        <a href="/contact" class="btn btn-ink btn-lg" data-c-partners-join>Get in touch</a>
+        <a href="<%= stella_site[:phone_href] %>" class="btn btn-outline btn-lg" data-c-partners-join>Call <%= stella_site[:phone] %></a>
+      </div>
+    </div>
+  </div>
+</section>

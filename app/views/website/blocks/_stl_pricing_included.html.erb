@@ -1,0 +1,19 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/PricingIncluded.astro: what every level includes (the pricing global's base features). %>
+<section class="section section-alt" data-c-pricing-included>
+  <div class="wrap" data-c-pricing-included>
+    <div class="section-head center" data-c-pricing-included>
+      <span class="eyebrow" data-c-pricing-included><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-pricing-included><%= stella_str(data.heading) %></h2>
+      <p class="lede" data-c-pricing-included>
+        <%= stella_str(data.lede) %>
+      </p>
+    </div>
+
+    <ul class="included" data-c-pricing-included>
+      <% stella_base_features.each do |feature| %>
+        <li data-c-pricing-included><%= feature %></li>
+      <% end %>
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+<%# locals: () -%>
+<%# src/pages/academy/login.astro: the Academy sign-in, a static design preview (the form isn't wired to anything). The lede is the academy_page global's. %>
+<% content_for :head, stella_seo_tags(title: "Sign in to the Academy", description: "Sign in to the Stella Academy resource library.") %>
+<section class="auth-sec" data-c-academy-login>
+  <div class="auth-fx" aria-hidden="true" data-c-academy-login></div>
+  <div class="wrap wrap-narrow auth-wrap" data-c-academy-login>
+    <div class="section-head center" data-c-academy-login>
+      <span class="eyebrow" data-c-academy-login>Academy</span>
+      <h1 data-c-academy-login>Members' resource library</h1>
+      <p class="lede" data-c-academy-login><%= stella_str(stella_page_copy(:academy_page).library_lede) %></p>
+    </div>
+
+    <form method="POST" class="auth-card reg" data-c-academy-login>
+      <span class="auth-tag" data-c-academy-login>◵ Member access</span>
+      <h2 class="auth-title" data-c-academy-login>Sign in</h2>
+
+      <label class="auth-field" data-c-academy-login>
+        <span data-c-academy-login>Email</span>
+        <input type="email" name="email" required autocomplete="email" placeholder="you@company.com" data-c-academy-login>
+      </label>
+      <label class="auth-field" data-c-academy-login>
+        <span data-c-academy-login>Password</span>
+        <input type="password" name="password" required autocomplete="current-password" placeholder="••••••••••" data-c-academy-login>
+      </label>
+
+      <button type="submit" class="btn btn-primary btn-lg auth-submit" data-c-academy-login>Sign in</button>
+      <p class="auth-alt" data-c-academy-login>No account yet? <a href="/academy/signup" data-c-academy-login>Create one</a></p>
+    </form>
+  </div>
+</section>

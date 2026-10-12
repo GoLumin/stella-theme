@@ -1,0 +1,23 @@
+<%# locals: (**) -%>
+<%# src/components/blocks/TestimonialsLead.astro: the first testimonial, large. The block has no fields of its own. %>
+<% lead = stella_testimonials.first %>
+<% if lead %>
+  <section class="section-sm" data-c-testimonials-lead>
+    <div class="wrap" data-c-testimonials-lead>
+      <figure class="lead-quote" data-c-testimonials-lead>
+        <div class="stars" aria-label="5 out of 5" data-c-testimonials-lead>★★★★★</div>
+        <blockquote data-c-testimonials-lead><%= lead[:quote] %></blockquote>
+        <figcaption data-c-testimonials-lead>
+          <% if lead[:logo] %><%= tag.img src: lead[:logo], alt: "", loading: "lazy", data: {c_testimonials_lead: ""} %><% end %>
+          <div data-c-testimonials-lead>
+            <span class="lq-name" data-c-testimonials-lead><%= lead[:name] %></span>
+            <span class="lq-meta" data-c-testimonials-lead>
+              <%= "#{lead[:role]}, " if lead[:role] %><%= lead[:company] %>
+              <%= " · #{lead[:location]}" if lead[:location] %>
+            </span>
+          </div>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+<% end %>

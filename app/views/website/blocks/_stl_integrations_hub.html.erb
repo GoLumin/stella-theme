@@ -1,0 +1,39 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/IntegrationsHub.astro: Stella at the center, wired to the integrations named in the block (their logos from the integrations global), at fixed spoke positions. A name with no integration is left out. %>
+<% default_names = ["QuickBooks", "Google Calendar", "Google Maps", "Authorize.net", "Signiflow", "Amazon Web Services"] %>
+<% names = data.nodes.any? ? data.nodes.map { stella_str(it[:name]) } : default_names %>
+<% spokes = [{x: 818, y: 230}, {x: 632, y: 80}, {x: 268, y: 80}, {x: 82, y: 230}, {x: 268, y: 380}, {x: 632, y: 380}] %>
+<% hub = {x: 450, y: 230} %>
+<% nodes = names.each_with_index.filter_map { |name, i| (logo = stella_integrations.find { it[:name] == name }) && spokes[i] && logo[:src].present? ? logo.merge(spokes[i]) : nil } %>
+<section class="section section-ink flow-sec" data-c-integrations-hub>
+  <div class="flow-fx" aria-hidden="true" data-c-integrations-hub></div>
+  <div class="wrap" data-c-integrations-hub>
+    <div class="section-head center reveal" data-c-integrations-hub>
+      <span class="eyebrow" data-c-integrations-hub><%= stella_str(data.eyebrow, "One system, everything in sync") %></span>
+      <h2 data-c-integrations-hub><%= stella_str(data.heading, "Your whole stack, wired into one hub") %></h2>
+      <p class="lede mx-auto" data-c-integrations-hub>
+        <%= stella_str(data.lede, "Data moves once. A lead, a quote, a signed contract, a delivery, a charge — Stella hands each off to the tool that needs it, and nothing gets typed twice.") %>
+      </p>
+    </div>
+
+    <div class="hubwrap reveal" data-c-integrations-hub>
+      <svg class="hub-svg" viewBox="0 0 900 460" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram: Stella at the center, connected to <%= nodes.map { it[:name] }.join(", ") %>." data-c-integrations-hub>
+        <% nodes.each do |n| %>
+          <line class="hub-line" x1="<%= hub[:x] %>" y1="<%= hub[:y] %>" x2="<%= n[:x] %>" y2="<%= n[:y] %>" data-c-integrations-hub></line>
+        <% end %>
+        <% nodes.each_with_index do |n, i| %>
+          <circle class="flow-dot" cx="<%= hub[:x] %>" cy="<%= hub[:y] %>" r="4.5" style="--dx:<%= n[:x] - hub[:x] %>px; --dy:<%= n[:y] - hub[:y] %>px; --delay:<%= format("%.2f", i * 0.46) %>s" data-c-integrations-hub></circle>
+        <% end %>
+        <circle class="hub-ring" cx="<%= hub[:x] %>" cy="<%= hub[:y] %>" r="66" data-c-integrations-hub></circle>
+        <circle class="hub-core" cx="<%= hub[:x] %>" cy="<%= hub[:y] %>" r="60" data-c-integrations-hub></circle>
+        <text class="hub-label" x="<%= hub[:x] %>" y="<%= hub[:y] + 6 %>" text-anchor="middle" data-c-integrations-hub><%= stella_str(data.hub_label, "STELLA") %></text>
+        <% nodes.each do |n| %>
+          <g class="hub-node" data-c-integrations-hub>
+            <rect x="<%= n[:x] - 78 %>" y="<%= n[:y] - 34 %>" width="156" height="68" rx="10" data-c-integrations-hub></rect>
+            <image href="<%= n[:src] %>" x="<%= n[:x] - 62 %>" y="<%= n[:y] - 24 %>" width="124" height="48" preserveAspectRatio="xMidYMid meet" data-c-integrations-hub></image>
+          </g>
+        <% end %>
+      </svg>
+    </div>
+  </div>
+</section>

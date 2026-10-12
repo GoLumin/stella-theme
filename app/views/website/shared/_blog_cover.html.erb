@@ -1,0 +1,47 @@
+<%# locals: (category:, image: nil, ratio: "16 / 9", css_class: "") -%>
+<%# src/components/BlogCover.astro: a post's cover photo, or generated cover art for its category. %>
+<% key = category.to_s.downcase %>
+<div class="<%= class_names("bcover", css_class, "bcover-photo": image.present?) %>" data-cat="<%= key %>" style="aspect-ratio:<%= ratio %>" data-c-blog-cover>
+  <% if image.present? %>
+    <%= tag.img src: image, class: "bcover-img", alt: "", loading: "lazy", data: {c_blog_cover: ""} %>
+  <% else %>
+    <div class="bcover-fx" aria-hidden="true" data-c-blog-cover></div>
+    <svg class="bcover-glyph" viewBox="0 0 120 120" fill="none" aria-hidden="true" data-c-blog-cover>
+      <% case key %>
+      <% when "operations" %>
+        <g stroke="currentColor" stroke-width="4" fill="none" data-c-blog-cover>
+          <rect x="16" y="60" width="34" height="30" rx="2" data-c-blog-cover></rect>
+          <rect x="54" y="60" width="34" height="30" rx="2" data-c-blog-cover></rect>
+          <rect x="35" y="28" width="34" height="30" rx="2" data-c-blog-cover></rect>
+        </g>
+      <% when "growth" %>
+        <g stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" data-c-blog-cover>
+          <path d="M20 94 V72" data-c-blog-cover></path>
+          <path d="M44 94 V56" data-c-blog-cover></path>
+          <path d="M68 94 V40" data-c-blog-cover></path>
+          <path d="M92 94 V24" data-c-blog-cover></path>
+          <path d="M18 52 L44 40 L66 50 L98 22" data-c-blog-cover></path>
+          <path d="M84 22 H98 V36" data-c-blog-cover></path>
+        </g>
+      <% when "billing" %>
+        <g stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" data-c-blog-cover>
+          <rect x="18" y="34" width="84" height="54" rx="7" data-c-blog-cover></rect>
+          <path d="M18 52 H102" data-c-blog-cover></path>
+          <path d="M30 72 H54" data-c-blog-cover></path>
+        </g>
+      <% when "industry" %>
+        <g stroke="currentColor" stroke-width="4" fill="none" data-c-blog-cover>
+          <path d="M60 22C44 22 32 34 32 50c0 20 28 46 28 46s28-26 28-46c0-16-12-28-28-28Z" data-c-blog-cover></path>
+          <circle cx="60" cy="50" r="11" data-c-blog-cover></circle>
+        </g>
+      <% when "product" %>
+        <g stroke="currentColor" stroke-width="4" fill="none" stroke-linejoin="round" data-c-blog-cover>
+          <path d="M60 20 96 40V80L60 100 24 80V40Z" data-c-blog-cover></path>
+          <path d="M60 20V60M60 60 96 40M60 60 24 40" data-c-blog-cover></path>
+        </g>
+      <% end %>
+    </svg>
+  <% end %>
+  <span class="bcover-corner" aria-hidden="true" data-c-blog-cover></span>
+  <span class="bcover-tag" data-c-blog-cover><%= category %></span>
+</div>

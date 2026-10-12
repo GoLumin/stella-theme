@@ -102,6 +102,20 @@ RSpec.describe "The Stella website", type: :request, website: true do
     expect(html.at_css("meta[name=robots]")["content"]).to start_with("noindex")
   end
 
+  it "draws every page in the editor's preview, its short text marked for editing in place and its links unmarked" do
+    sign_in_as create(:user)
+    SNAPSHOT["pages"].each do |snapshot|
+      page = Page.find_by!(path: snapshot["path"])
+      blocks = page.blocks.each_with_index.to_h { |block, index| [index.to_s, {"_json" => block.to_json}] }
+      patch page_path(page.path, website_preview: 1), params: {page: {title: page.title, slug: page.slug, status: "published", lock_version: page.lock_version, blocks:}}
+
+      expect(response).to have_http_status(:ok), page.path
+      expect(response.body).to include("⁣"), page.path unless %w[blog case-studies featured-customers].include?(page.path) || page.blocks.empty?
+      marked = html.css("[href], [action], [src]").select { (it["href"] || it["action"] || it["src"]).match?(/[⁣⁤​‌‍⁠]/) }
+      expect(marked.map(&:to_html)).to be_empty, page.path
+    end
+  end
+
   it "follows Tools › Redirects" do
     redirect = SNAPSHOT["redirects"].first
     Redirect.create!(redirect)

@@ -46,6 +46,9 @@ module StellaHelper
     url = stella_str(url).delete(INLINE_EDIT_MARKS).strip
     url if url.present? && SafeUrl.safe?(url)
   end
+  # A path typed into a text field ("/images/…"), for an <img>: unmarked, as stella_href.
+  def stella_src(path) = stella_str(path).delete(INLINE_EDIT_MARKS).strip.presence
+
   INLINE_EDIT_MARKS = [Website::InlineEdit::START, Website::InlineEdit::FINISH, *Website::InlineEdit::DIGITS].join
 
   # ── src/data/site.ts ─────────────────────────────────────────────────────

@@ -1,0 +1,39 @@
+<%# locals: () -%>
+<%# src/pages/academy/index.astro: the Academy library, a static design preview (StellaAcademyHelper's representative items, by category). The lede is the academy_page global's. %>
+<% content_for :head, stella_seo_tags(title: "Academy", description: "The Stella Academy resource library.") %>
+<section class="ac-hero" data-c-academy-index>
+  <div class="ac-hero-fx" aria-hidden="true" data-c-academy-index></div>
+  <div class="wrap" data-c-academy-index>
+    <span class="eyebrow" data-c-academy-index>Academy</span>
+    <h1 data-c-academy-index>Resource library</h1>
+    <p class="lede" data-c-academy-index><%= stella_str(stella_page_copy(:academy_page).library_lede) %></p>
+    <div class="ac-signed" data-c-academy-index>
+      <span class="ac-dot" data-c-academy-index></span>
+      Signed in as <b data-c-academy-index>you@company.com</b>
+      <a class="ac-signout" href="/academy/login" data-c-academy-index>Sign out</a>
+    </div>
+  </div>
+</section>
+
+<section class="section ac-lib" data-c-academy-index>
+  <div class="wrap" data-c-academy-index>
+    <% stella_academy_groups.each do |category, items| %>
+      <div class="ac-group" data-c-academy-index>
+        <p class="ac-cat" data-c-academy-index><%= category %></p>
+        <div class="ac-grid" data-c-academy-index>
+          <% items.each do |item| %>
+            <a class="ac-card" href="/academy/<%= item[:slug] %>" data-c-academy-index>
+              <span class="<%= class_names("ac-kind", "kind-#{item[:kind]}") %>" data-c-academy-index><%= StellaAcademyHelper::KIND_LABEL[item[:kind]] %></span>
+              <h3 data-c-academy-index><%= item[:title] %></h3>
+              <p class="ac-sum" data-c-academy-index><%= item[:summary] %></p>
+              <span class="ac-foot" data-c-academy-index>
+                <% if item[:duration] %><span class="ac-dur" data-c-academy-index><%= item[:duration] %></span><% end %>
+                <span class="ac-open" data-c-academy-index>Open →</span>
+              </span>
+            </a>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

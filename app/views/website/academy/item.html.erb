@@ -1,0 +1,42 @@
+<%# locals: (item:) -%>
+<%# src/pages/academy/[slug].astro: one Academy resource, a static design preview. An article shows its body; a recording or a download a placeholder for the members' backend, its button going nowhere ("#") as on the Astro site. %>
+<% content_for :head, stella_seo_tags(title: item[:title], description: item[:summary]) %>
+<% kind_label = StellaAcademyHelper::KIND_LABEL[item[:kind]] %>
+<section class="section" data-c-academy-item>
+  <div class="wrap wrap-narrow" data-c-academy-item>
+    <p class="ac-back" data-c-academy-item><a href="/academy" data-c-academy-item>← Back to the library</a></p>
+
+    <div class="section-head" data-c-academy-item>
+      <span class="eyebrow" data-c-academy-item><%= item[:category] %></span>
+      <h1 data-c-academy-item><%= item[:title] %></h1>
+      <p class="lede" data-c-academy-item><%= item[:summary] %></p>
+      <p class="ac-meta" data-c-academy-item>
+        <span class="ac-kindtag" data-c-academy-item><%= kind_label %></span>
+        <% if item[:duration] %><span data-c-academy-item><%= item[:duration] %></span><% end %>
+      </p>
+    </div>
+
+    <% case item[:kind] %>
+    <% when "article" %>
+      <div class="prose" data-c-academy-item><%= stella_academy_body(item[:body]) %></div>
+    <% when "audio" %>
+      <div class="ac-media" data-c-academy-item>
+        <span class="ac-media-ico" aria-hidden="true" data-c-academy-item>▶</span>
+        <div data-c-academy-item>
+          <p class="ac-media-t" data-c-academy-item>Recording</p>
+          <p class="ac-media-s" data-c-academy-item><%= item[:duration] %> · streams to members when the CMS backend is connected.</p>
+        </div>
+        <%= link_to "Play recording", "#", class: "btn btn-primary", data: {c_academy_item: ""} %> <%# herb:disable html-anchor-require-href %>
+      </div>
+    <% when "file" %>
+      <div class="ac-media" data-c-academy-item>
+        <span class="ac-media-ico" aria-hidden="true" data-c-academy-item>↓</span>
+        <div data-c-academy-item>
+          <p class="ac-media-t" data-c-academy-item>Download</p>
+          <p class="ac-media-s" data-c-academy-item>Delivered through the members' proxy once the CMS backend is connected.</p>
+        </div>
+        <%= link_to "Download", "#", class: "btn btn-primary", data: {c_academy_item: ""} %> <%# herb:disable html-anchor-require-href %>
+      </div>
+    <% end %>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/LilyPadFlow.astro: "What your customers see", the numbered entry flow beside a screenshot of the widget (`image`), or the CSS mock of it (LilyWidget) without one. %>
+<% image = stella_src(data.image).to_s %>
+<section class="section" data-c-lily-pad-flow>
+  <div class="<%= class_names("wrap", "see-in", "see-in-shot": image.present?) %>" data-c-lily-pad-flow>
+    <div class="see-copy" data-c-lily-pad-flow>
+      <span class="eyebrow" data-c-lily-pad-flow><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-lily-pad-flow><%= stella_str(data.heading) %></h2>
+      <p class="lede" data-c-lily-pad-flow><%= stella_str(data.lede) %></p>
+      <ol class="flow-list" data-c-lily-pad-flow>
+        <% data.steps.each_with_index do |step, index| %>
+          <li data-c-lily-pad-flow>
+            <span class="flow-n" data-c-lily-pad-flow><%= (index + 1).to_s.rjust(2, "0") %></span>
+            <div data-c-lily-pad-flow>
+              <h3 data-c-lily-pad-flow><%= stella_str(step.step) %></h3>
+              <p data-c-lily-pad-flow><%= stella_str(step.body) %></p>
+            </div>
+          </li>
+        <% end %>
+      </ol>
+    </div>
+    <div class="see-widget" data-c-lily-pad-flow>
+      <% if image.present? %>
+        <%= tag.img src: image, alt: stella_str(data.image_alt), class: "see-shot", loading: "lazy", decoding: "async", data: {c_lily_pad_flow: ""} %>
+      <% else %>
+        <%= render "website/shared/lily_widget" %>
+      <% end %>
+    </div>
+  </div>
+</section>

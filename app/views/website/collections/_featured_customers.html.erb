@@ -1,0 +1,43 @@
+<%# locals: (page:) -%>
+<%# src/pages/featured-customers/index.astro: the featured-customers page stands for its collection. Title and description are the CMS page's; the hero copy is the featured_customers_page global's. %>
+<% content_for :head, stella_seo_tags(page, title: page.title) %>
+<% copy = stella_page_copy(:featured_customers_page) %>
+<% customers = stella_featured_customers %>
+<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(copy.hero_eyebrow, "Featured customer"), title: stella_str(copy.hero_heading, "The operators behind the containers"), form_id: "featured-demo"} do %>
+  <p class="lede" data-c-featured-customers-index><%= stella_str(copy.hero_lede) %></p>
+<% end %>
+
+<section class="section" data-c-featured-customers-index>
+  <div class="wrap" data-c-featured-customers-index>
+    <% if customers.empty? %>
+      <p class="lede" data-c-featured-customers-index>The first featured customer is on the way.</p>
+    <% else %>
+      <div class="grid grid-2" data-c-featured-customers-index>
+        <% customers.each do |customer| %>
+          <a class="card card-hover fc-card" href="/featured-customers/<%= customer[:slug] %>" data-c-featured-customers-index>
+            <% if customer[:image] %><%= tag.img src: customer[:image], alt: "", class: "fc-img", loading: "lazy", data: {c_featured_customers_index: ""} %><% end %>
+            <div class="fc-top" data-c-featured-customers-index>
+              <% if customer[:logo] %><%= tag.img src: customer[:logo], alt: "", class: "fc-logo", loading: "lazy", data: {c_featured_customers_index: ""} %><% end %>
+              <div data-c-featured-customers-index>
+                <h3 data-c-featured-customers-index><%= customer[:company] %></h3>
+                <% if customer[:location] %><span class="fc-loc" data-c-featured-customers-index><%= customer[:location] %></span><% end %>
+              </div>
+            </div>
+
+            <p data-c-featured-customers-index><%= customer[:summary] %></p>
+
+            <% if customer[:customer_since] %>
+              <ul class="chips" data-c-featured-customers-index>
+                <li class="chip" data-c-featured-customers-index>Stella customer since <%= customer[:customer_since] %></li>
+              </ul>
+            <% end %>
+
+            <span class="link-arrow" data-c-featured-customers-index>Read their story</span>
+          </a>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<%= render "website/shared/cta_band" %>

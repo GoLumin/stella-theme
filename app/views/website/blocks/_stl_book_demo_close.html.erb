@@ -1,0 +1,23 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/BookDemoClose.astro: the closing pitch, and the sticky call/demo bar under 720px that ships with it. %>
+<% site = stella_site %>
+<section class="bd-close" data-c-book-demo-close>
+  <div class="bd-close-fx" aria-hidden="true" data-c-book-demo-close></div>
+  <div class="wrap bd-close-in reveal" data-c-book-demo-close>
+    <h2 data-c-book-demo-close><%= stella_str(data.title_line1) %><br data-c-book-demo-close><%= stella_str(data.title_line2_before) %> <span class="hl" data-c-book-demo-close><%= stella_str(data.title_highlight) %></span> <%= stella_str(data.title_line2_after) %></h2>
+    <p class="bd-lede" data-c-book-demo-close><%= stella_str(data.lede) %></p>
+    <div class="bd-close-cta" data-c-book-demo-close>
+      <a href="#demo" class="v-btn v-btn-primary v-btn-lg" data-c-book-demo-close><%= stella_str(data.primary_label, "Book my demo") %></a>
+      <a href="<%= site[:phone_href] %>" class="v-btn v-btn-ghost v-btn-lg bd-ghost" data-c-book-demo-close><%= stella_str(data.call_label, "Call") %> <%= site[:phone] %></a>
+    </div>
+    <p class="bd-close-fine" data-c-book-demo-close><%= stella_str(data.fine_print_before) %> <%= site[:starting_price] %><%= stella_str(data.fine_print_after, "/mo") %></p>
+  </div>
+</section>
+
+<div class="bd-mbar" data-c-book-demo-close>
+  <a href="<%= site[:phone_href] %>" class="bd-mbar-call" data-c-book-demo-close>
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" data-c-book-demo-close><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 4.5 4.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" data-c-book-demo-close></path></svg>
+    <%= stella_str(data.bar_call_label, "Call") %>
+  </a>
+  <a href="#demo" class="bd-mbar-demo" data-c-book-demo-close><%= stella_str(data.bar_demo_label, "Book my demo") %></a>
+</div>

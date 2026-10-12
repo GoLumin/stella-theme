@@ -1,0 +1,18 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/IntegrationsNotes.astro: the detail cards. %>
+<section class="section section-alt" data-c-integrations-notes>
+  <div class="wrap" data-c-integrations-notes>
+    <div class="section-head" data-c-integrations-notes>
+      <span class="eyebrow" data-c-integrations-notes><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-integrations-notes><%= stella_str(data.heading) %></h2>
+    </div>
+    <div class="grid grid-2" data-c-integrations-notes>
+      <% data.cards.each do |card| %>
+        <div class="card note" data-c-integrations-notes>
+          <h3 data-c-integrations-notes><%= stella_str(card.title) %></h3>
+          <p data-c-integrations-notes><%= stella_str(card.body) %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

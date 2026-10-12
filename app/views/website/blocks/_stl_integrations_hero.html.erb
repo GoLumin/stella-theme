@@ -1,0 +1,5 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/IntegrationsHero.astro: the lead-capture hero, with the block's copy. %>
+<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(data.eyebrow, "Integrations"), title: stella_str(data.heading, "Stella connects to the tools you already run"), form_id: "integrations-demo"} do %>
+  <p class="lede"><%= stella_str(data.lede, "You shouldn't have to abandon your accounting, your calendar or your payment processor to get one system for your yard. Stella plugs into the software operators already use, so the data flows in one direction instead of being typed twice.") %></p>
+<% end %>

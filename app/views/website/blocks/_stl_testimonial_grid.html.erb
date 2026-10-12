@@ -29,8 +29,7 @@
     </div>
 
     <div class="v-center" style="margin-top:44px" data-c-home-proof>
-      <a href="<%= stella_href(stella_str(data.primary_href, "/testimonials")) %>" class="v-btn v-btn-ghost" data-c-home-proof><%= stella_str(data.primary_label) %></a>
-      <a href="<%= stella_href(stella_str(data.secondary_href, "/case-studies")) %>" class="v-btn v-btn-primary" style="margin-left:12px" data-c-home-proof><%= stella_str(data.secondary_label) %></a>
+      <a href="<%= stella_href(stella_str(data.primary_href, "/testimonials")) %>" class="v-btn v-btn-ghost" data-c-home-proof><%= stella_str(data.primary_label) %></a><%# no space between: the Astro build has none %><a href="<%= stella_href(stella_str(data.secondary_href, "/case-studies")) %>" class="v-btn v-btn-primary" style="margin-left:12px" data-c-home-proof><%= stella_str(data.secondary_label) %></a>
     </div>
   </div>
 </section>

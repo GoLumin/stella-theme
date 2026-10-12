@@ -1,0 +1,26 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/LilyPadLeadPath.astro: "Every lead lands in Stella", the copy with its reporting callout beside the numbered lead path. %>
+<section class="section" data-c-lily-pad-lead-path>
+  <div class="wrap lead-in" data-c-lily-pad-lead-path>
+    <div class="lead-copy" data-c-lily-pad-lead-path>
+      <span class="eyebrow" data-c-lily-pad-lead-path><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-lily-pad-lead-path><%= stella_str(data.heading) %></h2>
+      <p class="lede" data-c-lily-pad-lead-path><%= stella_str(data.lede) %></p>
+      <div class="lead-report" data-c-lily-pad-lead-path>
+        <span class="lr-eyebrow" data-c-lily-pad-lead-path><%= stella_str(data.report_eyebrow) %></span>
+        <p data-c-lily-pad-lead-path><%= stella_str(data.report_body) %></p>
+      </div>
+    </div>
+    <ol class="lead-flow" data-c-lily-pad-lead-path>
+      <% data.steps.each do |step| %>
+        <li data-c-lily-pad-lead-path>
+          <span class="lf-n" data-c-lily-pad-lead-path><%= stella_str(step.n) %></span>
+          <div data-c-lily-pad-lead-path>
+            <h3 data-c-lily-pad-lead-path><%= stella_str(step.title) %></h3>
+            <p data-c-lily-pad-lead-path><%= stella_str(step.body) %></p>
+          </div>
+        </li>
+      <% end %>
+    </ol>
+  </div>
+</section>

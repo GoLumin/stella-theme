@@ -1,0 +1,31 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/BookDemoProof.astro: quotes from the testimonials collection, picked by company name (a name that matches nothing is left out), trimmed to 240 characters. %>
+<% companies = data.companies.any? ? data.companies.map { stella_str(it.company) } : ["Cows Mobile Storage of Orlando", "911 Storage", "Mobile Storage Solutions"] %>
+<% proof = companies.filter_map { |company| stella_testimonials.find { it[:company] == company } } %>
+<section class="section section-ink" data-c-book-demo-proof>
+  <div class="wrap" data-c-book-demo-proof>
+    <div class="section-head center reveal" data-c-book-demo-proof>
+      <span class="eyebrow" data-c-book-demo-proof><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-book-demo-proof><%= stella_str(data.heading) %></h2>
+      <p class="lede" data-c-book-demo-proof><%= stella_str(data.lede) %></p>
+    </div>
+
+    <div class="bd-quotes" data-c-book-demo-proof>
+      <% proof.each_with_index do |quote, i| %>
+        <% byline = [quote[:role], quote[:location]].compact.join(" · ") %>
+        <figure class="bd-quote reveal" style="--d:<%= i * 80 %>ms" data-c-book-demo-proof>
+          <span class="bd-qstars" aria-hidden="true" data-c-book-demo-proof>
+            <% 5.times do %>
+              <svg viewBox="0 0 20 20" fill="currentColor" data-c-book-demo-proof><path d="M10 1.6l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.9l-4.94 2.6.94-5.5-4-3.9 5.53-.8z" data-c-book-demo-proof></path></svg>
+            <% end %>
+          </span>
+          <blockquote data-c-book-demo-proof><%= quote[:quote].length > 240 ? "#{quote[:quote][0, 237].rstrip}…" : quote[:quote] %></blockquote>
+          <figcaption data-c-book-demo-proof>
+            <% if quote[:logo] %><%= tag.img class: "bd-qlogo", src: quote[:logo], alt: "", loading: "lazy", data: {c_book_demo_proof: ""} %><% end %>
+            <span data-c-book-demo-proof><b data-c-book-demo-proof><%= quote[:name] %></b><% if byline.present? %><em data-c-book-demo-proof><%= byline %></em><% end %></span>
+          </figcaption>
+        </figure>
+      <% end %>
+    </div>
+  </div>
+</section>

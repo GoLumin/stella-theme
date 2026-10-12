@@ -1,0 +1,42 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/PricingTiers.astro: the tier grid (the pricing global), the block's closing note, and a link to the ROI calculator when it has one. %>
+<% roi_url = stella_str(data.roi_url) %>
+<section class="section tiers-section" data-c-pricing-tiers>
+  <div class="wrap" data-c-pricing-tiers>
+    <div class="grid grid-3 tiers" data-c-pricing-tiers>
+      <% stella_tiers.each_with_index do |tier, i| %>
+        <div class="card tier<%= " tier-featured" if tier[:featured] %>" data-c-pricing-tiers>
+          <div class="tier-head" data-c-pricing-tiers>
+            <span class="tier-code" data-c-pricing-tiers>TIER <%= (i + 1).to_s.rjust(2, "0") %></span>
+            <% if tier[:badge] %><span class="tier-badge" data-c-pricing-tiers><%= tier[:badge] %></span><% end %>
+          </div>
+          <h2 class="tier-name" data-c-pricing-tiers><%= tier[:name] %></h2>
+          <p class="tier-price" data-c-pricing-tiers>
+            <span class="tier-amount" data-c-pricing-tiers><%= tier[:price] %></span>
+            <% if tier[:cadence].present? %><span class="tier-cadence" data-c-pricing-tiers><%= tier[:cadence] %></span><% end %>
+          </p>
+          <p class="tier-blurb" data-c-pricing-tiers><%= tier[:blurb] %></p>
+          <a href="<%= tier[:cta].downcase.include?("waitlist") ? "/contact" : "/demo" %>" class="btn <%= tier[:featured] ? "btn-primary" : "btn-outline" %> tier-cta" data-c-pricing-tiers>
+            <%= tier[:cta] %>
+          </a>
+          <% if tier[:inherits] %><p class="tier-inherits" data-c-pricing-tiers><%= tier[:inherits] %></p><% end %>
+          <ul class="ticks" data-c-pricing-tiers>
+            <% tier[:features].each do |feature| %>
+              <li data-c-pricing-tiers><%= feature %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+
+    <p class="tiers-note" data-c-pricing-tiers>
+      <%= stella_str(data.note) %>
+    </p>
+
+    <% if roi_url.present? %>
+      <p class="tiers-roi" data-c-pricing-tiers>
+        <a href="<%= stella_href(roi_url) %>" class="btn btn-outline" data-c-pricing-tiers><%= stella_str(data.roi_label, "Estimate your return") %></a>
+      </p>
+    <% end %>
+  </div>
+</section>

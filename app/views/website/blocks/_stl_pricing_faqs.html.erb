@@ -1,0 +1,23 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/PricingFaqs.astro: the faqs global's Pricing questions. %>
+<section class="section" data-c-pricing-faqs>
+  <div class="wrap wrap-narrow" data-c-pricing-faqs>
+    <div class="section-head center" data-c-pricing-faqs>
+      <span class="eyebrow" data-c-pricing-faqs><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-pricing-faqs><%= stella_str(data.heading) %></h2>
+    </div>
+
+    <div class="qa-list" data-c-pricing-faqs>
+      <% stella_faqs.select { it[:category] == "Pricing" }.each do |faq| %>
+        <div class="qa" data-c-pricing-faqs>
+          <h3 data-c-pricing-faqs><%= faq[:q] %></h3>
+          <p data-c-pricing-faqs><%= faq[:a] %></p>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="center" style="margin-top:36px" data-c-pricing-faqs>
+      <a href="/faq" class="link-arrow" data-c-pricing-faqs>Read the full FAQ</a>
+    </div>
+  </div>
+</section>

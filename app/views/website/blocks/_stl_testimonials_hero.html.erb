@@ -1,0 +1,5 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/TestimonialsHero.astro: the lead-capture hero, with the block's copy. %>
+<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(data.eyebrow, "Customer voices"), title: stella_str(data.heading, "In their own words"), form_id: "testimonials-demo"} do %>
+  <p class="lede"><%= stella_str(data.lede, "Every quote on this page is published verbatim from a Stella customer. No paraphrasing, no composites — just what operators told us about running their business on one system.") %></p>
+<% end %>

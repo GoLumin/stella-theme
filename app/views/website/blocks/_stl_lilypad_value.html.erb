@@ -1,0 +1,17 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/LilyPadValue.astro: the closing value block, centred copy over two buttons. %>
+<section class="section">
+  <div class="wrap wrap-narrow center">
+    <span class="eyebrow"><%= stella_str(data.eyebrow) %></span>
+    <h2><%= stella_str(data.heading) %></h2>
+    <p class="lede"><%= stella_str(data.lede) %></p>
+    <div class="btn-row" style="justify-content:center">
+      <% if data.primary_label.present? %>
+        <%= link_to stella_str(data.primary_label), stella_href(stella_str(data.primary_href, "/book-a-demo")), class: "btn btn-primary btn-lg" %>
+      <% end %>
+      <% if data.secondary_label.present? %>
+        <%= link_to stella_str(data.secondary_label), stella_href(stella_str(data.secondary_href, "/pricing")), class: "btn btn-outline btn-lg" %>
+      <% end %>
+    </div>
+  </div>
+</section>

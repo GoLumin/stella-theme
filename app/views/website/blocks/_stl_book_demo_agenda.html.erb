@@ -1,0 +1,33 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/BookDemoAgenda.astro: what the demo covers, and the no-pressure guarantee. %>
+<section class="section" data-c-book-demo-agenda>
+  <div class="wrap bd-agenda-in" data-c-book-demo-agenda>
+    <div class="bd-agenda-copy reveal" data-c-book-demo-agenda>
+      <span class="eyebrow" data-c-book-demo-agenda><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-book-demo-agenda><%= stella_str(data.heading) %></h2>
+      <p class="lede" data-c-book-demo-agenda><%= stella_str(data.lede) %></p>
+
+      <div class="bd-guarantee" data-c-book-demo-agenda>
+        <span class="bd-guarantee-mark" aria-hidden="true" data-c-book-demo-agenda>✓</span>
+        <div data-c-book-demo-agenda>
+          <h3 data-c-book-demo-agenda><%= stella_str(data.guarantee_title) %></h3>
+          <p data-c-book-demo-agenda><%= stella_str(data.guarantee_body) %></p>
+        </div>
+      </div>
+
+      <a href="<%= stella_site[:phone_href] %>" class="btn btn-outline btn-lg" data-c-book-demo-agenda><%= stella_str(data.call_prefix, "Prefer to talk? Call") %> <%= stella_site[:phone] %></a>
+    </div>
+
+    <ol class="bd-agenda" data-c-book-demo-agenda>
+      <% data.items.each_with_index do |item, i| %>
+        <li class="reveal" style="--d:<%= i * 70 %>ms" data-c-book-demo-agenda>
+          <span class="bd-agenda-num" data-c-book-demo-agenda><%= (i + 1).to_s.rjust(2, "0") %></span>
+          <div data-c-book-demo-agenda>
+            <h3 data-c-book-demo-agenda><%= stella_str(item.title) %></h3>
+            <p data-c-book-demo-agenda><%= stella_str(item.body) %></p>
+          </div>
+        </li>
+      <% end %>
+    </ol>
+  </div>
+</section>

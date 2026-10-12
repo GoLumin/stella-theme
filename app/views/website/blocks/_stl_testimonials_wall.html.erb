@@ -1,0 +1,16 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/TestimonialsWall.astro: every testimonial but the first (the lead), as a masonry wall. %>
+<section class="section section-alt" data-c-testimonials-wall>
+  <div class="wrap" data-c-testimonials-wall>
+    <div class="section-head center" data-c-testimonials-wall>
+      <h2 data-c-testimonials-wall><%= stella_str(data.heading) %></h2>
+      <p class="lede" data-c-testimonials-wall>
+        <%= stella_str(data.lede) %>
+      </p>
+    </div>
+
+    <div class="masonry" data-c-testimonials-wall>
+      <%= render partial: "website/shared/testimonial_card", collection: stella_testimonials.drop(1), as: :item %>
+    </div>
+  </div>
+</section>

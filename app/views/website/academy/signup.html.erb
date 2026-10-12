@@ -1,0 +1,34 @@
+<%# locals: () -%>
+<%# src/pages/academy/signup.astro: the Academy sign-up, a static design preview (the form isn't wired to anything). The lede is the academy_page global's. %>
+<% content_for :head, stella_seo_tags(title: "Create your Academy account", description: "Sign up for the Stella Academy resource library.") %>
+<section class="auth-sec" data-c-academy-signup>
+  <div class="auth-fx" aria-hidden="true" data-c-academy-signup></div>
+  <div class="wrap wrap-narrow auth-wrap" data-c-academy-signup>
+    <div class="section-head center" data-c-academy-signup>
+      <span class="eyebrow" data-c-academy-signup>Academy</span>
+      <h1 data-c-academy-signup>Create your account</h1>
+      <p class="lede" data-c-academy-signup><%= stella_str(stella_page_copy(:academy_page).signup_lede) %></p>
+    </div>
+
+    <form method="POST" class="auth-card reg" data-c-academy-signup>
+      <span class="auth-tag" data-c-academy-signup>◵ Free membership</span>
+      <h2 class="auth-title" data-c-academy-signup>Sign up</h2>
+
+      <div class="auth-row" data-c-academy-signup>
+        <label class="auth-field" data-c-academy-signup><span data-c-academy-signup>Name</span><input type="text" name="name" autocomplete="name" placeholder="Jordan Reyes" data-c-academy-signup></label>
+        <label class="auth-field" data-c-academy-signup><span data-c-academy-signup>Company</span><input type="text" name="company" autocomplete="organization" placeholder="Acme Mobile Storage" data-c-academy-signup></label>
+      </div>
+      <label class="auth-field" data-c-academy-signup>
+        <span data-c-academy-signup>Email</span>
+        <input type="email" name="email" required autocomplete="email" placeholder="you@company.com" data-c-academy-signup>
+      </label>
+      <div class="auth-row" data-c-academy-signup>
+        <label class="auth-field" data-c-academy-signup><span data-c-academy-signup>Password</span><input type="password" name="password" required minlength="10" autocomplete="new-password" placeholder="10+ characters" data-c-academy-signup></label>
+        <label class="auth-field" data-c-academy-signup><span data-c-academy-signup>Confirm</span><input type="password" name="password_confirmation" required minlength="10" autocomplete="new-password" placeholder="Repeat it" data-c-academy-signup></label>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg auth-submit" data-c-academy-signup>Create account</button>
+      <p class="auth-alt" data-c-academy-signup>Already have an account? <a href="/academy/login" data-c-academy-signup>Sign in</a></p>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,96 @@
+<%# locals: (entry:) -%>
+<%# src/pages/blog/[slug].astro: a post, at /blog/<slug> (Stella::WebsiteController#post). Its sections, the inline call to action (the blog global), its tags, the demo form beside it, and up to three related posts (same category first, newest first). %>
+<% post = stella_post(entry) %>
+<% content_for :head, stella_post_seo_tags(post) %>
+<% copy = stella_page_copy(:blog) %>
+<% others = stella_posts_by_date(stella_posts.reject { it[:slug] == post[:slug] }) %>
+<% same_category = others.select { it[:category] == post[:category] } %>
+<% related = (same_category.any? ? same_category : others).first(3) %>
+<article data-c-blog-post>
+  <header class="article-hero" data-c-blog-post>
+    <div class="wrap" data-c-blog-post>
+      <a href="/blog" class="back" data-c-blog-post>Back to all posts</a><%# no space between: the Astro build has none %><span class="chip" data-c-blog-post><%= post[:category] %></span>
+      <h1 data-c-blog-post><%= post[:title] %></h1>
+      <p class="lede" data-c-blog-post><%= post[:excerpt] %></p>
+      <p class="byline" data-c-blog-post>
+        <span class="byline-author" data-c-blog-post><%= post[:author] %></span>
+        <span aria-hidden="true" data-c-blog-post>·</span>
+        <time datetime="<%= post[:date] %>" data-c-blog-post><%= stella_post_date(post[:date]) %></time>
+        <span aria-hidden="true" data-c-blog-post>·</span>
+        <span data-c-blog-post><%= post[:reading_time] %></span>
+      </p>
+    </div>
+  </header>
+
+  <div class="section" data-c-blog-post>
+    <div class="wrap article-grid" data-c-blog-post>
+      <div class="prose" data-c-blog-post>
+        <% post[:body].each do |section| %>
+          <section class="prose-section" data-c-blog-post>
+            <% if section[:heading].present? %><h2 data-c-blog-post><%= section[:heading] %></h2><% end %>
+            <% if section[:image] %>
+              <figure class="prose-figure" data-c-blog-post>
+                <%= tag.img src: section[:image], alt: section[:image_alt].to_s, loading: "lazy", decoding: "async", data: {c_blog_post: ""} %>
+              </figure>
+            <% end %>
+            <% section[:paragraphs].each do |text| %>
+              <p data-c-blog-post><%= text %></p>
+            <% end %>
+            <% if section[:list] %>
+              <ul data-c-blog-post>
+                <% section[:list].each do |item| %>
+                  <li data-c-blog-post><%= item %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          </section>
+        <% end %>
+
+        <aside class="inline-cta" data-c-blog-post>
+          <span class="eyebrow" data-c-blog-post><%= stella_str(copy.inline_cta_eyebrow) %></span>
+          <h3 data-c-blog-post><%= stella_str(copy.inline_cta_title) %></h3>
+          <p data-c-blog-post><%= stella_str(copy.inline_cta_body) %></p>
+          <%= link_to stella_str(copy.inline_cta_label), stella_href(copy.inline_cta_href), class: "btn btn-primary", data: {c_blog_post: ""} %>
+        </aside>
+
+        <div class="tags" data-c-blog-post>
+          <span class="tags-label" data-c-blog-post>Filed under</span>
+          <ul data-c-blog-post>
+            <% post[:tags].each do |tag_name| %>
+              <li data-c-blog-post><%= tag_name %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <aside class="article-aside" data-c-blog-post>
+        <div class="aside-sticky" data-c-blog-post>
+          <p class="aside-kicker" data-c-blog-post>Run this in your yard</p>
+          <%= render "website/shared/demo_form", id: "post-demo-#{post[:slug]}", tone: "light", stacked: true %>
+        </div>
+      </aside>
+    </div>
+  </div>
+</article>
+
+<section class="section section-alt" data-c-blog-post>
+  <div class="wrap" data-c-blog-post>
+    <div class="section-head" data-c-blog-post>
+      <span class="eyebrow" data-c-blog-post>Keep reading</span>
+      <h2 data-c-blog-post>More from the blog</h2>
+    </div>
+
+    <div class="grid grid-3" data-c-blog-post>
+      <% related.each do |other| %>
+        <a class="card card-hover rel" href="/blog/<%= other[:slug] %>" data-c-blog-post>
+          <span class="chip" data-c-blog-post><%= other[:category] %></span>
+          <h3 data-c-blog-post><%= other[:title] %></h3>
+          <p class="rel-excerpt" data-c-blog-post><%= other[:excerpt] %></p>
+          <p class="meta" data-c-blog-post><%= stella_post_date(other[:date]) %> · <%= other[:reading_time] %></p>
+        </a>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<%= render "website/shared/cta_band" %>

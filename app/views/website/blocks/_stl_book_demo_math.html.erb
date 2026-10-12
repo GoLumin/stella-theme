@@ -1,0 +1,44 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/BookDemoMath.astro: the status quo against Stella, the stat tiles (counted up from zero by stella/motion.js, from data-count), and the call to action. %>
+<section class="section section-alt" id="the-math" data-c-book-demo-math>
+  <div class="wrap" data-c-book-demo-math>
+    <div class="section-head center reveal" data-c-book-demo-math>
+      <span class="eyebrow" data-c-book-demo-math><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-book-demo-math><%= stella_str(data.heading) %></h2>
+      <p class="lede" data-c-book-demo-math><%= stella_str(data.lede) %></p>
+    </div>
+
+    <div class="ledger reveal" data-c-book-demo-math>
+      <div class="ledger-head l-now" data-c-book-demo-math><%= stella_str(data.column_now, "The status quo") %></div>
+      <div class="ledger-head l-stella" data-c-book-demo-math><%= stella_str(data.column_stella, "On Stella") %></div>
+      <% data.rows.each do |row| %>
+        <div class="ledger-cell l-now" data-c-book-demo-math>
+          <span class="l-area" data-c-book-demo-math><%= stella_str(row.area) %></span>
+          <span class="l-x" data-c-book-demo-math>✗</span>
+          <p data-c-book-demo-math><%= stella_str(row.now) %></p>
+        </div>
+        <div class="ledger-cell l-stella" data-c-book-demo-math>
+          <span class="l-area" data-c-book-demo-math><%= stella_str(row.area) %></span>
+          <span class="l-check" data-c-book-demo-math>✓</span>
+          <p data-c-book-demo-math><%= stella_str(row.stella) %></p>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="bd-stats reveal" data-c-book-demo-math>
+      <% data.stats.each_with_index do |stat, i| %>
+        <% prefix = stella_str(stat.prefix) %>
+        <% suffix = stella_str(stat.suffix) %>
+        <div class="bd-stat" style="--d:<%= i * 80 %>ms" data-c-book-demo-math>
+          <span class="bd-stat-val" data-count="<%= stella_str(stat.count) %>" data-prefix="<%= prefix %>" data-suffix="<%= suffix %>" data-c-book-demo-math><%= prefix %>0<%= suffix %></span>
+          <span class="bd-stat-label" data-c-book-demo-math><%= stella_str(stat.label) %></span>
+          <span class="bd-stat-note" data-c-book-demo-math><%= stella_str(stat.note) %></span>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="center" style="margin-top:44px" data-c-book-demo-math>
+      <a href="#demo" class="btn btn-primary btn-lg" data-c-book-demo-math><%= stella_str(data.cta_label, "Book my demo") %></a>
+    </div>
+  </div>
+</section>

@@ -3,7 +3,7 @@
 <section class="hf-hero" data-c-hero-with-form>
   <div class="wrap hf-grid" data-c-hero-with-form>
     <div class="hf-copy" data-c-hero-with-form>
-      <% if logo.present? %><img src="<%= logo %>" alt="<%= logo_alt %>" class="hf-logo" data-c-hero-with-form><% end %>
+      <% if logo.present? %><%= tag.img src: logo, alt: logo_alt, class: "hf-logo", data: {c_hero_with_form: ""} %><% end %>
       <span class="eyebrow" data-c-hero-with-form><%= eyebrow %></span>
       <h1 data-c-hero-with-form><%= title %></h1>
       <%= yield %>

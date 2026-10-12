@@ -1,0 +1,9 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/PricingHero.astro: the lead-capture hero. Its lede is split around the starting price, which lives in the general global so it changes in one place. The words around it (lede_before, lede_after) are in the block's data but not declared by stl_pricing_hero, so they're read as stored, with the component's defaults. %>
+<% raw = data.to_h %>
+<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(data.eyebrow, "Pricing"), title: stella_str(data.heading, "Levels"), form_id: "pricing-demo"} do %>
+  <p class="lede">
+    <%= stella_str(raw["lede_before"], "Monthly fees start as low as") %>
+    <%= stella_site[:starting_price] %><%= stella_str(raw["lede_after"], "/month, and every level includes unlimited users — so you're never charged for adding the dispatcher, the driver or the seasonal hire who needs to see a booking.") %>
+  </p>
+<% end %>

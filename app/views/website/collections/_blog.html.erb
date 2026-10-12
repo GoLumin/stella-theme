@@ -1,0 +1,55 @@
+<%# locals: (page:) -%>
+<%# src/pages/blog/index.astro: the blog page stands for the posts collection. The latest post is featured; the rest filter by category (stella/blog-filter.js). Title and description are the CMS page's. %>
+<% content_for :head, stella_seo_tags(page, title: page.title) %>
+<% copy = stella_page_copy(:blog) %>
+<% posts = stella_posts %>
+<% featured, *rest = stella_posts_by_date(posts) %>
+<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(copy.hero_eyebrow), title: stella_str(copy.hero_heading), form_id: "blog-demo"} do %>
+  <p class="lede" data-c-blog-index><%= stella_str(copy.hero_lede) %></p>
+<% end %>
+
+<% if featured %>
+  <section class="section-sm" data-c-blog-index>
+    <div class="wrap" data-c-blog-index>
+      <a class="feature card card-hover" href="/blog/<%= featured[:slug] %>" data-c-blog-index>
+        <div class="feature-copy" data-c-blog-index>
+          <span class="feature-flag" data-c-blog-index>Latest</span>
+          <h2 data-c-blog-index><%= featured[:title] %></h2>
+          <p class="feature-excerpt" data-c-blog-index><%= featured[:excerpt] %></p>
+          <p class="meta" data-c-blog-index><%= featured[:author] %> · <%= stella_post_date(featured[:date]) %> · <%= featured[:reading_time] %></p>
+          <span class="link-arrow" data-c-blog-index>Read the article</span>
+        </div>
+        <div class="feature-cover" data-c-blog-index><%= render "website/shared/blog_cover", category: featured[:category], image: featured[:cover], ratio: "4 / 3" %></div>
+      </a>
+    </div>
+  </section>
+<% end %>
+
+<section class="section-sm filters-band" data-c-blog-index>
+  <div class="wrap" data-c-blog-index>
+    <nav class="filters" aria-label="Filter posts by category" data-c-blog-index>
+      <button type="button" class="filter is-on" data-filter="all" data-c-blog-index>All posts</button>
+      <% stella_active_categories(posts).each do |category| %>
+        <button type="button" class="filter" data-filter="<%= category %>" data-c-blog-index><%= category %></button>
+      <% end %>
+    </nav>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0" data-c-blog-index>
+  <div class="wrap" data-c-blog-index>
+    <div class="grid grid-3" id="post-grid" data-c-blog-index>
+      <% rest.each_with_index do |post, index| %>
+        <a class="card card-hover post reveal" href="/blog/<%= post[:slug] %>" data-category="<%= post[:category] %>" style="--d:<%= (index % 3) * 80 %>ms" data-c-blog-index>
+          <div class="post-cover" data-c-blog-index><%= render "website/shared/blog_cover", category: post[:category], image: post[:cover] %></div>
+          <h3 data-c-blog-index><%= post[:title] %></h3>
+          <p class="post-excerpt" data-c-blog-index><%= post[:excerpt] %></p>
+          <p class="meta" data-c-blog-index><%= post[:author] %> · <%= stella_post_date(post[:date]) %> · <%= post[:reading_time] %></p>
+        </a>
+      <% end %>
+    </div>
+    <p class="empty" id="post-empty" hidden data-c-blog-index>No posts in that category yet.</p>
+  </div>
+</section>
+
+<%= render "website/shared/cta_band" %>

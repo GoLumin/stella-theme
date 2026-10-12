@@ -1,0 +1,80 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/RoiCalculator.astro and the calculator it holds (src/components/RoiCalculator.svelte, an island there): drawn here with its starting figures, then worked by stella/roi-calculator.js from the config below as the visitor changes them. %>
+<% roi = stella_roi(data) %>
+<% figures = roi[:figures] %>
+<section class="section roi-section" data-c-roi-calculator>
+  <div class="wrap" data-c-roi-calculator>
+    <div class="section-head center" data-c-roi-calculator>
+      <% if stella_str(data.eyebrow).present? %><span class="eyebrow" data-c-roi-calculator><%= stella_str(data.eyebrow) %></span><% end %>
+      <h2 data-c-roi-calculator><%= stella_str(data.heading, "What Stella is worth to your yard") %></h2>
+      <% if stella_str(data.lede).present? %><p class="lede" data-c-roi-calculator><%= stella_str(data.lede) %></p><% end %>
+    </div>
+
+    <%= stella_roi_config(roi) %>
+    <div class="roi" data-c-roi-app>
+      <div class="roi-panel roi-inputs" data-c-roi-app>
+        <h3 class="roi-panel-title" data-c-roi-app><%= roi[:inputs_title] %></h3>
+
+        <% if roi[:presets].any? %>
+          <div class="roi-presets" role="group" aria-label="<%= roi[:scenarios_label] %>" data-c-roi-app>
+            <% roi[:presets].each do |preset| %>
+              <button type="button" class="roi-preset" aria-pressed="false" data-c-roi-app><%= preset[:label] %></button>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="roi-grid" data-c-roi-app>
+          <% roi[:fields].each do |field| %>
+            <% value = roi[:values][field[:key]] %>
+            <div class="<%= class_names("roi-field", full: field[:kind] == "slider") %>" data-c-roi-app>
+              <label for="roi-<%= field[:key] %>" data-c-roi-app><%= field[:label] %></label>
+              <% if field[:kind] == "slider" %>
+                <div class="roi-slider" data-c-roi-app>
+                  <input id="roi-<%= field[:key] %>" type="range" min="<%= field[:min] %>" max="<%= field[:max] %>" step="<%= field[:step] %>" value="<%= stella_roi_js_number(value) %>" style="--pct:<%= stella_roi_pct(field, value) %>%" data-c-roi-app> <%# herb:disable html-input-require-autocomplete %>
+                  <output for="roi-<%= field[:key] %>" data-c-roi-app><%= stella_roi_readout(field, value) %></output>
+                </div>
+              <% else %>
+                <input id="roi-<%= field[:key] %>" type="number" min="<%= field[:min] %>" step="<%= field[:step] %>" value="<%= stella_roi_js_number(value) %>" inputmode="decimal" data-c-roi-app> <%# herb:disable html-input-require-autocomplete %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="roi-formula" data-c-roi-app>
+          <h4 data-c-roi-app><%= roi[:formula_title] %></h4>
+          <% roi[:formula_lines].each do |line| %><p data-c-roi-app><%= line %></p><% end %>
+        </div>
+      </div>
+
+      <div class="roi-panel roi-summary" data-c-roi-app>
+        <h3 class="roi-panel-title" data-c-roi-app><%= roi[:summary_title] %></h3>
+
+        <div class="roi-cards" data-c-roi-app>
+          <% roi[:cards].each do |card| %>
+            <div class="roi-card" data-c-roi-app>
+              <span class="roi-card-k" data-c-roi-app><%= card[:label] %></span>
+              <span class="roi-card-v" data-c-roi-app><%= stella_roi_money(figures[card[:key]]) %></span>
+              <% if card[:lift] %><span class="roi-card-lift" data-c-roi-app><%= stella_roi_money(figures[card[:lift]]) %> lift</span><% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="roi-discussion" data-c-roi-app>
+          <h4 data-c-roi-app><%= roi[:discussion_title] %></h4>
+          <% roi[:discussion].each do |line| %><p data-c-roi-app><%= stella_roi_fill(line, roi) %></p><% end %>
+        </div>
+
+        <p class="roi-payback" data-c-roi-app><%= stella_roi_fill(roi[:payback], roi) %></p>
+
+        <div class="roi-total" data-c-roi-app>
+          <span class="roi-total-k" data-c-roi-app><%= roi[:total_label] %></span>
+          <span class="roi-total-v" data-c-roi-app><%= stella_roi_money(figures["total_impact"]) %><span class="roi-total-per" data-c-roi-app>/month</span></span>
+        </div>
+      </div>
+    </div>
+
+    <% if roi[:disclaimer].present? %>
+      <p class="roi-disclaimer" data-c-roi-app><%= roi[:disclaimer] %></p>
+    <% end %>
+  </div>
+</section>

@@ -1,0 +1,20 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/LilyPadEmbeds.astro: "Two ways to embed it", the embed-method cards. %>
+<section class="section section-alt" data-c-lily-pad-embeds>
+  <div class="wrap" data-c-lily-pad-embeds>
+    <div class="section-head center" data-c-lily-pad-embeds>
+      <span class="eyebrow" data-c-lily-pad-embeds><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-lily-pad-embeds><%= stella_str(data.heading) %></h2>
+      <p class="lede" data-c-lily-pad-embeds><%= stella_str(data.lede) %></p>
+    </div>
+    <div class="grid grid-2 embed-grid" data-c-lily-pad-embeds>
+      <% data.items.each do |item| %>
+        <div class="card embed" data-c-lily-pad-embeds>
+          <% if stella_str(item.tag).present? %><span class="embed-tag" data-c-lily-pad-embeds><%= stella_str(item.tag) %></span><% end %>
+          <h3 data-c-lily-pad-embeds><%= stella_str(item.title) %></h3>
+          <p data-c-lily-pad-embeds><%= stella_str(item.body) %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

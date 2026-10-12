@@ -1,0 +1,117 @@
+<%# locals: (entry:) -%>
+<%# src/pages/case-studies/[slug].astro: one case study: at a glance, before and after, the results, the customer's quote, and up to three more. %>
+<% study = stella_case_study(entry) %>
+<% content_for :head, stella_seo_tags(entry, title: "#{study[:company]} case study", description: study[:summary]) %>
+<% related = stella_case_studies.reject { it[:slug] == study[:slug] }.first(3) %>
+<section class="cs-hero" data-c-case-study>
+  <div class="wrap" data-c-case-study>
+    <a href="/case-studies" class="back" data-c-case-study>← All case studies</a>
+    <div class="hero-in" data-c-case-study>
+      <% if study[:logo] %><%= tag.img src: study[:logo], alt: "", class: "hero-logo", data: {c_case_study: ""} %><% end %>
+      <div data-c-case-study>
+        <span class="eyebrow" data-c-case-study>Case study</span>
+        <h1 data-c-case-study><%= study[:company] %></h1>
+        <% if study[:location] %><p class="hero-loc" data-c-case-study><%= study[:location] %></p><% end %>
+      </div>
+    </div>
+    <p class="lede" data-c-case-study><%= study[:summary] %></p>
+  </div>
+</section>
+
+<section class="glance" data-c-case-study>
+  <div class="wrap glance-in" data-c-case-study>
+    <% if study[:location] %>
+      <div class="g-item" data-c-case-study>
+        <span class="g-label" data-c-case-study>Location</span>
+        <span class="g-val" data-c-case-study><%= study[:location] %></span>
+      </div>
+    <% end %>
+    <% if study[:website] %>
+      <% domain = stella_domain(study[:website]) %>
+      <div class="g-item" data-c-case-study>
+        <span class="g-label" data-c-case-study>Website</span>
+        <span class="g-val" data-c-case-study>
+          <a href="https://<%= domain %>" rel="noopener noreferrer nofollow" target="_blank" data-c-case-study><%= domain %></a>
+        </span>
+      </div>
+    <% end %>
+    <div class="g-item" data-c-case-study>
+      <span class="g-label" data-c-case-study>Modules used</span>
+      <ul class="g-mods" data-c-case-study>
+        <% study[:modules].each do |mod| %>
+          <li class="pill" data-c-case-study><%= mod %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-c-case-study>
+  <div class="wrap" data-c-case-study>
+    <div class="grid grid-2 body-grid" data-c-case-study>
+      <div data-c-case-study>
+        <span class="eyebrow" data-c-case-study>The challenge</span>
+        <h2 data-c-case-study>Before Stella</h2>
+        <p data-c-case-study><%= study[:challenge] %></p>
+      </div>
+      <div data-c-case-study>
+        <span class="eyebrow" data-c-case-study>The solution</span>
+        <h2 data-c-case-study>What they run today</h2>
+        <p data-c-case-study><%= study[:solution] %></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" data-c-case-study>
+  <div class="wrap" data-c-case-study>
+    <div class="section-head" data-c-case-study>
+      <span class="eyebrow" data-c-case-study>The results</span>
+      <h2 data-c-case-study>Outcomes in the customer's own words</h2>
+      <p class="lede" data-c-case-study>
+        Paraphrased directly from <%= study[:company] %>'s published testimonial. We publish no figure a
+        customer hasn't stated themselves.
+      </p>
+    </div>
+
+    <ul class="results" data-c-case-study>
+      <% study[:results].each do |result| %>
+        <li data-c-case-study><%= result %></li>
+      <% end %>
+    </ul>
+  </div>
+</section>
+
+<section class="section section-ink" data-c-case-study>
+  <div class="wrap wrap-narrow center" data-c-case-study>
+    <figure class="pull" data-c-case-study>
+      <blockquote data-c-case-study><%= study[:quote] %></blockquote>
+      <figcaption data-c-case-study><%= study[:attribution] %></figcaption>
+    </figure>
+  </div>
+</section>
+
+<% if related.any? %>
+  <section class="section" data-c-case-study>
+    <div class="wrap" data-c-case-study>
+      <div class="section-head" data-c-case-study>
+        <span class="eyebrow" data-c-case-study>Keep reading</span>
+        <h2 data-c-case-study>More operators on Stella</h2>
+      </div>
+
+      <div class="grid grid-3" data-c-case-study>
+        <% related.each do |other| %>
+          <a class="card card-hover rel" href="/case-studies/<%= other[:slug] %>" data-c-case-study>
+            <% if other[:logo] %><%= tag.img src: other[:logo], alt: "", class: "rel-logo", loading: "lazy", data: {c_case_study: ""} %><% end %>
+            <h3 data-c-case-study><%= other[:company] %></h3>
+            <% if other[:location] %><span class="rel-loc" data-c-case-study><%= other[:location] %></span><% end %>
+            <p data-c-case-study><%= other[:summary] %></p>
+            <span class="link-arrow" data-c-case-study>Read the case study</span>
+          </a>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<%= render "website/shared/cta_band" %>

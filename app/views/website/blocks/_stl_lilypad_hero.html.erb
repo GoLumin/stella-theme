@@ -1,0 +1,5 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/LilyPadHero.astro: the lead-capture hero every marketing page uses, with the Lily Pad Connect logo above the eyebrow. %>
+<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(data.eyebrow), title: stella_str(data.title), form_id: "lilypad-demo", logo: stella_src(data.logo), logo_alt: stella_str(data.logo_alt)} do %>
+  <p class="lede"><%= stella_str(data.lede) %></p>
+<% end %>

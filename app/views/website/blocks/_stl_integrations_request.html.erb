@@ -1,0 +1,15 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/IntegrationsRequest.astro: the closing "ask for an integration" section. %>
+<section class="section">
+  <div class="wrap wrap-narrow center">
+    <span class="eyebrow"><%= stella_str(data.eyebrow) %></span>
+    <h2><%= stella_str(data.heading) %></h2>
+    <p class="lede">
+      <%= stella_str(data.lede) %>
+    </p>
+    <div class="btn-row">
+      <a href="/contact" class="btn btn-ink">Contact us</a>
+      <a href="<%= stella_site[:phone_href] %>" class="btn btn-outline">Call <%= stella_site[:phone] %></a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,117 @@
+<%# locals: (entry:) -%>
+<%# src/pages/featured-customers/[slug].astro: one featured customer. Below the header every section shows only when the entry has what it needs (most start as a newsletter blurb). %>
+<% customer = stella_featured_customer(entry) %>
+<% content_for :head, stella_seo_tags(entry, title: "Featured customer: #{customer[:company]}", description: customer[:summary]) %>
+<% related = stella_featured_customers.reject { it[:slug] == customer[:slug] }.first(3) %>
+<% domain = customer[:website] && stella_domain(customer[:website], trailing_slash: true) %>
+<section class="fc-hero" data-c-featured-customer>
+  <div class="wrap" data-c-featured-customer>
+    <a href="/featured-customers" class="back" data-c-featured-customer>← All featured customers</a>
+    <div class="hero-in" data-c-featured-customer>
+      <% if customer[:logo] %><%= tag.img src: customer[:logo], alt: "", class: "hero-logo", data: {c_featured_customer: ""} %><% end %>
+      <div data-c-featured-customer>
+        <span class="eyebrow" data-c-featured-customer>Featured customer</span>
+        <h1 data-c-featured-customer><%= customer[:company] %></h1>
+        <% if customer[:location] %><p class="hero-loc" data-c-featured-customer><%= customer[:location] %></p><% end %>
+      </div>
+    </div>
+    <p class="lede" data-c-featured-customer><%= customer[:summary] %></p>
+  </div>
+</section>
+
+<% if customer[:location] || domain.present? || customer[:customer_since] %>
+  <section class="glance" data-c-featured-customer>
+    <div class="wrap glance-in" data-c-featured-customer>
+      <% if customer[:location] %>
+        <div class="g-item" data-c-featured-customer>
+          <span class="g-label" data-c-featured-customer>Location</span>
+          <span class="g-val" data-c-featured-customer><%= customer[:location] %></span>
+        </div>
+      <% end %>
+      <% if customer[:customer_since] %>
+        <div class="g-item" data-c-featured-customer>
+          <span class="g-label" data-c-featured-customer>Stella customer since</span>
+          <span class="g-val" data-c-featured-customer><%= customer[:customer_since] %></span>
+        </div>
+      <% end %>
+      <% if domain.present? %>
+        <div class="g-item" data-c-featured-customer>
+          <span class="g-label" data-c-featured-customer>Website</span>
+          <span class="g-val" data-c-featured-customer>
+            <a href="https://<%= domain %>" rel="noopener noreferrer nofollow" target="_blank" data-c-featured-customer><%= domain %></a>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<% if customer[:image] %>
+  <section class="section" data-c-featured-customer>
+    <div class="wrap" data-c-featured-customer>
+      <figure class="fc-figure" data-c-featured-customer>
+        <%= tag.img src: customer[:image], alt: "#{customer[:company]} featured customer feature", data: {c_featured_customer: ""} %>
+      </figure>
+    </div>
+  </section>
+<% end %>
+
+<% if customer[:highlights].any? %>
+  <section class="section section-alt" data-c-featured-customer>
+    <div class="wrap" data-c-featured-customer>
+      <div class="section-head" data-c-featured-customer>
+        <span class="eyebrow" data-c-featured-customer>At a glance</span>
+        <h2 data-c-featured-customer>What makes them worth knowing</h2>
+      </div>
+      <ul class="highlights" data-c-featured-customer>
+        <% customer[:highlights].each do |point| %>
+          <li data-c-featured-customer><%= point %></li>
+        <% end %>
+      </ul>
+    </div>
+  </section>
+<% end %>
+
+<% if customer[:body] %>
+  <section class="section" data-c-featured-customer>
+    <div class="wrap wrap-narrow" data-c-featured-customer>
+      <div class="prose" data-c-featured-customer><%= website_markdown(customer[:body]) %></div>
+    </div>
+  </section>
+<% end %>
+
+<% if customer[:quote] %>
+  <section class="section section-ink" data-c-featured-customer>
+    <div class="wrap wrap-narrow center" data-c-featured-customer>
+      <figure class="pull" data-c-featured-customer>
+        <blockquote data-c-featured-customer><%= customer[:quote] %></blockquote>
+        <% if customer[:attribution] %><figcaption data-c-featured-customer><%= customer[:attribution] %></figcaption><% end %>
+      </figure>
+    </div>
+  </section>
+<% end %>
+
+<% if related.any? %>
+  <section class="section" data-c-featured-customer>
+    <div class="wrap" data-c-featured-customer>
+      <div class="section-head" data-c-featured-customer>
+        <span class="eyebrow" data-c-featured-customer>Keep reading</span>
+        <h2 data-c-featured-customer>More featured customers</h2>
+      </div>
+
+      <div class="grid grid-3" data-c-featured-customer>
+        <% related.each do |other| %>
+          <a class="card card-hover rel" href="/featured-customers/<%= other[:slug] %>" data-c-featured-customer>
+            <% if other[:logo] %><%= tag.img src: other[:logo], alt: "", class: "rel-logo", loading: "lazy", data: {c_featured_customer: ""} %><% end %>
+            <h3 data-c-featured-customer><%= other[:company] %></h3>
+            <% if other[:location] %><span class="rel-loc" data-c-featured-customer><%= other[:location] %></span><% end %>
+            <p data-c-featured-customer><%= other[:summary] %></p>
+            <span class="link-arrow" data-c-featured-customer>Read their story</span>
+          </a>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<%= render "website/shared/cta_band" %>

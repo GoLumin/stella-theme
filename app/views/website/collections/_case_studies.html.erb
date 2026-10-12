@@ -1,0 +1,43 @@
+<%# locals: (page:) -%>
+<%# src/pages/case-studies/index.astro: the case-studies page stands for its collection, in the collection's order. Title and description are the CMS page's; the hero copy is the case_studies_page global's. %>
+<% content_for :head, stella_seo_tags(page, title: page.title) %>
+<% copy = stella_page_copy(:case_studies_page) %>
+<%= render layout: "website/shared/hero_with_form", locals: {eyebrow: stella_str(copy.hero_eyebrow), title: stella_str(copy.hero_heading), form_id: "solutions-demo"} do %>
+  <p class="lede" data-c-case-studies-index><%= stella_str(copy.hero_lede) %></p>
+<% end %>
+
+<section class="section" data-c-case-studies-index>
+  <div class="wrap" data-c-case-studies-index>
+    <div class="grid grid-2" data-c-case-studies-index>
+      <% stella_case_studies.each do |study| %>
+        <a class="card card-hover cs-card" href="/case-studies/<%= study[:slug] %>" data-c-case-studies-index>
+          <div class="cs-top" data-c-case-studies-index>
+            <% if study[:logo] %><%= tag.img src: study[:logo], alt: "", class: "cs-logo", loading: "lazy", data: {c_case_studies_index: ""} %><% end %>
+            <div data-c-case-studies-index>
+              <h3 data-c-case-studies-index><%= study[:company] %></h3>
+              <% if study[:location] %><span class="cs-loc" data-c-case-studies-index><%= study[:location] %></span><% end %>
+            </div>
+          </div>
+
+          <p data-c-case-studies-index><%= study[:summary] %></p>
+
+          <ul class="chips" data-c-case-studies-index>
+            <% study[:results].first(2).each do |result| %>
+              <li class="chip" data-c-case-studies-index><%= result %></li>
+            <% end %>
+          </ul>
+
+          <span class="link-arrow" data-c-case-studies-index>Read the case study</span>
+        </a>
+      <% end %>
+    </div>
+
+    <% if (more_label = stella_str(copy.more_label)).present? && (more_href = stella_href(copy.more_href)) %>
+      <div class="cs-more" data-c-case-studies-index>
+        <%= link_to more_label, more_href, class: "btn btn-ink", data: {c_case_studies_index: ""} %>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<%= render "website/shared/cta_band" %>

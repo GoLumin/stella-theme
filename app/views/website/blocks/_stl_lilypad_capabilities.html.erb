@@ -1,0 +1,19 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/LilyPadCapabilities.astro: "Everything a booking channel needs, built in", the capability cards. %>
+<section class="section section-alt" data-c-lily-pad-capabilities>
+  <div class="wrap" data-c-lily-pad-capabilities>
+    <div class="section-head center" data-c-lily-pad-capabilities>
+      <span class="eyebrow" data-c-lily-pad-capabilities><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-lily-pad-capabilities><%= stella_str(data.heading) %></h2>
+      <p class="lede" data-c-lily-pad-capabilities><%= stella_str(data.lede) %></p>
+    </div>
+    <div class="grid grid-3" data-c-lily-pad-capabilities>
+      <% data.items.each do |item| %>
+        <div class="card cap" data-c-lily-pad-capabilities>
+          <h3 data-c-lily-pad-capabilities><%= stella_str(item.title) %></h3>
+          <p data-c-lily-pad-capabilities><%= stella_str(item.body) %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/TestimonialsCaseTeaser.astro: the first three case studies, and the way to the rest. %>
+<section class="section" data-c-testimonials-case-teaser>
+  <div class="wrap" data-c-testimonials-case-teaser>
+    <div class="section-head center" data-c-testimonials-case-teaser>
+      <span class="eyebrow" data-c-testimonials-case-teaser><%= stella_str(data.eyebrow) %></span>
+      <h2 data-c-testimonials-case-teaser><%= stella_str(data.heading) %></h2>
+      <p class="lede" data-c-testimonials-case-teaser>
+        <%= stella_str(data.lede) %>
+      </p>
+    </div>
+
+    <div class="grid grid-3" data-c-testimonials-case-teaser>
+      <% stella_case_studies.first(3).each do |study| %>
+        <a class="card card-hover cs" href="/case-studies/<%= study[:slug] %>" data-c-testimonials-case-teaser>
+          <% if study[:logo] %><%= tag.img src: study[:logo], alt: "", class: "cs-logo", loading: "lazy", data: {c_testimonials_case_teaser: ""} %><% end %>
+          <h3 data-c-testimonials-case-teaser><%= study[:company] %></h3>
+          <p data-c-testimonials-case-teaser><%= study[:summary] %></p>
+          <span class="link-arrow" data-c-testimonials-case-teaser>Read the case study</span>
+        </a>
+      <% end %>
+    </div>
+
+    <div class="center" style="margin-top:40px" data-c-testimonials-case-teaser>
+      <a href="/case-studies" class="btn btn-ink" data-c-testimonials-case-teaser>All case studies</a><%# no space between: the Astro build has none %><a href="<%= stella_site[:phone_href] %>" class="btn btn-outline" data-c-testimonials-case-teaser>Call <%= stella_site[:phone] %></a>
+    </div>
+  </div>
+</section>
