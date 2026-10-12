@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module Stella
-  # The theme's own files (its stylesheet, scripts and fonts) at
-  # /_stella/<name>, and the Astro site's public files (/images/…, the
-  # favicons) at the addresses its pages and the CMS's content use, served
-  # from the theme rather than through the asset pipeline: a theme installed
+  # The theme's own files (its stylesheet, scripts, fonts and fallback logo)
+  # at /_stella/<name>, and its favicons at the addresses browsers ask for
+  # (/favicon.ico), served from the theme rather than through the asset
+  # pipeline: a theme installed
   # from Settings › Plugins would otherwise depend on the install compiling
   # its assets when it boots. Theme files carry their digest in the address
   # (StellaHelper#stella_asset_path), so each can be cached for good.
@@ -23,27 +23,21 @@ module Stella
       send_indexed(self.class.files[params[:path].to_s], immutable: params[:v].present?)
     end
 
-    def public_file
-      wanted = request.path.delete_prefix("/")
-      send_indexed(self.class.public_files[wanted] || self.class.public_files[CGI.unescape(wanted)], immutable: false)
+    # /favicon.ico, /favicon.svg, /apple-touch-icon.png.
+    def root_file
+      send_indexed(self.class.files[params[:path].to_s], immutable: false)
     end
 
     # Every file the theme serves, by its name ("site.css", "archivo.woff2"):
     # the theme's own asset directories, indexed once. A name is only ever
     # looked up here, never turned into a path.
-    DIRECTORIES = %w[app/assets/stylesheets/stella app/assets/fonts/stella app/javascript/stella]
+    DIRECTORIES = %w[app/assets/stylesheets/stella app/assets/fonts/stella app/assets/images/stella app/javascript/stella]
       .map { Stella::Engine.root.join(it) }.freeze
-    PUBLIC = Stella::Engine.root.join("public")
 
     # Indexed once in production; looked at afresh elsewhere, so a file added
     # while working on the theme is served without a restart.
     def self.files
       Rails.env.production? ? (@files ||= index(DIRECTORIES)) : index(DIRECTORIES)
-    end
-
-    # public/, by path ("images/blog/x/photo.jpg", "favicon.ico").
-    def self.public_files
-      Rails.env.production? ? (@public_files ||= index([PUBLIC])) : index([PUBLIC])
     end
 
     def self.find(name) = files[name.to_s]

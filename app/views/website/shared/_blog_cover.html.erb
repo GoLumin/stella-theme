@@ -3,7 +3,7 @@
 <% key = category.to_s.downcase %>
 <div class="<%= class_names("bcover", css_class, "bcover-photo": image.present?) %>" data-cat="<%= key %>" style="aspect-ratio:<%= ratio %>" data-c-blog-cover>
   <% if image.present? %>
-    <%= tag.img src: image, class: "bcover-img", alt: "", loading: "lazy", data: {c_blog_cover: ""} %>
+    <%= stella_image_tag(image, sizes: "(max-width: 760px) 100vw, 410px", class: "bcover-img", alt: "", loading: "lazy", data: {c_blog_cover: ""}) %>
   <% else %>
     <div class="bcover-fx" aria-hidden="true" data-c-blog-cover></div>
     <svg class="bcover-glyph" viewBox="0 0 120 120" fill="none" aria-hidden="true" data-c-blog-cover>

@@ -14,7 +14,7 @@
       <% modules.each_with_index do |feature, index| %>
         <a class="mod v-card v-card-hover reveal" href="/features#<%= feature[:id] %>" style="--d:<%= (index % 3) * 70 %>ms" data-c-home-modules>
           <div class="mod-top" data-c-home-modules>
-            <span class="mod-icon" data-c-home-modules><%= tag.img src: feature[:icon], alt: "", loading: "lazy", data: {c_home_modules: ""} %></span>
+            <span class="mod-icon" data-c-home-modules><%= stella_image_tag(feature[:icon], sizes: "4rem", alt: "", loading: "lazy", data: {c_home_modules: ""}) %></span>
             <span class="mod-code" data-c-home-modules>MOD.<%= (index + 1).to_s.rjust(2, "0") %></span>
           </div>
           <h3 data-c-home-modules><%= feature[:title] %></h3>

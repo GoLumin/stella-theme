@@ -39,7 +39,7 @@
       <div class="strip-logos" data-c-home-hero>
         <% stella_integrations.each do |logo| %>
           <div class="strip-logo" title="<%= logo[:name] %>" data-c-home-hero>
-            <%= tag.img src: logo[:src], alt: logo[:name], loading: "lazy", data: {c_home_hero: ""} %>
+            <%= stella_image_tag(logo[:src], sizes: "12rem", alt: logo[:name], loading: "lazy", data: {c_home_hero: ""}) %>
           </div>
         <% end %>
       </div>

@@ -7,4 +7,4 @@ json.start_url "/"
 json.display "standalone"
 json.theme_color "#111318"
 json.background_color "#111318"
-json.icons [{src: "/apple-touch-icon.png", sizes: "180x180", type: "image/png"}]
+json.icons [{src: "/apple-touch-icon.png", sizes: "180x180", type: "image/png"}, {src: stella_favicon_href, sizes: "any", type: "image/svg+xml"}]

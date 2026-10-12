@@ -10,7 +10,7 @@
       <% stella_case_studies.each do |study| %>
         <a class="card card-hover cs-card" href="/case-studies/<%= study[:slug] %>" data-c-case-studies-index>
           <div class="cs-top" data-c-case-studies-index>
-            <% if study[:logo] %><%= tag.img src: study[:logo], alt: "", class: "cs-logo", loading: "lazy", data: {c_case_studies_index: ""} %><% end %>
+            <% if study[:logo] %><%= stella_image_tag(study[:logo], sizes: "12rem", alt: "", class: "cs-logo", loading: "lazy", data: {c_case_studies_index: ""}) %><% end %>
             <div data-c-case-studies-index>
               <h3 data-c-case-studies-index><%= study[:company] %></h3>
               <% if study[:location] %><span class="cs-loc" data-c-case-studies-index><%= study[:location] %></span><% end %>

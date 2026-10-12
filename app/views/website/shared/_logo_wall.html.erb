@@ -6,10 +6,10 @@
     <li data-c-logo-wall>
       <% if logo[:href].present? %>
         <%= tag.a href: logo[:href], class: "w-link", target: ("_blank" if external), rel: ("noopener noreferrer" if external), "aria-label": logo[:name], data: {c_logo_wall: ""} do %>
-          <%= tag.img src: logo[:src], alt: logo[:name], loading: "lazy", data: {c_logo_wall: ""} %>
+          <%= stella_image_tag(logo[:src], sizes: "12rem", alt: logo[:name], loading: "lazy", data: {c_logo_wall: ""}) %>
         <% end %>
       <% else %>
-        <%= tag.img src: logo[:src], alt: logo[:name], loading: "lazy", data: {c_logo_wall: ""} %>
+        <%= stella_image_tag(logo[:src], sizes: "12rem", alt: logo[:name], loading: "lazy", data: {c_logo_wall: ""}) %>
       <% end %>
       <% if show_notes %>
         <div data-c-logo-wall>

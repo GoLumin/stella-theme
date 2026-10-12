@@ -18,7 +18,7 @@
           <span class="q-mark" aria-hidden="true" data-c-home-proof>"</span>
           <blockquote data-c-home-proof><%= quote %></blockquote>
           <figcaption data-c-home-proof>
-            <% if item[:logo] %><%= tag.img class: "q-logo", src: item[:logo], alt: "", loading: "lazy", data: {c_home_proof: ""} %><% end %>
+            <% if item[:logo] %><%= stella_image_tag(item[:logo], sizes: "12rem", class: "q-logo", alt: "", loading: "lazy", data: {c_home_proof: ""}) %><% end %>
             <span class="q-who" data-c-home-proof>
               <b data-c-home-proof><%= item[:name] %></b>
               <% if item[:role] || item[:location] %><em data-c-home-proof><%= [item[:role], item[:location]].compact.join(" · ") %></em><% end %>

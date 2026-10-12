@@ -22,7 +22,7 @@
 
     <div class="v2f-grid" data-c-footer>
       <div class="v2f-brand" data-c-footer>
-        <img src="/images/logo/logo-stella.svg" alt="Stella" width="140" height="24" class="v2f-logo" data-c-footer>
+        <%= stella_logo(width: 140, height: 24, class: "v2f-logo", data: {c_footer: ""}) %>
         <p data-c-footer><%= site[:tagline] %>. Sales, operations and billing for portable-storage operators — in one cloud system.</p>
         <a href="<%= site[:phone_href] %>" class="v2f-phone" data-c-footer><%= site[:phone] %></a>
       </div>

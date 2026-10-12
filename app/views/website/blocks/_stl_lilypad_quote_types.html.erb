@@ -1,8 +1,8 @@
 <%# locals: (data:) -%>
-<%# src/components/blocks/LilyPadQuoteTypes.astro: the storage and container Step 1 screenshots side by side. Each item names a file in public/images/lily-pad (any image extension); the whole section is withheld unless every one is there, since a half comparison makes no argument. %>
+<%# src/components/blocks/LilyPadQuoteTypes.astro: the storage and container Step 1 screenshots side by side. Each item's screenshot is an image from the media library; the whole section is withheld unless every one is there, since a half comparison makes no argument. %>
 <% declared = data.items %>
 <% items = declared.filter_map do |item|
-     src = stella_lily_pad_shot(stella_src(item.file).to_s)
+     src = item.image.presence if website_image(item.image)
      {src:, label: stella_str(item.label), caption: stella_str(item.caption)} if src
    end %>
 <% if declared.any? && items.size == declared.size %>
@@ -16,7 +16,7 @@
       <div class="quote-types" data-c-lily-pad-quote-types>
         <% items.each do |item| %>
           <figure class="card qt" data-c-lily-pad-quote-types>
-            <%= tag.img src: item[:src], alt: "Lily Pad Connect Step 1 — #{item[:label]}", loading: "lazy", data: {c_lily_pad_quote_types: ""} %>
+            <%= stella_image_tag(item[:src], sizes: "(max-width: 760px) 100vw, 570px", alt: "Lily Pad Connect Step 1 — #{item[:label]}", loading: "lazy", data: {c_lily_pad_quote_types: ""}) %>
             <figcaption data-c-lily-pad-quote-types>
               <h3 data-c-lily-pad-quote-types><%= item[:label] %></h3>
               <p data-c-lily-pad-quote-types><%= item[:caption] %></p>

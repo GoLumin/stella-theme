@@ -46,7 +46,7 @@
       <p class="bd-strip-label" data-c-book-demo-hero><%= stella_str(data.strip_label) %></p>
       <div class="bd-logos" data-c-book-demo-hero>
         <% stella_integrations.each do |logo| %>
-          <div class="bd-logo" title="<%= logo[:name] %>" data-c-book-demo-hero><%= tag.img src: logo[:src], alt: logo[:name], loading: "lazy", data: {c_book_demo_hero: ""} %></div>
+          <div class="bd-logo" title="<%= logo[:name] %>" data-c-book-demo-hero><%= stella_image_tag(logo[:src], sizes: "12rem", alt: logo[:name], loading: "lazy", data: {c_book_demo_hero: ""}) %></div>
         <% end %>
       </div>
     </div>

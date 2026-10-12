@@ -26,7 +26,7 @@ calculator, a Svelte island there, is plain markup and a module here. Fonts
 | `/academy`, `/academy/login`, `/academy/signup`, `/academy/<slug>` | the Astro site's static Academy design preview (`app/views/website/academy`, `StellaAcademyHelper`) |
 | anything else | Tools › Redirects, then the CMS's `not-found` page, with a 404 and noindex |
 | header, footer | the `nav`, `footer` and `general` globals |
-| `/images/…`, `/favicon.*` | the Astro site's `public/` (`public/` here), which the CMS's content points at by path |
+| `/favicon.ico`, `/favicon.svg`, `/apple-touch-icon.png` | the theme's own files (`app/assets/images/stella`); pages link Settings › Branding's favicon |
 
 ## The content model
 
@@ -38,6 +38,14 @@ calculator, a Svelte island there, is plain markup and a module here. Fonts
 | Globals | `general` (name, phone, pricing line, share image), `nav`, `footer`, `scripts`, `academy_page` (the Academy preview's copy) |
 
 Every list is in its entries' `order` field.
+
+Every image is the media library's: an asset field (logos, icons, photos,
+covers, a post's images, the share image, the Lily Pad screenshots, the team
+photo), never a path typed as text. They're drawn with `stella_image_tag`
+(`website_image_tag`'s resized copies, focal point and in-place Replace,
+plus the original file); an image the design shows at its own width (a
+post's) says so (`natural: true`). The header and footer logo and the
+favicon are Settings › Branding's, with the theme's own as a fallback.
 
 CMS values are copy, never markup, as on the Astro site: rich text is
 flattened to plain text (`stella_str`, after its `src/lib/richtext.mjs`).

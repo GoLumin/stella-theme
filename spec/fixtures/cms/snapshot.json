@@ -1028,6 +1028,12 @@
           "required": true
         },
         {
+          "name": "group_photo",
+          "type": "asset",
+          "label": "Group photo",
+          "help": "Shown above the team; leave empty for none."
+        },
+        {
           "name": "group_photo_alt",
           "type": "string",
           "label": "Group photo alt text"
@@ -3167,9 +3173,9 @@
         },
         {
           "name": "image",
-          "type": "string",
+          "type": "asset",
           "label": "Widget screenshot path",
-          "help": "Path under public/. Leave empty to show the drawn widget mock instead."
+          "help": "An image from the media library."
         },
         {
           "name": "image_alt",
@@ -3204,9 +3210,9 @@
         },
         {
           "name": "logo",
-          "type": "string",
+          "type": "asset",
           "label": "Logo image path",
-          "help": "Path under public/, shown above the eyebrow."
+          "help": "An image from the media library."
         },
         {
           "name": "logo_alt",
@@ -3304,11 +3310,10 @@
           "label": "Quote types",
           "of": [
             {
-              "name": "file",
-              "type": "string",
-              "label": "File",
-              "required": true,
-              "help": "Filename without extension under public/images/lily-pad/, e.g. step1-storage"
+              "name": "image",
+              "type": "asset",
+              "label": "Screenshot",
+              "help": "The Step 1 screen for this quote type."
             },
             {
               "name": "label",
@@ -4445,9 +4450,9 @@
           },
           {
             "name": "logo",
-            "type": "string",
+            "type": "asset",
             "label": "Logo",
-            "help": "Path under public/."
+            "help": "An image from the media library."
           },
           {
             "name": "website",
@@ -4562,15 +4567,15 @@
           },
           {
             "name": "logo",
-            "type": "string",
+            "type": "asset",
             "label": "Logo",
-            "help": "Path under public/, e.g. /images/featured/acme-logo.png"
+            "help": "An image from the media library."
           },
           {
             "name": "image",
-            "type": "string",
+            "type": "asset",
             "label": "Feature image",
-            "help": "Path under public/. The newsletter card or a photo; shown at the top of the entry."
+            "help": "An image from the media library."
           },
           {
             "name": "website",
@@ -4627,9 +4632,9 @@
           },
           {
             "name": "icon",
-            "type": "string",
+            "type": "asset",
             "label": "Icon",
-            "help": "Path to the module's icon, e.g. /images/icons/icon-crm-feature.svg."
+            "help": "An image from the media library."
           },
           {
             "name": "short",
@@ -4666,10 +4671,10 @@
           },
           {
             "name": "logo",
-            "type": "string",
+            "type": "asset",
             "label": "Logo",
             "required": true,
-            "help": "Path to the logo, e.g. /images/logo/quickbooks.png."
+            "help": "An image from the media library."
           },
           {
             "name": "note",
@@ -4694,10 +4699,10 @@
           },
           {
             "name": "logo",
-            "type": "string",
+            "type": "asset",
             "label": "Logo",
             "required": true,
-            "help": "Path to the logo, e.g. /images/logo/boxwell.png."
+            "help": "An image from the media library."
           },
           {
             "name": "website",
@@ -4768,8 +4773,9 @@
           },
           {
             "name": "cover",
-            "type": "string",
-            "label": "Cover image path"
+            "type": "asset",
+            "label": "Cover image path",
+            "help": "An image from the media library."
           },
           {
             "name": "body",
@@ -4783,8 +4789,9 @@
               },
               {
                 "name": "image",
-                "type": "string",
-                "label": "Image path"
+                "type": "asset",
+                "label": "Image path",
+                "help": "An image from the media library."
               },
               {
                 "name": "image_alt",
@@ -4890,9 +4897,9 @@
           },
           {
             "name": "photo",
-            "type": "string",
+            "type": "asset",
             "label": "Photo",
-            "help": "Path to the photo, e.g. /images/team/jane-doe.jpg."
+            "help": "An image from the media library."
           },
           {
             "name": "email",
@@ -4950,9 +4957,9 @@
           },
           {
             "name": "logo",
-            "type": "string",
+            "type": "asset",
             "label": "Logo",
-            "help": "Path under public/."
+            "help": "An image from the media library."
           },
           {
             "name": "featured",
@@ -5154,7 +5161,7 @@
         "email": "cathy@runstella.com",
         "address": "14 Continental Blvd, Merrimack, NH 03054",
         "legal_name": "Stella Software, LLC",
-        "share_image": "/images/share/stella.png"
+        "share_image": "99"
       },
       "fields": [
         {
@@ -5228,9 +5235,9 @@
         },
         {
           "name": "share_image",
-          "type": "string",
+          "type": "asset",
           "label": "Default share image",
-          "help": "Path under public/, e.g. /images/share/stella.png. 1200×630. Used for link previews when a page has no image of its own."
+          "help": "The link-preview image for any page without its own."
         }
       ]
     },
@@ -5616,7 +5623,8 @@
           "data": {
             "eyebrow": "Meet the team",
             "heading": "The people behind Stella",
-            "group_photo_alt": "The Stella and Lily Pad Connect team"
+            "group_photo_alt": "The Stella and Lily Pad Connect team",
+            "group_photo": "104"
           }
         },
         {
@@ -6597,7 +6605,7 @@
             "eyebrow": "Lily Pad Connect · Stella Plus",
             "title": "Turn your website into a booking channel",
             "lede": "Lily Pad Connect is an embeddable quote-and-reservation widget for any portable-storage business — accessible, affordable, and live on your site in minutes. Customers get an instant quote, pick a container, apply a promo and reserve, while every lead flows into Stella in real time.",
-            "logo": "/images/lily-pad/lily-pad-connect-logo.png",
+            "logo": "100",
             "logo_alt": "Lily Pad Connect"
           }
         },
@@ -6630,7 +6638,7 @@
                 "body": "Reserve now / pay later, add a card, sign the contract — booked."
               }
             ],
-            "image": "/images/lily-pad/widget-select-size.png",
+            "image": "101",
             "image_alt": "The Lily Pad Connect widget on an operator's site: step 2, choosing an 8×12, 8×16 or 8×20 container with monthly prices"
           }
         },
@@ -6643,14 +6651,14 @@
             "lede": "Storage and container customers want different things, but they both start in the same place. Step 1 adapts to the quote type, so neither one is asked a question that doesn't apply to them.",
             "items": [
               {
-                "file": "step1-storage",
                 "label": "Storage & box quote",
-                "caption": "Service, zip code and dates — the entry step for a storage or box rental."
+                "caption": "Service, zip code and dates — the entry step for a storage or box rental.",
+                "image": "102"
               },
               {
-                "file": "step1-container",
                 "label": "Container quote",
-                "caption": "The same entry step, asking a container buyer for what a container quote needs."
+                "caption": "The same entry step, asking a container buyer for what a container quote needs.",
+                "image": "103"
               }
             ]
           }
@@ -7223,7 +7231,7 @@
         "order": 0,
         "company": "INBOX Portable Storage",
         "location": "",
-        "logo": "/images/testimonials/inbox.png",
+        "logo": "97",
         "summary": "<p>With over 800 rentals in inventory, INBOX Portable Storage is keeping work orders, contracts, inventory, billing and transportations under one umbrella.</p>",
         "challenge": "An inventory of over 800 rentals means work orders, contracts, billing and transportations all have to stay in step with each other. Spread across separate tools, that is a lot of surface area to keep accurate — and a lot for a new employee to learn before they can be useful on the phone.",
         "solution": "<p>INBOX Portable Storage has run on Stella for years, with every part of the job on the same system. The team describes the software as very user friendly, and new employees pick up on it very quickly.</p>",
@@ -7254,7 +7262,7 @@
         "order": 1,
         "company": "Mobile Storage Solutions",
         "location": "Buffalo Grove, IL",
-        "logo": "/images/testimonials/mobile_storage_solutions.png",
+        "logo": "28",
         "summary": "End-to-end workflow on one system — website lead form through quoting, booking, delivery scheduling and automated billing — run by a back office kept deliberately lean.",
         "challenge": "A portable storage business touches marketing, sales, dispatch, inventory and accounting before a single invoice goes out. Handled separately, each handoff is another place to re-key data and another reason to add overhead to the back office.",
         "solution": "Mobile Storage Solutions integrated Stella into their website lead form and let the same record carry through customer quotes, booked orders, scheduled deliveries and automated billing — with inventory managed on the operations side and QuickBooks integration on the financial side.",
@@ -7289,7 +7297,7 @@
         "order": 3,
         "company": "Cows Mobile Storage of Orlando",
         "location": "",
-        "logo": "/images/testimonials/cows_mobile_storage.jpg",
+        "logo": "26",
         "summary": "Lead to quote to booking to QuickBooks Online with the information entered once — no double entry, and countless hours of accounting entry saved.",
         "challenge": "When quoting, booking and accounting live in different places, the same customer details get typed in again at every stage — and answering 'where is that box?' means asking somebody rather than looking it up.",
         "solution": "Cows Mobile Storage of Orlando runs the quoting and CRM system in Stella so a customer moves from a lead on their website, to a quote, to a booking, and then to QuickBooks Online with the information only put into the system once. Box locations are looked up directly in Stella.",
@@ -7323,7 +7331,7 @@
         "order": 4,
         "company": "Chatt Mobile Storage",
         "location": "Soddy Daisy, TN",
-        "logo": "/images/testimonials/chat_mobile_storage.png",
+        "logo": "25",
         "summary": "A portable storage business that opened in July 2021 and has been on Stella since day one — from onboarding and training through booking, payments and bookkeeping.",
         "challenge": "Opening a portable storage business in July 2021 meant standing up booking, payment collection and bookkeeping from nothing, with an owner who needed to stay on top of all of it while building the business from the ground floor.",
         "solution": "Chatt Mobile Storage was referred to Cathy and the Stella team, and started with onboarding and training from day 1. Booking customers, receiving payment and bookkeeping have run in Stella since, with the support team answering issues as they come up.",
@@ -7356,7 +7364,7 @@
         "order": 5,
         "company": "My Stack Box",
         "location": "Pompano Beach, FL",
-        "logo": "/images/testimonials/my_stack_box.png",
+        "logo": "29",
         "summary": "Several years on Stella as an all-in-one solution for customer information, pricing and inventory management — with training singled out as one of the best parts.",
         "challenge": "Customer information, pricing and inventory are the three things an operations team reaches for all day. Kept apart, they pull staff between systems and make training a new person harder than it needs to be.",
         "solution": "My Stack Box has used Stella for a few years as an all-in-one solution covering customer information, pricing and inventory management, with training delivered by Cathy and the Stella team.",
@@ -7526,7 +7534,7 @@
         "order": 1,
         "company": "Mobile Attic of Nashville, TN",
         "location": "Nashville, TN",
-        "image": "/images/featured/mobile-attic-nashville.png",
+        "image": "98",
         "website": "www.mobileatticnashville.com",
         "summary": "Bo Dill and his wife Kelli have been the primary business owners of Mobile Attic in Nashville, TN. Bo joined the The Mobile Attic franchise and over the last 18 years, Mobile Attic Dumpster Rentals of Nashville, TN has come to be known as the best portable moving and storage container provider of Middle Tennessee.",
         "highlights": [
@@ -7551,7 +7559,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 1,
-        "icon": "/images/icons/icon-crm-feature.svg",
+        "icon": "33",
         "short": "Manage and track sales with follow-up reminders built in.",
         "body": "Leads arrive with follow-up reminders built in, plus the ability to log calls, emails and notes and confirm scheduling. Every lead lands in one place, increasing your conversion rate.",
         "points": [
@@ -7573,7 +7581,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 2,
-        "icon": "/images/icons/icon-visual-dashboard.svg",
+        "icon": "41",
         "short": "Real-time revenue, occupancy and inventory at a glance.",
         "body": "<p>Open Stella and see where the business actually stands: simple view of totals..   revenue breakouts mirroring your P&amp;L, movement activity, inventory stats &amp; occupancy rates, revenue per container, daily bookings — all live and exportable reports to excel.  Filter and sort by payment date or invoice date, location (mapped to qb location), attribution source, sales person and more.</p>",
         "points": [
@@ -7594,7 +7602,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 3,
-        "icon": "/images/icons/icon-contract.svg",
+        "icon": "32",
         "short": "Guide staff through the sales journey, then send in one click.",
         "body": "Stella walks your team through the sales journey so they deliver consistent, professional service on every quote — capturing ancillary items and box placement details along the way, then auto-sending the quote to the customer.",
         "points": [
@@ -7616,7 +7624,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 4,
-        "icon": "/images/icons/icon-cloud-based-web-software.svg",
+        "icon": "31",
         "short": "<p>Push delivery data straight to an Outlook or Google Calendar.</p>",
         "body": "<p>Bookings auto-populate Outlook and Google Calendar with the customer name, address, container location, release number, placement details, key accessories to bring or collect at return that your drivers actually need — and drivers can add container numbers and photos from the field.</p>",
         "points": [
@@ -7638,7 +7646,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 5,
-        "icon": "/images/icons/icon-inventory.svg",
+        "icon": "38",
         "short": "<p>Know where every container is, what state it's in, and who has it with the history to back it up.</p>",
         "body": "<p>Keep track of your inventory easily.  Fleet is imported with key data including container #, manufacturer, release #, purchase price, freight cost, date purchased, grade, color, door type, last inspection date, current status, and more.  Stella automates statuses empty, rented, and sold, based on management of the order. Additional statuses allow for proper identification such as damaged, donation, in-house use, to be built, on order. Stella tracks location during the rental journey or the sale keeping historical records of each container.  A Google Maps view of rentals reveal helpful marketing information as well as peace of mind for location tracking.   Filter data by any field and export. Photo upload available</p>",
         "points": [
@@ -7659,7 +7667,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 6,
-        "icon": "/images/icons/icon-full-reporting.svg",
+        "icon": "35",
         "short": "<p>Recurring billing with pro-rating, refunds, voids, pre-payments, partial payments.</p>",
         "body": "<p>Stella creates QBO customer profiles, automates one-time sale invoices, recurring rental fees and future transportation charges, and handles refunds, voids, re-charges, pre-payments and misc charges. Automated alerts to your office and your customer for failed cards, past-due reminders, online payments and lien alerts mean you're in the know at all times when it comes to your revenue. Setting terms, past-due reminders, late fees, a lien fee and a lien email helps avoid and replace manual billing work. A collections report and a drilled-down monthly activity report give you the detail you need with a click.</p>",
         "points": [
@@ -7682,7 +7690,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 7,
-        "icon": "/images/icons/icon-google-map.svg",
+        "icon": "36",
         "short": "<p>Embedded Google Maps view within work order and Inventory</p>",
         "body": "<p>Discuss container placement with customer while looking at an embedded google maps street and birds eye view typing in notes and door facing direction, which push to calendar when dispatching each transportation.   Stella also uses google maps in inventory to see a live view of your rental locations, with a hover pin with detail.</p>",
         "points": [
@@ -7702,7 +7710,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 8,
-        "icon": "/images/icons/icon-insurance-waiver.svg",
+        "icon": "37",
         "short": "Contents insurance and damage waiver options at the point of sale.",
         "body": "<p>Offer contents insurance and damage waiver during quoting in Stella or within the embedded quote tool for your website.  3rd party reporting and contractual pages included.  Options for customer to provide proof of insurance with automated email reminders to send a binder.  If no proof of insurance, Stella can add them to the lowest level policy.   Attach protection at booking rather than chasing it later!</p>",
         "points": [
@@ -7724,7 +7732,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 9,
-        "icon": "/images/icons/icon-promotion-tool.svg",
+        "icon": "40",
         "short": "<p>Run seasonal, monthly or annual discounts with promo codes for the website quote tool.</p>",
         "body": "<p>Create &amp; manage all promotions in the promotions tool seamlessly.  Build seasonal, monthly or annual discounts and apply them consistently across quotes inside of Stella and on the website quote tool, Lily Pad.  Control what promotions you show in your quote tool and what promo codes consumers can type in.  Deactivate or activate as needed. Embed promo codes in campaigns within redirect links.</p>",
         "points": [
@@ -7745,7 +7753,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 10,
-        "icon": "/images/icons/icon-multi-box.svg",
+        "icon": "39",
         "short": "<p>Book several container rentals or sales on a single order.</p>",
         "body": "<p>Customers who need three rental containers should not take three times the work. Multi-box booking keeps one order, one contract and one invoice from the start.  One click scheduling and dispatching  to calendar, creating a unique calendar entry for each container.  Container sales with multiple containers is a given and easy... one invoice at the time of booking, even if delivery is in the future.</p>",
         "points": [
@@ -7766,7 +7774,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 11,
-        "icon": "/images/icons/icon-damage-waiver.svg",
+        "icon": "34",
         "short": "Bring your inventory, customers and postal/zip codes across.",
         "body": "<p>Stella provides three upload forms — inventory, customer data and zip or postal codes — so switching systems doesn't mean re-keying years of records.</p>",
         "points": [
@@ -7786,7 +7794,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 12,
-        "icon": "/images/icons/icon-cloud-based-web-software.svg",
+        "icon": "31",
         "short": "Nothing to download. Hosted on Amazon Web Services.",
         "body": "Stella is Mac and PC friendly and runs entirely in the browser on AWS. A modern browser like Chrome and a decent connection is all your team needs — the only browser we don't recommend is Internet Explorer.",
         "points": [
@@ -7806,7 +7814,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 13,
-        "icon": "/images/icons/icon-inventory.svg",
+        "icon": "38",
         "short": "Container and box rental operators, from one yard to many.",
         "body": "<p>The rental journey runs end to end on one record: a lead becomes a quote, a quote becomes a signed contract, the contract becomes a delivery on the calendar, and the container becomes a recurring invoice. Statuses move themselves as containers go out and come back, so what you see in inventory is what is actually in the yard.</p>",
         "points": [
@@ -7827,7 +7835,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 14,
-        "icon": "/images/icons/icon-multi-box.svg",
+        "icon": "39",
         "short": "Combined move and store workflows on a single order.",
         "body": "<p>A customer who is moving and storing should not become two jobs in two systems. Multi-box booking keeps several containers on one order, one contract and one invoice, while each container still gets its own calendar entry so dispatch stays accurate. Relocation services sit alongside rentals and sales rather than in a spreadsheet next to them.</p>",
         "points": [
@@ -7848,7 +7856,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 15,
-        "icon": "/images/icons/icon-contract.svg",
+        "icon": "32",
         "short": "R2O agreements managed alongside rentals and sales.",
         "body": "<p>Rent-to-own is quoted, contracted and billed in the same flow as a rental, not bolted on afterwards. Quoting covers rental, sales, rent-to-own, yard storage and relocation services from the same screen, so staff follow one process whatever the customer signs up for, and the billing follows the agreement automatically.</p>",
         "points": [
@@ -7869,7 +7877,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 16,
-        "icon": "/images/icons/icon-google-map.svg",
+        "icon": "36",
         "short": "Track inventory, revenue and movement across locations.",
         "body": "<p>Running more than one yard means knowing where every container is and which location earned the revenue. Relocation tracking follows containers between yards and sites, a pinned Google Maps view shows live rentals, and reporting breaks revenue out by location and salesperson so each yard can be read on its own or as part of the whole.</p>",
         "points": [
@@ -7890,7 +7898,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 1,
-        "logo": "/images/logo/amazon-web-services.png",
+        "logo": "3",
         "note": "Cloud hosting"
       },
       "body_markdown": "",
@@ -7904,7 +7912,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 2,
-        "logo": "/images/logo/quickbooks.png",
+        "logo": "17",
         "note": "Accounting sync, no double entry"
       },
       "body_markdown": "",
@@ -7918,7 +7926,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 3,
-        "logo": "/images/logo/authorize-net.png",
+        "logo": "4",
         "note": "Payment gateway"
       },
       "body_markdown": "",
@@ -7932,7 +7940,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 4,
-        "logo": "/images/logo/google-map.png",
+        "logo": "10",
         "note": "Box placement and inventory mapping"
       },
       "body_markdown": "",
@@ -7946,7 +7954,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 5,
-        "logo": "/images/logo/outlook-calendar.png",
+        "logo": "16",
         "note": "Delivery and pickup scheduling"
       },
       "body_markdown": "",
@@ -7960,7 +7968,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 6,
-        "logo": "/images/logo/storage-protectors.png",
+        "logo": "21",
         "note": "Contents insurance"
       },
       "body_markdown": "",
@@ -7974,7 +7982,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 7,
-        "logo": "/images/logo/signiflow.png",
+        "logo": "20",
         "note": "Contract send and e-signing, included"
       },
       "body_markdown": "",
@@ -7988,7 +7996,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 8,
-        "logo": "/images/logo/google-calendar.png",
+        "logo": "9",
         "note": "Delivery and pickup scheduling"
       },
       "body_markdown": "",
@@ -8002,7 +8010,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 1,
-        "logo": "/images/logo/boxwell.png",
+        "logo": "5",
         "website": "https://boxwell.co/"
       },
       "body_markdown": "",
@@ -8016,7 +8024,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 2,
-        "logo": "/images/logo/storage-protectors.png",
+        "logo": "21",
         "website": "https://www.storageprotectors.com/"
       },
       "body_markdown": "",
@@ -8030,7 +8038,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 3,
-        "logo": "/images/logo/lumin.png",
+        "logo": "96",
         "website": "https://golumin.io/"
       },
       "body_markdown": "",
@@ -8044,7 +8052,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 4,
-        "logo": "/images/logo/crossagency.png",
+        "logo": "8",
         "website": "https://www.crossagency.com/"
       },
       "body_markdown": "",
@@ -8058,7 +8066,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 5,
-        "logo": "/images/logo/riselymarketing.png",
+        "logo": "19",
         "website": "https://riselymarketing.com/"
       },
       "body_markdown": "",
@@ -8072,7 +8080,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 6,
-        "logo": "/images/logo/net-viper.png",
+        "logo": "15",
         "website": "https://netviperinc.com/"
       },
       "body_markdown": "",
@@ -8086,7 +8094,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 7,
-        "logo": "/images/logo/goverticalpay.png",
+        "logo": "11",
         "website": "https://www.goverticalpay.com/"
       },
       "body_markdown": "",
@@ -8100,7 +8108,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 8,
-        "logo": "/images/logo/stax.png",
+        "logo": "95",
         "website": "https://staxpayments.com/"
       },
       "body_markdown": "",
@@ -8114,7 +8122,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 9,
-        "logo": "/images/logo/record360.png",
+        "logo": "18",
         "website": "https://record360.com/"
       },
       "body_markdown": "",
@@ -8128,7 +8136,7 @@
       "locale": "en",
       "frontmatter": {
         "order": 10,
-        "logo": "/images/logo/lpc_logo.png",
+        "logo": "14",
         "website": "/lily-pad"
       },
       "body_markdown": "",
@@ -8210,7 +8218,7 @@
             "list": []
           }
         ],
-        "cover": "/images/blog/website-design.jpg"
+        "cover": "83"
       },
       "body_markdown": "## Nobody chooses a five-system stack\n\nAsk an operator how they ended up with a scheduling calendar, a spreadsheet of container numbers, a separate quoting document, an accounting package and a shared inbox, and you will almost never hear a story about a decision. You hear a story about growth. Each tool solved a real problem at the moment it was adopted. The calendar fixed a missed delivery. The spreadsheet fixed a container nobody could find. The shared inbox fixed a lead that went to one person's email and died there.\n\nThat is the trap. Every individual addition was rational. The aggregate is not. The cost of a stack like this does not live inside any one tool — it lives in the seams between them, which is exactly where nobody is looking when they evaluate whether a tool is worth keeping.\n\nIf you want to understand what your back office actually costs, stop auditing the tools and start auditing the handoffs.\n\n## Count the handoffs, not the hours\n\nTake a single booking and trace it end to end. Not a hypothetical booking — pull a real one from last week and physically walk it through your operation. Every time a piece of information leaves one system and gets typed, pasted or read aloud into another, mark it down. That is a handoff.\n\nA typical portable storage booking on a fragmented stack passes through something like this sequence:\n\n- Lead arrives by phone or web form and is written into a notepad, a CRM or an inbox\n- Availability is checked against a container spreadsheet or a whiteboard\n- A quote is built in a document or template and emailed manually\n- The signed agreement comes back as a PDF and is filed somewhere\n- The delivery is typed into a calendar with address, box size and door direction\n- The container's status is updated in the inventory sheet — if someone remembers\n- The customer and the recurring charge are created in the accounting system\n- The invoice is reconciled against the payment processor at month end\n\n## Why the seams cost more than the minutes\n\nIt is tempting to price this out purely in labour: eight handoffs at two minutes each is sixteen minutes per booking, multiply by volume, done. That undercounts badly, because re-keying is not just slow — it is the single largest source of error in a small operation, and errors are far more expensive than the keystrokes that caused them.\n\nConsider what a mistyped container number costs. A driver goes to the wrong yard slot. The delivery runs late. The customer calls. Someone pulls the booking, finds the discrepancy, corrects two systems, and calls the customer back. The original error took four seconds to make and consumed an hour of three people's time to unwind, plus whatever goodwill the late delivery burned.\n\nNow consider the errors you never find out about. A recurring charge that was set up for the wrong amount. A container marked rented that came back three weeks ago and has been sitting empty and unbookable. A follow-up reminder that lived in a departed employee's inbox. These do not generate a phone call. They generate quiet, permanent revenue leakage that never shows up as a line item anywhere.\n\nThe seams also impose a tax you can feel but not measure: nobody trusts any single number. When occupancy lives in a spreadsheet and revenue lives in accounting and bookings live in a calendar, the answer to \"how did last month go?\" requires a reconciliation project. So it gets asked less often, and decisions get made on instinct.\n\n## What to consolidate first\n\nYou do not have to collapse everything at once, and attempting it mid-season is how consolidation projects die. Sequence it by where the seams are widest.\n\nStart with the customer record. The single highest-leverage change is making one record the place where the lead, the quote, the agreement, the container assignment and the billing all attach. Once that exists, most of the other handoffs stop being handoffs and start being fields on a record that already exists.\n\nSecond, inventory status. A container's state — rented, empty, damaged, in transit — needs to update as a consequence of the booking workflow rather than as a separate act of discipline. Any inventory system that depends on someone remembering to go update it will drift, and a drifting inventory system is worse than none because people still half-trust it.\n\nThird, billing. Recurring charges created by hand are the most reliably error-prone thing in a portable storage back office, because the error is invisible at creation and only surfaces months later as a customer who has been underbilled since spring.\n\n## What good looks like\n\nThe test for whether consolidation actually worked is not how the software looks. It is whether a new hire can take a booking end to end on their second day without asking which system to open next.\n\nA second test: can you answer \"how many boxes are on rent right now, and what are they earning?\" without exporting anything? If the answer requires a spreadsheet, you have reporting, not a system of record.\n\nThe operators who get the most out of consolidating are rarely the ones chasing a specific feature. They are the ones who got tired of being the only person who knew where everything was — and who wanted the business to be able to run a Tuesday without them.",
       "seo": {},
@@ -8286,7 +8294,7 @@
             "list": []
           }
         ],
-        "cover": "/images/blog/local-seo.jpg"
+        "cover": "84"
       },
       "body_markdown": "## The tax nobody itemises\n\nDouble entry between an operational system and an accounting system is one of those costs that stays invisible because it is spread so thin. Nobody sits down for four hours to re-key data. They do ninety seconds of it, forty times a day, in between everything else. It never appears on a schedule, never gets assigned to a project, and never gets questioned — because from any individual vantage point, it is trivial.\n\nThe way to see it clearly is to stop measuring the typing and start measuring the reconciliation. If someone in your business spends the first three days of every month working out why the operational numbers and the accounting numbers disagree, that is the true price of double entry. The typing was just the deposit.\n\n## Three failure modes, in ascending order of expense\n\nDouble entry does not fail in one way. It fails in three, and they get progressively harder to detect.\n\nThe first is transcription error. A number gets typed wrong. This is the cheapest failure because it is usually loud — the invoice looks wrong, the customer says so, someone fixes it. Annoying, but self-correcting.\n\nThe second is omission. A transaction happens operationally and simply never makes it into accounting, or the reverse. This is quieter. A refund issued at the counter that never got recorded. A container swap that changed the monthly rate but only in one system. Nothing looks wrong anywhere, because the record that would contradict it does not exist. You find these at year end, if you find them.\n\nThe third and most expensive is divergence of truth. Over enough months, the two systems develop genuinely different pictures of the same business, and no one can say which is right. The customer list in accounting includes people who cancelled. The operational system shows revenue that was never invoiced. At this point every financial question becomes an investigation, and the business starts making decisions on whichever number is easiest to reach rather than whichever is correct.\n\n## Why it gets worse as you grow, not better\n\nThe intuition that this problem shrinks with experience is backwards. Double entry scales badly for a structural reason: the work grows with transaction volume, but the error rate grows with the number of people doing the entry.\n\nAt one operator handling everything, the two systems tend to agree, because one brain is enforcing consistency. Add a second person and you have added a convention problem — how customers get named, when a booking counts as revenue, what happens to a partial month. Add a third and the conventions drift by shift.\n\nSeasonality makes it sharper still. The moment when re-keying is most likely to be skipped is precisely the moment when volume is highest and the consequences are largest. Nobody carefully reconciles anything during their busiest fortnight of the year. The backlog created there is what people are still untangling in the autumn.\n\n## What a real integration has to do\n\n\"Integrates with QuickBooks\" covers a wide range of quality, and it is worth being specific about what you need before you evaluate anything.\n\nAt minimum, an integration worth having should handle these without human intervention:\n\n- Create the customer in accounting when the customer is created operationally — once, with a consistent naming convention\n- Push invoices with the correct line items, including transportation and ancillary charges, not just a lump sum\n- Record payments, refunds and voids so the accounting ledger reflects what actually happened at the card\n- Handle recurring charges as recurring, rather than requiring a new manual invoice each cycle\n- Fail loudly — an integration that silently drops records is worse than double entry, because at least a human notices when they skip something\n\n## The month-end test\n\nHere is a straightforward way to know whether you have solved this. At the end of a month, how long does it take to close the books, and how much of that time is spent finding discrepancies versus reviewing results?\n\nIn a business with genuine integration, month end is a review. You look at what happened, ask questions about what is interesting, and move on. In a business running double entry, month end is an audit — a hunt for the delta between two systems that should never have been allowed to disagree in the first place.\n\nThe difference in hours is real, but the difference in attention is bigger. Time spent reconciling is time not spent asking why occupancy dipped in a particular service area, or which promotion actually paid for itself. That is the cost that never appears on any invoice, and it is the one that compounds.",
       "seo": {},
@@ -8362,7 +8370,7 @@
             "list": []
           }
         ],
-        "cover": "/images/blog/restoration-remediation.webp"
+        "cover": "88"
       },
       "body_markdown": "## Declines are a process problem, not a customer problem\n\nWhen a card on file declines, the instinctive framing is that a customer failed to pay. That framing leads to the wrong response, because the overwhelming majority of declines on long-running rentals have nothing to do with willingness or ability to pay. Cards expire. Banks reissue after a fraud event. A customer switches accounts. A billing address changes after a move — which, for a storage business, is a notably common situation.\n\nReframed correctly, a decline is a maintenance event on a piece of stored data. The customer still wants the container and still intends to pay. The only question is whether your process notices quickly enough to fix the data before the relationship degrades.\n\nThis matters because the two framings produce opposite behaviours. \"Customer didn't pay\" leads to waiting, then chasing, then awkwardness. \"Our card on file went stale\" leads to a quick, low-friction message that customers respond to well.\n\n## The failure mode: silent declines\n\nThe worst possible recurring billing setup is one that runs charges automatically but reports failures passively — into a log, a report nobody opens, or a screen you have to go looking for.\n\nThe reason is compounding. A decline that goes unnoticed for one cycle is a minor collection task. Unnoticed for three cycles, it is an uncomfortable conversation about a balance the customer did not know was accruing. Unnoticed for six, it is a write-off decision and possibly a container you cannot economically retrieve. The severity does not increase linearly with time — it steps up sharply at the point where the amount owed becomes large enough that the customer feels defensive about it.\n\nThe design goal, therefore, is not to eliminate declines. It is to compress the time between failure and awareness to as close to zero as you can get.\n\n## Building the process\n\nA recurring billing process that recovers well has a few concrete properties. None of them are exotic; the discipline is in having all of them rather than most of them.\n\n- Alerting on failure, pushed to a person — not a report that has to be checked\n- A named owner for declines, so the task does not sit in the gap between operations and accounting\n- A defined retry window before human contact, since a meaningful share of declines clear on a second attempt a few days later\n- A self-service way for the customer to update the card, because asking someone to read digits over the phone adds friction and PCI risk\n- Visibility of the container against the customer, so whoever is chasing knows what is on rent and where\n- An escalation point defined in advance — at what age and what balance does this stop being a billing task\n\n## Getting the message right\n\nThe tone of the first contact does more work than anything else in the process. Because most declines are administrative, the first message should assume administration, not delinquency. Something that reads as \"the card we have on file didn't go through — here's a link to update it\" gets a materially better response than anything that reads as a demand.\n\nTiming matters too. Contact promptly, while the charge is small and recent, and while the customer still associates the message with a service they are actively using. A message about a failed charge from four months ago requires the customer to reconstruct context before they can act, and requiring effort is how collection messages get ignored.\n\nIt also helps to make the resolution take one step. Every additional step — call us, wait for a callback, dig out a card, read it aloud — is a place where the recovery stalls. A link the customer can act on from their phone in ninety seconds recovers far more than a process that requires two humans to be available at the same time.\n\n## Prevention, where it's cheap\n\nSome declines are avoidable at essentially no cost. Expiry-date declines are the clearest example: the expiry date is known in advance, so a card approaching expiry can be flagged and refreshed before it fails rather than after.\n\nCharge timing is another lever. Charges attempted on the same date each month are more predictable for customers who are managing their own cash flow, and predictable charges get disputed less. Where you have discretion, aligning the charge date to something the customer recognises — the anniversary of delivery, for instance — reduces the \"what is this?\" category of failure.\n\nNone of this eliminates declines. Cards will always fail. The operators who lose the least revenue to them are simply the ones who find out on the day it happens rather than at the end of the quarter.",
       "seo": {},
@@ -8440,7 +8448,7 @@
             "list": []
           }
         ],
-        "cover": "/images/blog/belfor-container.jpg"
+        "cover": "87"
       },
       "body_markdown": "## The second yard changes the problem, not the scale\n\nOperators often expect a second yard to be roughly twice the work of the first. It isn't — it is a different kind of work, because a single yard lets you get away with an inventory system that is really just shared memory.\n\nWith one yard, the question \"do we have a ten-foot available for Thursday?\" is answerable by someone walking outside, or by someone who was outside recently. The spreadsheet is a convenience. The ground truth is the yard itself, and the yard is visible.\n\nWith two yards, ground truth becomes distributed. Nobody can see both. The system of record stops being a convenience and becomes the only thing that knows the answer — which means every gap between what the system says and what is physically there is now a real operational risk rather than a minor annoyance.\n\n## What actually goes wrong\n\nMulti-yard inventory failures cluster into a small number of recognisable patterns, and most operators will recognise all of them.\n\nPhantom availability is the most common: the system shows a container free, so it gets booked, but it is not actually free — it came back damaged, or it was promised verbally, or it was already loaded for another job. A booking is made against a container that cannot be delivered, and the discovery happens at the worst possible time.\n\nStranded units are the inverse: a container is available but nobody knows it. It came back from a customer, got parked, and was never marked empty. It sits earning nothing while the business quotes a customer as unavailable or delivers a unit from a yard forty minutes further away.\n\nThen there is relocation drift. Containers move between yards for perfectly good reasons — balancing supply, staging for a big job, repositioning after a return. If those moves are not recorded as first-class events, the location field in your system slowly stops corresponding to reality, and once it has drifted a few times people stop trusting it and revert to phoning the yard. At that point you are paying for a system nobody uses.\n\n## The design principles that hold up\n\nMulti-yard tracking that works tends to follow a handful of principles, all of which are about reducing dependence on human diligence.\n\n- Every container has a unique, physical, human-readable identifier that matches what is painted on the unit — not a database ID nobody can see from the ground\n- Status is a small closed set with unambiguous meaning: on rent, empty and available, damaged, in transit. Ambiguous middle states are where drift begins\n- Status changes as a by-product of workflow. Delivering a container marks it on rent; completing a pickup marks it returned. Anything requiring a separate act of updating will eventually be skipped\n- Location is a property of the container, not a folder the container lives in — so moving it is one event, not a delete and a re-create\n- Relocations are logged as movements with a from, a to, and a time, giving you history rather than just current state\n- The map view exists, because humans reason about geography spatially and a list of addresses does not surface the fact that you are about to dispatch across town for no reason\n\n## Reconciling against the physical world\n\nNo inventory system stays accurate on its own. The question is not whether drift happens but how quickly you catch it, and the answer is a periodic physical count that gets compared against the record.\n\nThis does not need to be elaborate. Walking each yard on a fixed cadence, noting what is physically present, and comparing against what the system claims will surface the drift. What matters more than the frequency is that discrepancies are investigated rather than simply corrected — a container in the wrong state is a symptom, and the interesting question is which workflow step let it get there.\n\nDo the count more often at the start, when you are still tuning the process, and after any period of unusual volume. The busy season is when drift accumulates fastest, and the weeks after it are when a count is most valuable.\n\n## Using inventory data to make decisions\n\nOnce inventory is reliable, it stops being purely defensive and starts answering strategic questions you previously guessed at.\n\nUtilisation by yard tells you whether your fleet is distributed correctly. A yard consistently running near full while another sits half empty is a repositioning decision, and one you can only see if location data is trustworthy.\n\nTime-to-redeploy — how long a container sits between a return and its next delivery — is one of the most useful numbers a portable storage operator can track, because it is directly convertible into revenue and it is almost entirely within your control. Long redeploy times usually indicate a process gap, not a demand problem: the unit came back, and nobody knew.\n\nDamage rates by yard, by container age or by service area will tell you things about handling and about customers that no amount of intuition surfaces. All of it depends on the same foundation: a record that reflects reality because reality updates it.",
       "seo": {},
@@ -8518,7 +8526,7 @@
             "list": []
           }
         ],
-        "cover": "/images/blog/portable-storage-business.jpg"
+        "cover": "86"
       },
       "body_markdown": "## The phone is a bottleneck with good manners\n\nThere is a strong case for the phone in portable storage. It is a considered purchase, the details matter, and a good conversation surfaces requirements a form never would — where the container will sit, what the driveway is like, whether there is a permit issue.\n\nThe problem is not that the phone is bad. It is that the phone has capacity limits and operating hours, and customer intent does not respect either. A prospect researching at nine in the evening cannot call you. A prospect who calls while your one office person is on another line will call the next result instead. You never learn about either of them, which is what makes this failure mode so easy to underestimate — the lost demand is entirely invisible.\n\nThe goal of putting quoting and reservation on your website is not to replace the conversation. It is to stop losing the customers who were never going to have one.\n\n## What the customer actually needs to see\n\nA booking flow that converts answers the questions a customer has, in the order they have them, without demanding anything in return until it has given them something.\n\nThe first question is always availability and price for their situation — their zip code, their dates, their container size. Any flow that demands contact details before answering that is asking the customer to pay before they know what they are buying, and a meaningful share of them will leave.\n\nThe second is what is included. Delivery, pickup, protection options, what happens if they keep it longer. Ambiguity here is where a customer decides to call instead, which is fine, or decides to think about it, which is usually not.\n\nThe third is what happens next. Someone who has just reserved a container online is momentarily uncertain about whether anything real occurred. An immediate confirmation, a clear delivery window and a named point of contact converts that uncertainty into confidence.\n\n## The integration question is the whole thing\n\nIt is entirely possible to bolt an online booking form onto a website and make your operation worse. This happens when the form is a lead-capture widget wearing a booking flow's clothing — it collects details, emails them to you, and stops.\n\nThat design does not remove work. It adds it, because now someone has to read the email, re-key the customer, check availability that was never really checked, and possibly call the customer back to tell them the reservation they thought they made cannot be honoured. You have added a step and a disappointment.\n\nA booking channel worth having is connected to the same inventory and the same customer record as everything else. Availability shown to the customer should be real availability. The reservation should create the booking, not a task to create the booking. Pricing shown online should come from the same rules your staff quote from, so a customer who calls to confirm hears the same number.\n\nThis is the difference between a website that generates leads and a website that generates bookings, and it is almost entirely a question of what sits behind the form.\n\n## Things that quietly suppress conversion\n\nSeveral common choices reduce online booking dramatically, and all of them are easy to fix once noticed.\n\n- Requiring an account before quoting — nobody wants a relationship with a storage company before they know the price\n- Asking for information you do not need at that step; every field is a place to abandon\n- A flow that does not work well on a phone, which is where a large share of this research happens\n- Hiding delivery fees until the final step, which reads as a bait and switch even when it isn't\n- No visible phone number, which strands the customers who get halfway and then want a human\n- Availability that is not real, producing reservations you have to walk back\n\n## Run it alongside the phone, not instead of it\n\nThe operators who do best with online booking treat it as an additional channel serving a different customer, rather than a replacement that lets them reduce phone coverage.\n\nIn practice, the two channels feed each other. Customers who quote online and then call arrive far better informed and take less time to close. Customers who call and then get sent a link finish the paperwork faster. And the flow itself becomes a source of intelligence — the quotes people request but don't complete tell you something about your pricing, your coverage area, or your container mix that you would not otherwise hear.\n\nStart by instrumenting what happens today. If you cannot say how many people visited your site last month and how many called, you cannot tell whether adding a booking channel helped. Get that baseline first; the rest of the argument makes itself.",
       "seo": {},
@@ -8601,7 +8609,7 @@
             "list": []
           }
         ],
-        "cover": "/images/blog/ai-marketing.png"
+        "cover": "85"
       },
       "body_markdown": "## First: should you actually switch now?\n\nMid-season migration is not automatically a mistake, but it should clear a higher bar than an off-season one. The honest question is whether staying costs more than moving.\n\nThere are situations where the answer is clearly yes. If your current system is losing bookings, mis-billing customers, or has become the reason you cannot take on more volume, then every week you wait is a week of compounding damage — and the busy season is precisely when that damage is largest.\n\nThere are also situations where the answer is no, and it is worth being disciplined about recognising them. If the current system is merely irritating, if the main driver is a feature you want rather than a failure you are absorbing, or if the people who would run the migration are the same people running your peak — wait. A migration attempted with no slack in the schedule will be done badly, and a badly done migration takes longer to recover from than the delay would have cost.\n\n## Evaluate data migration before you evaluate features\n\nFeature comparisons are how most software evaluations start, and they are the wrong place to begin when you are moving mid-season. The thing most likely to derail you is not a missing feature — it is your data.\n\nAsk specifically what can be imported and in what form. Inventory, customer records, service areas and active agreements are the four that matter most for a portable storage operation, and a vendor who can import the first two but not the last two is offering you a partial migration with a long manual tail.\n\nAsk what happens to history. Past bookings, past invoices and notes on the customer record are the institutional memory of your business. Losing them is survivable but expensive — it means every long-standing customer relationship restarts from zero context.\n\nThen ask who does the work. \"We support import\" and \"we will import your data\" are very different offers, and the difference is measured in your own hours during your busiest weeks.\n\n## Questions worth asking every vendor\n\nBeyond the demo, the following tend to separate systems that will hold up from ones that will not.\n\n- What exactly can be imported, in what format, and who performs the import?\n- Can we run both systems in parallel for a period, and what breaks if we do?\n- How does billing behave for agreements already in progress — do recurring charges have to be rebuilt by hand?\n- What does training look like, and is it available at the times my staff are actually free?\n- What is the support response time during our peak, and is support a person or a ticket queue?\n- Can I get my data back out, in a usable format, if this doesn't work?\n- What does the system do when the internet drops in the yard?\n- Which parts of the workflow still require a spreadsheet after implementation?\n\n## Sequencing a mid-season cutover\n\nThe safest mid-season migrations are staged rather than flipped. The instinct to move everything on a single date comes from a desire to avoid running two systems, but running two systems briefly is much cheaper than discovering a gap after the old one is gone.\n\nA workable sequence starts with the data that changes least: inventory and service areas. Load them, verify them against physical reality, and let the team get familiar with the new system while nothing depends on it.\n\nNext, take new bookings in the new system while existing agreements continue to run in the old one. This bounds your risk — the worst case affects only new business, which is small and recent, and your team learns on live-but-limited stakes.\n\nMigrate active agreements and recurring billing last, deliberately, with a reconciliation step. This is where the real risk lives, because a billing error here affects customers who are already paying you and already trust you. It deserves its own window and its own verification, not a slot at the end of a long cutover weekend.\n\nFinally, retain read access to the old system for longer than you think you need. The questions that require it arrive months later, usually from a customer, usually at an inconvenient moment.\n\n## Signs a migration is going wrong\n\nMigrations rarely fail suddenly. They degrade, and there are reliable early indicators.\n\nThe clearest is a spreadsheet reappearing. If someone on the team has quietly started keeping a side list to compensate for something the new system does not do, that is a gap that will not close on its own and it needs to be surfaced immediately rather than tolerated.\n\nThe second is staff routing around the system — taking a booking on paper and entering it later, or phoning the yard rather than checking status. This means the workflow is slower than the alternative, and workflows that are slower than the alternative always lose.\n\nThe third is silence. If nobody is asking questions two weeks in, it is far more likely that they have stopped trying than that everything is fine.\n\nNone of these are reasons to abandon a migration. They are reasons to stop, name the specific gap, and fix it before it hardens into a permanent workaround that outlives everyone's memory of why it exists.",
       "seo": {},
@@ -8678,7 +8686,7 @@
             "list": []
           }
         ],
-        "cover": "/images/blog/local-seo.jpg"
+        "cover": "84"
       },
       "body_markdown": "## Flat pricing is a decision, even when it isn't one\n\nMost portable storage operators price the same way year-round, not because they concluded that was optimal but because changing prices requires effort and creates awkward conversations. That is an understandable position, but it is worth being clear that it is a choice with costs on both ends of the year.\n\nIn peak season, flat pricing means you are selling scarce inventory at the same rate you sell abundant inventory. When your fleet is fully utilised, the marginal container is worth more than your list price — and every unit you rent at the off-season rate during a period of excess demand is revenue you chose not to collect.\n\nIn the trough, flat pricing means containers sit. A container earning nothing has a cost of capital, a storage footprint and a maintenance schedule regardless. Almost any revenue beats zero on a unit that would otherwise be idle, and refusing to discount into weak demand is how operators end up with high nominal rates and low actual utilisation.\n\n## Know your own demand curve first\n\nBefore adjusting anything, you need to know what your seasonality actually looks like — not what the industry's looks like, and not what you assume from memory. Local factors dominate: school calendars, regional moving patterns, construction cycles, weather, and in some markets a single large employer's relocation season.\n\nPull at least a couple of years of bookings and plot them by month. Look at three things: total bookings, average rental duration, and utilisation. They do not move together, and the differences are informative. A month with many short rentals is a different business problem from a month with few long ones.\n\nPay particular attention to the shoulders. The weeks immediately before and after peak are usually where pricing and promotion have the most leverage, because demand there is genuinely elastic — customers in those windows often have flexibility about when they move, which means an incentive can actually shift behaviour rather than just discounting a decision that was already made.\n\n## Promotions that shape behaviour, not just cut price\n\nThe distinction that matters most is between a promotion that changes what a customer does and a promotion that simply reduces what you charge for what they were going to do anyway. The second is pure margin loss dressed as marketing.\n\nGood seasonal promotions have a mechanism. They ask for something in return — a commitment, a timing change, a larger order — that is worth more to you than the discount costs.\n\n- Duration incentives: a lower monthly rate in exchange for a longer minimum term, converting an uncertain short rental into predictable revenue\n- Off-peak timing incentives: a discount valid only for deliveries in a slow window, pulling flexible demand out of your busy weeks\n- Multi-container pricing: better rates on additional units, which increases order value against largely fixed delivery cost\n- Prepayment discounts: modest reduction for paying several months up front, improving cash position and removing decline risk\n- Waived delivery within a defined radius during slow periods, which is cheaper to give than a rate cut and is easy to withdraw\n\n## The discipline part: making promotions end\n\nThe most common way seasonal pricing goes wrong is not the discount itself. It is that the discount never stops.\n\nThis happens through a specific mechanism. A promotional rate is applied to a customer manually. The promotion window closes. The customer's recurring charge continues at the promotional rate because nothing in the process ever revisits it. A year later you have a cohort of long-term customers on rates you introduced for a two-week campaign, and no clean way to identify them.\n\nAvoiding this requires promotions to be structured objects with start dates, end dates and defined behaviour at expiry — not a hand-typed number on an invoice. If your system cannot tell you which active agreements are on a promotional rate and when each reverts, you will not be able to manage this, and the leakage will be invisible because each individual case looks like a normal customer paying a normal amount.\n\nThe same applies to consistency. When promotional pricing is applied by hand, different staff apply it differently, and you end up unable to evaluate whether a campaign worked because you cannot cleanly separate who received it.\n\n## Measuring whether it worked\n\nThe right measure for a seasonal promotion is not how many customers took it. It is what happened to revenue and utilisation over the period compared to what you would have expected without it.\n\nThis is genuinely hard to measure precisely, and it is better to accept rough comparison than to pretend at rigour. Compare the promoted period against the equivalent period in prior years, adjusting for anything you know changed — fleet size, a new service area, a competitor opening or closing.\n\nThen ask the more important question: did the discount reach customers who would not otherwise have booked? If your promotion ran during a period that was busy anyway, the honest answer is probably no, and the campaign was a transfer from your margin to customers who were already committed. That is not a failure to hide from — it is the single most useful thing you can learn about your own pricing, and it should change where you aim the next one.",
       "seo": {},
@@ -8755,7 +8763,7 @@
             "list": []
           }
         ],
-        "cover": "/images/blog/website-design.jpg"
+        "cover": "83"
       },
       "body_markdown": "## The rollout doesn't fail on features\n\nWhen a software rollout goes badly in a small operation, the post-mortem almost never lands on a missing capability. It lands on people — a team that learned enough to be slow, never got to fluent, and drifted back to the old way for anything urgent.\n\nThis is predictable, because the default training model is built backwards. Most training walks through the software module by module: here is the customer screen, here are its fields, here is the inventory screen, here are its fields. It is complete, it is logical, and it is close to useless, because nobody's job is organised by screen.\n\nYour dispatcher does not need to know the system. They need to know how to do the four things they do forty times a day. Teaching them everything else first buries those four things under context they cannot yet attach meaning to.\n\n## Teach workflows, in the order the day happens\n\nThe alternative is to organise training around complete tasks, taught in the sequence a normal working day presents them.\n\nFor most portable storage operations, that means starting with taking a booking end to end — lead through quote through agreement through scheduled delivery — because it touches most of the system and it is the task with the highest daily frequency. A person who can do that one thing confidently is already productive, even if they have seen perhaps a third of the software.\n\nFrom there, add the next most frequent tasks: scheduling a pickup, handling a relocation, taking a payment, looking up a customer's history. Each should be taught as a complete path with a beginning and an end, not as a tour of the screens involved.\n\nLeave the rare things for later, deliberately. Reporting, configuration, unusual billing scenarios and administrative settings can wait until the common cases are automatic. Front-loading them competes for attention with the material that actually determines whether the rollout succeeds.\n\n## A workable first week\n\nA rollout that keeps the business running usually looks something like this, adjusted for your own volume and staffing.\n\n- Before day one: data loaded and verified, and every person has working credentials — nothing kills momentum like a training session that starts with password resets\n- Day one: one session on the core booking workflow, then immediately doing it on real work with someone nearby to ask\n- Day two: the remaining daily workflows, again taught as complete tasks and practised the same day\n- Days three to five: normal operation in the new system, with a designated person handling questions and writing down every one that comes up\n- End of week one: review the collected questions — repeated ones indicate a training gap or a genuine product gap, and the distinction matters\n- Week two onward: the less frequent tasks, reporting, and anything the first week surfaced as missing\n\n## Pick an internal owner, and give them room\n\nEvery rollout that goes smoothly has one person inside the business who owns it. Not a committee, and not the vendor — someone on your team who learns the system first, decides how your operation will use it, and is the person others ask.\n\nThis role needs three things. Time, which means genuinely relieving them of some of their normal load rather than adding this on top. Authority to decide conventions — how customers are named, when a booking is marked complete — because inconsistency introduced in week one is very difficult to remove later. And a direct line to the vendor, so questions get answered in hours instead of days.\n\nChoose this person for credibility with the team rather than for technical aptitude. The obstacle is rarely comprehension; it is trust. A respected dispatcher saying \"this is better, here's how I do it\" moves a team further than any amount of formal instruction.\n\n## Expect the dip, and say so out loud\n\nThere is always a period where the new system is slower than the old one. It is unavoidable — people are competent at the old process and novices at the new one, regardless of which is better designed.\n\nThe mistake is treating this dip as a signal. Teams that were not told to expect it interpret their own slowness as evidence the software is bad, and that interpretation is very sticky. Teams that were told to expect it interpret the same experience as normal and push through.\n\nSo say it explicitly, before day one: this will feel slower for a while, that is expected, and here is roughly when it should stop. Then watch for the specific failure mode that matters — not slowness, but avoidance. Slow is temporary. Someone quietly keeping a parallel spreadsheet is a gap that needs finding and fixing now, while the rollout still has attention on it.",
       "seo": {},
@@ -8782,7 +8790,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/thinking-about-portable-storage-a-smart-operators-guide/Portable-Storage-Business.jpg"
+        "cover": "82"
       },
       "body_markdown": "",
       "seo": {},
@@ -8994,7 +9002,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/10-proven-best-practices-for-creating-a-user-friendly-quote-builder-that-converts/image-679.webp"
+        "cover": "81"
       },
       "body_markdown": "",
       "seo": {},
@@ -9053,7 +9061,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/3-smart-ways-to-use-portable-containers-for-restoration-remediation-services/BElfor2.jpg"
+        "cover": "80"
       },
       "body_markdown": "",
       "seo": {},
@@ -9080,7 +9088,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/grow-portable-storage-sales-with-ai-driven-marketing-strategies/ai-for-portable-storage-marketing.png"
+        "cover": "79"
       },
       "body_markdown": "",
       "seo": {},
@@ -9107,7 +9115,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/how-to-market-your-storage-company-online-in-2024/storage-company-website-design.jpg"
+        "cover": "78"
       },
       "body_markdown": "",
       "seo": {},
@@ -9134,7 +9142,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/how-to-build-your-2024-local-seo-plan-in-the-portable-storage-space/local-seo-2023-moving-companies.jpg"
+        "cover": "77"
       },
       "body_markdown": "",
       "seo": {},
@@ -9161,7 +9169,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/4-modern-marketing-strategies-and-local-seo/Risely-Marketing-Tomato-e1723578636596.png"
+        "cover": "76"
       },
       "body_markdown": "",
       "seo": {},
@@ -9188,21 +9196,21 @@
           },
           {
             "heading": "Interviewees",
-            "image": "/images/blog/qa-the-rise-of-portable-storage-by-calculmate/TB-logo@2x-1024x1024.png",
+            "image": "73",
             "paragraphs": [
               "Leigh Ridgway, CTO [TAXIBOX](https://www.taxibox.com.au/) Mobile Storage, Australia"
             ]
           },
           {
             "heading": "",
-            "image": "/images/blog/qa-the-rise-of-portable-storage-by-calculmate/ES-Logo@2x.png",
+            "image": "74",
             "paragraphs": [
               "Tim Slesinger, CEO [easyStorage](https://www.easystorage.com/), United Kingdom"
             ]
           },
           {
             "heading": "",
-            "image": "/images/blog/qa-the-rise-of-portable-storage-by-calculmate/bsb-blog-1.png",
+            "image": "75",
             "paragraphs": [
               "Bob Anderson, Director of Marketing [BigSteelBox](https://www.bigsteelbox.com/storage/), Canada"
             ]
@@ -9250,7 +9258,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/qa-the-rise-of-portable-storage-by-calculmate/Blog-Header@2x.png"
+        "cover": "72"
       },
       "body_markdown": "",
       "seo": {},
@@ -9289,7 +9297,7 @@
           },
           {
             "heading": "Let’s break down the scenario above:",
-            "image": "/images/blog/portable-storagerent-prorating/Calculator-Image.jpeg",
+            "image": "70",
             "list": [
               "Your monthly rate is $189.",
               "Your Daily Rate is $20 x 5 days = $100 in this scenario",
@@ -9309,7 +9317,7 @@
           },
           {
             "heading": "",
-            "image": "/images/blog/portable-storagerent-prorating/Customer-Experience-Image.jpg",
+            "image": "71",
             "paragraphs": [
               "The “Customer Experience” should always be the center of your decision making process, and the rest will almost always fall in place. There is a happy medium and a way to achieve happy customers and a profitable business- you just have to take a minute and break it down. Happy customers inevitably lead to more happy customers. Word of mouth is a powerful thing. Likely your competition does not offer “Prorating” or a “Daily Rate”. Use it as a competitive advantage and marketing opportunity, all while strategically being more profitable for the right reasons."
             ]
@@ -9338,7 +9346,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/portable-storagerent-prorating/Chasing-Money.jpg"
+        "cover": "69"
       },
       "body_markdown": "",
       "seo": {},
@@ -9366,7 +9374,7 @@
           },
           {
             "heading": "",
-            "image": "/images/blog/confessions-of-a-ppc-manager-youre-looking-at-the-wrong-metrics-to-measure-google-ads-success/JOrdan-Pic.jpg",
+            "image": "66",
             "paragraphs": [
               "“Jordan, I just can’t understand why you’d want to cancel an account that’s running this well” said Matt Targett, a strategic partner manager at Google. The account Matt was referring to is a Google Ads account for a client we just started working with. The account was managed by a large advertising agency that also happened to be a Google Partner. Backed by Google’s internal AdWords team (now Google Ads), said agency was doing everything they could to keep the account.",
               "“I’ve had my team here at Google audit the campaigns and we can’t find anything wrong with it.”",
@@ -9391,7 +9399,7 @@
           },
           {
             "heading": "",
-            "image": "/images/blog/confessions-of-a-ppc-manager-youre-looking-at-the-wrong-metrics-to-measure-google-ads-success/image1-575x240.gif",
+            "image": "67",
             "paragraphs": [
               "Revenue doesn’t care about Click Through Rate. It also doesn’t care about your average ad position, quality score, or any other metric reported in Google Ads. Speaking strictly within marketing boundaries, revenue only cares about two things – cost per acquisition & lifetime value (more on this below).",
               "Everyone wants their Google Ads account to fire on all cylinders. The better your account runs, the more money you’re saving, right?",
@@ -9401,7 +9409,7 @@
           },
           {
             "heading": "",
-            "image": "/images/blog/confessions-of-a-ppc-manager-youre-looking-at-the-wrong-metrics-to-measure-google-ads-success/image2-575x217.gif"
+            "image": "68"
           },
           {
             "heading": "#2. Operational hurdles can be just as damaging as a poorly executed marketing campaign.",
@@ -9436,7 +9444,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/confessions-of-a-ppc-manager-youre-looking-at-the-wrong-metrics-to-measure-google-ads-success/image2.gif"
+        "cover": "65"
       },
       "body_markdown": "",
       "seo": {},
@@ -9465,7 +9473,7 @@
           },
           {
             "heading": "#5 Hire an outside employee",
-            "image": "/images/blog/top-5-tips-for-family-run-local-portable-storage-companies/new-hire-onboarding-Article.png",
+            "image": "60",
             "paragraphs": [
               "Managing your family member(s) is not easy and emotion gets in the way. This hinders your ability to delegate properly and set proper goals to grow your business. The good news about portable storage is that your overhead is minor compared to other businesses. You really need one solid employee to manage the day-to-day (aka: everything!) and a Driver. Your job should be to make the phones ring, manage your employees with weekly meetings (setting goals, etc)- and throw spaghetti on the wall (try new things!) in an effort to increase your revenue/profit. Many feel like they’ll lose control by hiring someone but think of it as gaining freedom. According to the HR Daily Advisor, “An external candidate may provide a fresh perspective, which can be beneficial for the team and for the organization—it can help to get out of old habits.”¹"
             ]
@@ -9478,14 +9486,14 @@
           },
           {
             "heading": "",
-            "image": "/images/blog/top-5-tips-for-family-run-local-portable-storage-companies/How-to-Introduce-a-Price-Increase-Without-Losing-Your-Customers.png",
+            "image": "61",
             "paragraphs": [
               "Most say if your lead response time is within 5 minutes, you will close the deal. According to the Harvest Business Review, “Firms that tried to contact potential customers within an hour of receiving a query were nearly seven times as likely to qualify the lead (which we defined as having a meaningful conversation with a key decision maker) as those that tried to contact the customer even an hour later—and more than 60 times as likely as companies that waited 24 hours or longer.”²"
             ]
           },
           {
             "heading": "#3 Set your Billing Policies",
-            "image": "/images/blog/top-5-tips-for-family-run-local-portable-storage-companies/how-to-pay-credit-card-bills.webp",
+            "image": "62",
             "paragraphs": [
               "In today’s day and age, it is a given that you pay for a service when it happens. For services such as portable storage or other rental scenarios (trucks, machinery, housing, etc), securing your reservation with a credit card is the NORM, not the exception. And paying the Delivery and first month’s rent upfront is standard. Build your policies based on standards, not on exceptions. As a mom-and-pop business, when the exceptions arise, treat them differently if need be. But always have your standard policies, otherwise, you’ll spend the time you do not have chasing money… To reserve a container, require a credit card to be on file. The card will not be charged until the day prior to the Delivery (after all you are renting them a $3500- $5000 asset). Have a cancellation and reschedule policy- which eases their mind. The card on file will be charged each month for their ongoing rent. The customer should manage their money, you should not. If they need to refill their bank account before the charge goes through, that is on them to do, not you to remind them. Whether you’re in Nebraska, Florida, Washington state or Texas… a Farmer, a Student, a Nurse or a Business Men/Women, Millennials or Elderly.. mostly all have credit cards. Are there Red Flags? Yes. Identify them and have a plan. This does not mean you won’t make the exception of accepting cash, ACH or a physical check. Make the exception! But it’s just that. An exception. And you must know that consequences are often paired with exceptions. These are usually the ones you spend the most time on. But if the majority of your customers are following your policy, your company’s health will improve. Policies save time and money. Everyone follows them and if an exception comes up- discuss it and address it. If you want to stand out, offer a Pre-Pay discount, Prorating, and/or Daily or Weekly Rentals! It’s a service to your clients and to you (for many reasons for another blog).",
               "If you have a large volume of repeat business from a Corporate customer who requests to be invoiced, set your terms and policies (late fees, etc)- and follow them. Have an annual contract. Policies are in place to protect you. Do not pick up an empty container if there is a past due balance. Your Lease Agreement should cover all of your policies."
@@ -9493,14 +9501,14 @@
           },
           {
             "heading": "#2 Try New Things",
-            "image": "/images/blog/top-5-tips-for-family-run-local-portable-storage-companies/133299447-businessman-walking-and-balancing-on-rope-over-precipice-in-mountains-trying-to-reach-red-flag-on-ot.jpg",
+            "image": "63",
             "paragraphs": [
               "Once you have your policies in place and have hired a new employee to do the heavy lifting, you can come out of the Hull and steer the ship in order to grow the business. Challenge yourself to come up with one new offering every quarter to add to your Service offerings. Try it! What can it hurt? But have a plan and a policy with every decision you make. Contents Insurance or a Container Damage Waiver are two key offerings that come to mind. Not only do they provide peace of mind to you and the client, but they are highly profitable offerings that every customer needs. The customer is buying a policy that costs roughly $6-$10/month to the insurance vendor. You are investing time to manage the relationship with the vendor, handle reporting, etc- so it’s standard to upcharge by 30-50%. Then there are all of the necessities your Renter would need such as; Locks, Moving Supplies, Dolly or Ramp Rentals. Or what about a discounted rental package that includes all of the things they’ll need if they are moving? What about shelving or electricity or vents for your Construction customers? DriPacs, Moving Blankets, Ratchet Straps, Plastic Totes. Come up with creative ways to market these add-ons! Now running your business has become a bit more creative and rewarding again!"
             ]
           },
           {
             "heading": "#1 Automate your Business",
-            "image": "/images/blog/top-5-tips-for-family-run-local-portable-storage-companies/cio_automation_ai.png.webp",
+            "image": "64",
             "paragraphs": [
               "Likely you are using Excel and QuickBooks to run your business and manage your inventory. You’re likely spending an extra 5-10 hours a week doing manual data entry/billing that otherwise can be managed by Software. There are many software options out there for Portable Storage Software. Set up Demos with each one to understand the differences and how it can help you. It may seem daunting as change is HARD. But change is also what can bring you to another level in your business. According to a Forbes article How Automation Will Trigger A Small-Business Renaissance, “A small business’s biggest advantage is providing a unique customer experience that larger competitors can’t replicate, but business owners and operators wear many hats and have limited time to deliver on that potential. Software automation promises to give small-business owners more time for the inherently human aspects of running their businesses, which magnifies and multiplies their advantage.”³ It’s also quite common that at the same time you hire an employee to help manage the day-to-day is when you choose to automate the business. Usually, your hire is more technical than you are- so it helps to have someone lead that charge. But always learn the software yourself! Once you get over the hump of the transition, the skies will clear and allow you to continue to manage, build and take a break!",
               "Bottom line: Your family started this business to have freedom and make a living, all while offering a stellar product to your neighbors. It was once fun! It’s time to tap into that creative business mind again. When you don’t lie awake worrying about the little stuff, but instead, you are churning up new avenues of growth- whether it’s new sales channels, new products to add to the portfolio, events or charities to be a part of or marketing ideas- you are at least investing your time growing the business and steering the ship in the right direction, not picking up the nitty gritty pieces. Per the 1971 Sitcom, The Brady Bunch, “When it’s Time to Change, you’ve got to Rearrange.”",
@@ -9516,7 +9524,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/top-5-tips-for-family-run-local-portable-storage-companies/13-family-business-ideas-v2-e1659461015874.jpg"
+        "cover": "59"
       },
       "body_markdown": "",
       "seo": {},
@@ -9537,7 +9545,7 @@
         "body": [
           {
             "heading": "",
-            "image": "/images/blog/this-is-not-self-storage/Home-depot-truck_LeManna_Shutterstock.jpg",
+            "image": "53",
             "paragraphs": [
               "Many say the Box Rental fee is what is most important on your website. It’s the draw and what consumers look at. There is much truth in that as the Self-Storage industry educated consumers to look for the monthly rate and deals (1st month FREE, etc). But with Portable Storage, the transportation fees likely exceed one month’s rent. Less is more, but we can’t hide the numbers either. It’s all about how it’s positioned. And always, the simpler, the better. List out what they need to know, but don’t do the math for them.",
               "Despite the craze of “contactless booking” and its promising future, it’s not that black and white with Portable Storage. You are delivering a large, heavy metal box to their property in which they will store their life’s possessions- and possibly asking you to take it away full and store it “somewhere” for them. To do this they need to trust you, your driver, and your processes. Your website can create a “feeling” of security and trust.. BUT, THIS IS NOT SELF-STORAGE, which is a simpler transaction. With Portable Storage, there will always be a point before delivering the box that you need to have a conversation, which can be very short. You’ll need to review the placement of the container, confirm the credit card, delivery time and placement, and hopefully upsell ancillary items. But more importantly, thank them for their business and establish a connection. Afterall, they may rent from you again or refer you to others. You’ll also speak to them at least 1-2 times more while they are renting to schedule a relocation or pick-up. At the end of the rental, perhaps pay a service to send automated thank you emails requesting a review using a company like [Bird Eye.](https://birdeye.com/)"
@@ -9545,28 +9553,28 @@
           },
           {
             "heading": "LOCAL LOCAL LOCAL",
-            "image": "/images/blog/this-is-not-self-storage/downtown.jpg",
+            "image": "54",
             "paragraphs": [
               "Local portable storage companies have just that as an advantage- they are Local. Unlike talking to someone in a call center in another state, a local personality answering your inquiry establishes trust much quicker. They know the roadways, weather, neighbors and other local businesses and maybe your Uncle Bob. Use it to your advantage! Maybe you need to suggest a different delivery date as you know that a snowstorm is coming next week; or suggest a moving company you created a new relationship with. You’ll know better than anyone that going south on your local interstate at 8am will result in wasted time on the road… so you can make better assumptions on logistics. You’ll be able to say things like, “We have 2 other boxes on your street in the cul de sac with Mrs. Smith. Did you see them?” You have gained their trust."
             ]
           },
           {
             "heading": "2 TOUCHES VERSUS 4",
-            "image": "/images/blog/this-is-not-self-storage/damaged-moving-box-1.jpg",
+            "image": "55",
             "paragraphs": [
               "Is Portable Storage more expensive than Self-Storage? Most of the time, Yes. But there is a market for those who are seeking convenience and simplicity on their own time frame. If they are Renovating, they’d appreciate not having to rent a moving Van, borrow a friend and load a Self-Storage Unit (and do it all over again on the flip side). If they are moving, they will appreciate that if they used a traditional moving truck, their belongings would be touched four times versus two times- if Portable Storage. Think of it. Movers arrive Monday and LOAD the truck. Your closing is not for a few weeks. The movers UNLOAD your belongings into a Self-Storage Unit. On the day of your closing of your new house, they RE-LOAD the truck with your belongings (new crew perhaps). The movers drive to your new home and UNLOAD into the new house. You’ve officially doubled the chance that something will be damaged versus if you or the movers loaded a Portable Storage Unit that was brought back to the Portable Storage facility and stored for 2 weeks, then drove it to the new house and unloaded it. Not everyone can afford Portable Storage. Not everyone can have a box at their town house or city apartment BUT there are PLENTY of people who can. These are the same people that hire Movers… for convenience. Portable Storage has redefined what convenience means in the moving industry."
             ]
           },
           {
             "heading": "THE PSYCHOLOGY OF PRICING",
-            "image": "/images/blog/this-is-not-self-storage/Quote.png",
+            "image": "56",
             "paragraphs": [
               "The psychology of positioning words and pricing on Quotes is a common topic discussed among business owners. A large Portable Storage company is known to not be completely transparent in their quoting structure- appearing to cost less than they really are. A consumer books a Box to be delivered, later getting frustrated and feeling like the wool was pulled over their heads when insurance wasn’t explained, or the transportation fees. Is that how we want our customers to feel? Will they recommend us to others? I’d venture to say no. According to the US Census, the average person living in the US moves 11.4 times in a lifetime.¹ Chances are they could be a repeat customer or recommend us to their friends and family. Like most things in life, there is a very comfortable gray area where you are transparent, but not overly forthcoming- which applies perfectly to Pricing. As Consumers are getting more educated about Portable Storage, it’ll become imperative to deliver simple, clear quotes- that don’t over explain what they need to know."
             ]
           },
           {
             "heading": "ESTABLISH TRUST",
-            "image": "/images/blog/this-is-not-self-storage/2021_08_two-people-shaking-hands-picture-id1202045389.jpg",
+            "image": "57",
             "paragraphs": [
               "Just a few years ago (pre-COVID), there weren’t as many choices out there for renting a Portable Storage Container, and customers weren’t as educated on the costs of transportations, coverages, and other ancillary Add-Ons. So it was easier to “pull the wool over their heads”. But now that there are several choices of portable storage companies all over the world, how we communicate with them (via phone or digitally) can be our #1 advantage, after all it is our first interaction with these prospects.",
               "In the end it comes down to how quickly we can capture the customer’s attention, gain trust, and make them feel at ease about this “checklist item” that they don’t know much about. You not only educated them, but also helped them check off other things on their “list” (ie: Moving Accessories or call their insurance agent) all while established a relationship with them- which in turn will get you a positive Review. This process is not as necessary with Self Storage customers as the exchange is simpler, as you’re not delivering a metal box on their driveway or worse, their lawn and/or driving it with their personal belongings in it. Trust must be established."
@@ -9574,7 +9582,7 @@
           },
           {
             "heading": "85/15 PHILOSOPHY",
-            "image": "/images/blog/this-is-not-self-storage/online-hotel-bookings-1024x682-1.jpeg",
+            "image": "58",
             "paragraphs": [
               "It is smart to bring a prospective customers down a path of booking the Box directly on our websites bringing them 85% to the finish line- contactless. At this point, the customer feels like they’ve completed the order and can check it off their list. And you’ve gathered a ton of information easy to receive digitally and accurately. But they, nor you will truly feel complete until the details of this unknown service of Portable Storage (to them) is discussed on the phone. The call will cover the additional 15% of the items, ensuring the customer understands pricing, timing of billing, timing, box placement, insurance, along with any other items they may need (to cross off their checklist). It’s also an opportunity to discuss timing and your policies (cancellation fees, what not to put in the box, weight issues, etc). Can this all be covered in your Lease agreement which could essentially be signed on your website- absolutely. But some things in Portable Storage are worth also going over verbally.",
               "Bottom line, we’re all still learning. Portable storage is in its infancy- maybe Toddlerhood. Generations are shifting. The Economy is shifting. We are all learning together and adjusting along the way. The key is to be open to change and try to stay ahead of the curve… and remember, Portable Storage is NOT Self-Storage.",
@@ -9585,7 +9593,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/this-is-not-self-storage/preview-e1658856645932.jpg"
+        "cover": "52"
       },
       "body_markdown": "",
       "seo": {},
@@ -9614,7 +9622,7 @@
           },
           {
             "heading": "",
-            "image": "/images/blog/7-strategies-of-7-figure-moving-companies/Untitled-design-4-e1645023875682.png",
+            "image": "50",
             "paragraphs": [
               "Even so, the moving industry started to bounce back as early as 2021. A survey conducted by [MoveBuddha](https://www.movebuddha.com/blog/movers-survey-2021/) found 64% of respondents from moving companies reported to have normal or above normal bookings in mid-2021. Reports predict a steady growth from here on out too. At least until the next bump in the road. In fact, according to [MarketWatch](https://www.marketwatch.com/press-release/moving-services-market-size-2021-growth-rate-by-application-analysis-latest-trends-top-key-players-business-development-opportunities-types-and-forecast-to-2024-2021-11-12), the moving service industry is expected to grow by nearly 2 billion dollars in the next couple years.",
               "There will always be a problem you’ll face as a business owner, whether it’s a pandemic, new technology, more competition, etc. It’s up to you to learn how to adapt to keep your business afloat and thriving. With that in mind, we’ve compiled a list of 7 proven strategies that can accelerate your moving business into a 7-figure money making machine."
@@ -9706,7 +9714,7 @@
           },
           {
             "heading": "",
-            "image": "/images/blog/7-strategies-of-7-figure-moving-companies/constantin-wenning-idDvA4jPBO8-unsplash-scaled-e1645024902587-2048x1136.jpg"
+            "image": "51"
           },
           {
             "heading": "Invest in Digital Marketing with Today’s Local Media",
@@ -9716,7 +9724,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/7-strategies-of-7-figure-moving-companies/moving-company-stories-feature-e1658771507404.jpg"
+        "cover": "49"
       },
       "body_markdown": "",
       "seo": {},
@@ -9747,7 +9755,7 @@
           },
           {
             "heading": "",
-            "image": "/images/blog/its-peak-moving-season-is-your-moving-and-storage-facility-ready/283770774_525312005899857_8669764819430522545_n.jpg"
+            "image": "48"
           },
           {
             "heading": "Why are people moving?",
@@ -9772,7 +9780,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/its-peak-moving-season-is-your-moving-and-storage-facility-ready/portable-storage-container-service-decatur-e1658771085688.jpg"
+        "cover": "47"
       },
       "body_markdown": "",
       "seo": {},
@@ -9858,7 +9866,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/dont-forget-accessibility-for-your-website/website-access.png"
+        "cover": "46"
       },
       "body_markdown": "",
       "seo": {},
@@ -9889,7 +9897,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/use-your-toolbox-be-the-concierge/Blog-HERO-Images-6-e1658765863545.jpg"
+        "cover": "45"
       },
       "body_markdown": "",
       "seo": {},
@@ -9916,7 +9924,7 @@
             ]
           }
         ],
-        "cover": "/images/blog/top-3-reasons-to-use-portable-storage-software-in-2022/Screenshot_21-e1658771610925.png"
+        "cover": "44"
       },
       "body_markdown": "",
       "seo": {},
@@ -10004,7 +10012,7 @@
       "frontmatter": {
         "order": 1,
         "role": "CEO",
-        "photo": "/images/team/edward-smith.jpg",
+        "photo": "94",
         "email": "ed@collegeboundmovers.com"
       },
       "body_markdown": "",
@@ -10019,7 +10027,7 @@
       "frontmatter": {
         "order": 2,
         "role": "President",
-        "photo": "/images/team/cathy-putnam.jpg",
+        "photo": "93",
         "email": "cathy@runstella.com"
       },
       "body_markdown": "",
@@ -10034,7 +10042,7 @@
       "frontmatter": {
         "order": 3,
         "role": "Onboarding & Support Manager",
-        "photo": "/images/team/matt-dudley.jpg",
+        "photo": "92",
         "email": "matt@runstella.com"
       },
       "body_markdown": "",
@@ -10049,7 +10057,7 @@
       "frontmatter": {
         "order": 4,
         "role": "Sales Manager",
-        "photo": "/images/team/shauna-kozinski.jpg",
+        "photo": "91",
         "email": "shauna@runstella.com"
       },
       "body_markdown": "",
@@ -10064,7 +10072,7 @@
       "frontmatter": {
         "order": 5,
         "role": "Account Manager",
-        "photo": "/images/team/michael-calderone.jpg",
+        "photo": "90",
         "email": "michael@runstella.com"
       },
       "body_markdown": "",
@@ -10079,7 +10087,7 @@
       "frontmatter": {
         "order": 6,
         "role": "CFO",
-        "photo": "/images/team/scott-kelly.jpg",
+        "photo": "89",
         "email": "scott@collegeboundmovers.com"
       },
       "body_markdown": "",
@@ -10098,7 +10106,7 @@
         "role": "",
         "company": "INBOX Portable Storage",
         "location": "",
-        "logo": "/images/testimonials/inbox.png",
+        "logo": "97",
         "featured": true
       },
       "body_markdown": "",
@@ -10117,7 +10125,7 @@
         "role": "Owner",
         "company": "Mobile Storage Solutions",
         "location": "Buffalo Grove, IL",
-        "logo": "/images/testimonials/mobile_storage_solutions.png",
+        "logo": "28",
         "featured": false
       },
       "body_markdown": "",
@@ -10136,7 +10144,7 @@
         "role": "Owner",
         "company": "Mobile Storage Solutions",
         "location": "Buffalo Grove, IL",
-        "logo": "/images/testimonials/mobile_storage_solutions.png",
+        "logo": "28",
         "featured": true
       },
       "body_markdown": "",
@@ -10155,7 +10163,7 @@
         "role": "Owner",
         "company": "Mobile Storage Solutions",
         "location": "Buffalo Grove, IL",
-        "logo": "/images/testimonials/mobile_storage_solutions.png",
+        "logo": "28",
         "featured": true
       },
       "body_markdown": "",
@@ -10174,7 +10182,7 @@
         "role": "Operations",
         "company": "My Stack Box",
         "location": "Pompano Beach, FL",
-        "logo": "/images/testimonials/my_stack_box.png",
+        "logo": "29",
         "featured": false
       },
       "body_markdown": "",
@@ -10212,7 +10220,7 @@
         "role": "Owner",
         "company": "Cows Mobile Storage of Orlando",
         "location": "",
-        "logo": "/images/testimonials/cows_mobile_storage.jpg",
+        "logo": "26",
         "featured": true
       },
       "body_markdown": "",
@@ -10231,7 +10239,7 @@
         "role": "",
         "company": "Chatt Mobile Storage",
         "location": "Soddy Daisy, TN",
-        "logo": "/images/testimonials/chat_mobile_storage.png",
+        "logo": "25",
         "featured": false
       },
       "body_markdown": "",
@@ -10250,7 +10258,7 @@
         "role": "",
         "company": "Chatt Mobile Storage",
         "location": "Soddy Daisy, TN",
-        "logo": "/images/testimonials/chat_mobile_storage.png",
+        "logo": "25",
         "featured": true
       },
       "body_markdown": "",
@@ -10288,7 +10296,7 @@
         "role": "Owner",
         "company": "911 Storage",
         "location": "Keaau, HI",
-        "logo": "/images/testimonials/911_storage.png",
+        "logo": "24",
         "featured": true
       },
       "body_markdown": "",

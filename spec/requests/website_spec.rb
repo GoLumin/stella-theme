@@ -115,6 +115,29 @@ RSpec.describe "The Stella website", type: :request, website: true do
     end
   end
 
+  it "draws every image from the media library: content images, the Branding logo, the share image" do
+    logo = Stella::Engine.root.join("app/assets/images/stella/logo-stella.svg")
+    asset = Asset.create!(folder: "/logos", file: {io: logo.open, filename: "inbox.svg", content_type: "image/svg+xml"})
+    entry = Collection.find_by!(slug: "testimonials").entries.find { it.frontmatter["featured"] }
+    entry.update!(frontmatter: entry.frontmatter.merge("logo" => asset.id.to_s))
+    Setting.set("branding", {"logo_id" => asset.id.to_s})
+    general = Global.find_by!(slug: "general")
+    general.update!(data: general.data.merge("share_image" => asset.id.to_s))
+
+    get "/"
+
+    expect(html.css("img").map { it["src"] }.grep(%r{\A/images/})).to be_empty
+    expect(html.at_css(".v2h-brand img")["src"]).to include("/rails/active_storage/", "inbox.svg")
+    expect(html.at_css("meta[property='og:image']")["content"]).to include("inbox.svg")
+    get "/testimonials"
+    expect(html.css("img").map { it["src"] }).to include(a_string_including("/rails/active_storage/", "inbox.svg"))
+    SNAPSHOT["collections"].each do |collection|
+      Array(collection.dig("schema", "fields")).flat_map { [it, *Array(it["of"])] }.each do |field|
+        expect(field["type"]).to eq("asset"), "#{collection["slug"]}.#{field["name"]} holds an image as text" if %w[logo icon photo image cover].include?(field["name"])
+      end
+    end
+  end
+
   it "follows Tools › Redirects" do
     redirect = SNAPSHOT["redirects"].first
     Redirect.create!(redirect)
@@ -219,7 +242,7 @@ RSpec.describe "The Stella website", type: :request, website: true do
     expect(html.css(".group-title").map { it.text.strip }).to eq(categories)
   end
 
-  it "serves its own scripts, stylesheet and fonts, and the Astro site's public files, with nothing compiled" do
+  it "serves its own scripts, stylesheet, fonts and favicons, with nothing compiled" do
     get "/"
     page = html
 
@@ -239,11 +262,11 @@ RSpec.describe "The Stella website", type: :request, website: true do
       get path
       expect(response).to have_http_status(:ok), path
     end
-    %w[/favicon.ico /favicon.svg /apple-touch-icon.png /images/logo/logo-stella.svg /images/share/stella.png].each do |path|
+    %w[/favicon.ico /favicon.svg /apple-touch-icon.png].each do |path|
       get path
       expect(response).to have_http_status(:ok), path
     end
-    ["/_stella/../../stella.gemspec", "/_stella/README.md", "/images/../stella.gemspec", "/images/nope.png"].each do |path|
+    ["/_stella/../../stella.gemspec", "/_stella/README.md", "/images/logo/logo-stella.svg"].each do |path|
       get path
       expect(response).to have_http_status(:not_found), path
     end

@@ -8,7 +8,7 @@
   <div class="wrap" data-c-featured-customer>
     <a href="/featured-customers" class="back" data-c-featured-customer>← All featured customers</a>
     <div class="hero-in" data-c-featured-customer>
-      <% if customer[:logo] %><%= tag.img src: customer[:logo], alt: "", class: "hero-logo", data: {c_featured_customer: ""} %><% end %>
+      <% if customer[:logo] %><%= stella_image_tag(customer[:logo], sizes: "12rem", alt: "", class: "hero-logo", data: {c_featured_customer: ""}) %><% end %>
       <div data-c-featured-customer>
         <span class="eyebrow" data-c-featured-customer>Featured customer</span>
         <h1 data-c-featured-customer><%= customer[:company] %></h1>
@@ -50,7 +50,7 @@
   <section class="section" data-c-featured-customer>
     <div class="wrap" data-c-featured-customer>
       <figure class="fc-figure" data-c-featured-customer>
-        <%= tag.img src: customer[:image], alt: "#{customer[:company]} featured customer feature", data: {c_featured_customer: ""} %>
+        <%= stella_image_tag(customer[:image], sizes: "(max-width: 1220px) 100vw, 1180px", alt: "#{customer[:company]} featured customer feature", data: {c_featured_customer: ""}) %>
       </figure>
     </div>
   </section>
@@ -102,7 +102,7 @@
       <div class="grid grid-3" data-c-featured-customer>
         <% related.each do |other| %>
           <a class="card card-hover rel" href="/featured-customers/<%= other[:slug] %>" data-c-featured-customer>
-            <% if other[:logo] %><%= tag.img src: other[:logo], alt: "", class: "rel-logo", loading: "lazy", data: {c_featured_customer: ""} %><% end %>
+            <% if other[:logo] %><%= stella_image_tag(other[:logo], sizes: "12rem", alt: "", class: "rel-logo", loading: "lazy", data: {c_featured_customer: ""}) %><% end %>
             <h3 data-c-featured-customer><%= other[:company] %></h3>
             <% if other[:location] %><span class="rel-loc" data-c-featured-customer><%= other[:location] %></span><% end %>
             <p data-c-featured-customer><%= other[:summary] %></p>

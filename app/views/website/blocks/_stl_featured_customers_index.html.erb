@@ -13,9 +13,9 @@
       <div class="grid grid-2" data-c-featured-customers-index>
         <% customers.each do |customer| %>
           <a class="card card-hover fc-card" href="/featured-customers/<%= customer[:slug] %>" data-c-featured-customers-index>
-            <% if customer[:image] %><%= tag.img src: customer[:image], alt: "", class: "fc-img", loading: "lazy", data: {c_featured_customers_index: ""} %><% end %>
+            <% if customer[:image] %><%= stella_image_tag(customer[:image], sizes: "(max-width: 1220px) 100vw, 1180px", alt: "", class: "fc-img", loading: "lazy", data: {c_featured_customers_index: ""}) %><% end %>
             <div class="fc-top" data-c-featured-customers-index>
-              <% if customer[:logo] %><%= tag.img src: customer[:logo], alt: "", class: "fc-logo", loading: "lazy", data: {c_featured_customers_index: ""} %><% end %>
+              <% if customer[:logo] %><%= stella_image_tag(customer[:logo], sizes: "12rem", alt: "", class: "fc-logo", loading: "lazy", data: {c_featured_customers_index: ""}) %><% end %>
               <div data-c-featured-customers-index>
                 <h3 data-c-featured-customers-index><%= customer[:company] %></h3>
                 <% if customer[:location] %><span class="fc-loc" data-c-featured-customers-index><%= customer[:location] %></span><% end %>

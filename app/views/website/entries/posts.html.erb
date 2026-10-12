@@ -30,7 +30,7 @@
             <% if section[:heading].present? %><h2 data-c-blog-post><%= section[:heading] %></h2><% end %>
             <% if section[:image] %>
               <figure class="prose-figure" data-c-blog-post>
-                <%= tag.img src: section[:image], alt: section[:image_alt].to_s, loading: "lazy", decoding: "async", data: {c_blog_post: ""} %>
+                <%= stella_image_tag(section[:image], natural: true, sizes: "(max-width: 760px) 100vw, 60vw", alt: section[:image_alt].to_s, loading: "lazy", decoding: "async", data: {c_blog_post: ""}) %>
               </figure>
             <% end %>
             <% section[:paragraphs].each do |text| %>

@@ -37,12 +37,5 @@ module StellaCollectionsHelper
   end
 
   # A post's <head>: its cover, when it has one, as the share image (Layout.astro's `image`).
-  def stella_post_seo_tags(post)
-    tags = stella_seo_tags(post[:entry], title: post[:title], description: post[:excerpt])
-    share = stella_site[:share_image].presence
-    return tags unless post[:cover] && share
-
-    tags.sub(%(property="og:image" content="#{ERB::Util.html_escape(website_url(share))}"),
-      %(property="og:image" content="#{ERB::Util.html_escape(website_url(post[:cover]))}")).html_safe # rubocop:disable Rails/OutputSafety -- website_seo_tags' own HTML, an escaped URL swapped in
-  end
+  def stella_post_seo_tags(post) = stella_seo_tags(post[:entry], title: post[:title], description: post[:excerpt], image: post[:cover])
 end

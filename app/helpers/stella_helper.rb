@@ -46,9 +46,6 @@ module StellaHelper
     url = stella_str(url).delete(INLINE_EDIT_MARKS).strip
     url if url.present? && SafeUrl.safe?(url)
   end
-  # A path typed into a text field ("/images/…"), for an <img>: unmarked, as stella_href.
-  def stella_src(path) = stella_str(path).delete(INLINE_EDIT_MARKS).strip.presence
-
   INLINE_EDIT_MARKS = [Website::InlineEdit::START, Website::InlineEdit::FINISH, *Website::InlineEdit::DIGITS].join
 
   # ── src/data/site.ts ─────────────────────────────────────────────────────
@@ -227,18 +224,45 @@ module StellaHelper
   end
 
   # The <head> for a page or entry: the SEO panel's tags (website_seo_tags),
-  # with the title and description the Astro site gave it, and the share
-  # image from the `general` global when the record has none of its own.
-  def stella_seo_tags(record = nil, title: nil, description: nil, noindex: nil)
+  # with the title and description the Astro site gave it, and its share
+  # image: the record's own (`image:`, an asset), else the `general` global's.
+  def stella_seo_tags(record = nil, title: nil, description: nil, noindex: nil, image: nil)
     seo = record.respond_to?(:seo) ? record.seo.to_h.stringify_keys : {}
     description = description.presence || seo["description"].presence || stella_site[:description]
     noindex = website_truthy?(seo["noindex"]) if noindex.nil?
-    tags = website_seo_tags(record, title: stella_title(title || record&.title), description:, noindex:)
-    share = stella_site[:share_image].presence
-    return tags if share.nil? || tags.include?('property="og:image"')
+    website_seo_tags(record, title: stella_title(title || record&.title), description:, noindex:, image: image.presence || stella_site[:share_image].presence)
+  end
 
-    safe_join([tags.sub('name="twitter:card" content="summary"', 'name="twitter:card" content="summary_large_image"').html_safe, # rubocop:disable Rails/OutputSafety -- website_seo_tags' own HTML
-      tag.meta(property: "og:image", content: website_url(share))], "\n")
+  # ── Images (every one is the media library's) ───────────────────────────
+
+  # An asset as an <img>, through website_image_tag (resized copies, its
+  # alt text and focal point, Replace and Crop & edit in the editor's
+  # preview), with the original file offered too, so a browser that wants
+  # more pixels than the largest copy never has to stretch one.
+  # natural: the design shows it at its own width (an image in a post), so
+  # `sizes` says that width, as an <img> of the file alone would have.
+  def stella_image_tag(id, natural: false, sizes: "100vw", **options)
+    html = website_image_tag(id, sizes:, **options) or return
+    asset = MediaLibrary.find(id)
+    return html unless asset&.width && asset.height && html.include?(" srcset=")
+
+    original = ERB::Util.html_escape("#{rails_storage_proxy_path(asset.file)} #{asset.width}w")
+    html = html.sub(/ srcset="([^"]*)"/) { %( srcset="#{$1}, #{original}") }
+      .sub(/ width="\d+"/, %( width="#{asset.width}")).sub(/ height="\d+"/, %( height="#{asset.height}"))
+    html = html.sub(/ sizes="[^"]*"/, %( sizes="(max-width: #{asset.width}px) 100vw, #{asset.width}px")) if natural
+    html.html_safe # rubocop:disable Rails/OutputSafety -- website_image_tag's own tag, with escaped attributes
+  end
+
+  # ── The site's logo and icon: Settings › Branding, else the theme's own ──
+
+  def stella_logo(**options)
+    stella_image_tag(Setting.get("branding")["logo_id"], alt: "Stella", sizes: "10rem", loading: :eager, **options) ||
+      tag.img(src: stella_asset_path("logo-stella.svg"), alt: "Stella", **options)
+  end
+
+  def stella_favicon_href
+    id = Setting.get("branding")["favicon_id"].presence
+    (id && website_image(id)&.dig(:src)) || stella_asset_path("favicon.svg")
   end
 
   # ── The theme's own files ────────────────────────────────────────────────

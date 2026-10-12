@@ -21,7 +21,7 @@
           </span>
           <blockquote data-c-book-demo-proof><%= quote[:quote].length > 240 ? "#{quote[:quote][0, 237].rstrip}…" : quote[:quote] %></blockquote>
           <figcaption data-c-book-demo-proof>
-            <% if quote[:logo] %><%= tag.img class: "bd-qlogo", src: quote[:logo], alt: "", loading: "lazy", data: {c_book_demo_proof: ""} %><% end %>
+            <% if quote[:logo] %><%= stella_image_tag(quote[:logo], sizes: "12rem", class: "bd-qlogo", alt: "", loading: "lazy", data: {c_book_demo_proof: ""}) %><% end %>
             <span data-c-book-demo-proof><b data-c-book-demo-proof><%= quote[:name] %></b><% if byline.present? %><em data-c-book-demo-proof><%= byline %></em><% end %></span>
           </figcaption>
         </figure>

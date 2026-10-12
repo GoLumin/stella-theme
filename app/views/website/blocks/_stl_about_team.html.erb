@@ -1,7 +1,7 @@
 <%# locals: (data:) -%>
-<%# src/components/blocks/AboutTeam.astro: the team (the team global), with the group photo when public/images/team has one. %>
+<%# src/components/blocks/AboutTeam.astro: the team (the team global), with the block's group photo when it has one. %>
 <% team = stella_team %>
-<% group = %w[jpg jpeg png webp avif].map { "images/team/group.#{it}" }.find { Stella::AssetsController.public_files.key?(it) } %>
+<% group = data.group_photo if website_image(data.group_photo) %>
 <% if team.any? %>
   <section class="section section-alt" id="team" data-c-about-team>
     <div class="wrap" data-c-about-team>
@@ -11,14 +11,14 @@
       </div>
       <% if group %>
         <figure class="team-group" data-c-about-team>
-          <%= tag.img src: "/#{group}", alt: stella_str(data.group_photo_alt, "The Stella and Lily Pad Connect team"), loading: "lazy", data: {c_about_team: ""} %>
+          <%= stella_image_tag(group, sizes: "(max-width: 1220px) 100vw, 1180px", alt: stella_str(data.group_photo_alt, "The Stella and Lily Pad Connect team"), loading: "lazy", data: {c_about_team: ""}) %>
         </figure>
       <% end %>
       <div class="grid grid-3 team" data-c-about-team>
         <% team.each do |member| %>
           <div class="card team-card" data-c-about-team>
             <% if member[:photo] %>
-              <%= tag.img class: "team-photo", src: member[:photo], alt: member[:name], width: 96, height: 96, loading: "lazy", data: {c_about_team: ""} %>
+              <%= stella_image_tag(member[:photo], sizes: "6rem", class: "team-photo", alt: member[:name], loading: "lazy", data: {c_about_team: ""}) %>
             <% else %>
               <span class="team-photo team-initials" aria-hidden="true" data-c-about-team><%= member[:name].split(" ").map { it[0] }.first(2).join %></span>
             <% end %>

@@ -19,7 +19,7 @@
       <div class="wrap detail-in" data-c-features-detail-list>
         <div class="detail-copy reveal" data-c-features-detail-list>
           <div class="card-icon" data-c-features-detail-list>
-            <%= tag.img src: feature[:icon], alt: "", loading: "lazy", data: {c_features_detail_list: ""} %>
+            <%= stella_image_tag(feature[:icon], sizes: "4rem", alt: "", loading: "lazy", data: {c_features_detail_list: ""}) %>
           </div>
           <h2 data-c-features-detail-list><%= feature[:title] %></h2>
           <p class="lede" data-c-features-detail-list><%= feature[:short] %></p>

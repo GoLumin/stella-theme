@@ -3,9 +3,9 @@
 module Stella
   # A theme is an engine like a plugin: its views and helpers join the app's,
   # and it registers with Website, which turns the public site on. Its
-  # stylesheet, scripts, fonts and images are served by the theme itself
-  # (Stella::AssetsController), as are the Astro site's public files
-  # (/images/…, the favicons) that the CMS's content points at by path.
+  # stylesheet, scripts, fonts and favicons are served by the theme itself
+  # (Stella::AssetsController); every image the content shows is in the
+  # CMS's media library.
   class Engine < ::Rails::Engine
     initializer "stella.importmap", before: "importmap" do |app|
       app.config.assets.paths << root.join("app/javascript")
@@ -17,10 +17,8 @@ module Stella
     initializer "stella.routes" do |app|
       app.routes.append do
         get "_stella/*path", to: "stella/assets#show", format: false, as: :stella_asset
-        # The Astro site's public/ directory, at the addresses its pages and the CMS's content use.
-        get "images/*path", to: "stella/assets#public_file", format: false, as: :stella_public_image
         %w[favicon.ico favicon.svg apple-touch-icon.png].each do |file|
-          get file, to: "stella/assets#public_file", defaults: {path: file}, format: false
+          get file, to: "stella/assets#root_file", defaults: {path: file}, format: false
         end
         # Posts live at /blog/<slug>, as on the Astro site; the CMS's own address for them (/posts/<slug>) redirects there.
         get "blog/:slug", to: "stella/website#post", format: false, as: :stella_post

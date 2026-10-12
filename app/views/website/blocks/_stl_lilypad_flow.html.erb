@@ -1,6 +1,6 @@
 <%# locals: (data:) -%>
 <%# src/components/blocks/LilyPadFlow.astro: "What your customers see", the numbered entry flow beside a screenshot of the widget (`image`), or the CSS mock of it (LilyWidget) without one. %>
-<% image = stella_src(data.image).to_s %>
+<% image = (data.image if website_image(data.image)).to_s %>
 <section class="section" data-c-lily-pad-flow>
   <div class="<%= class_names("wrap", "see-in", "see-in-shot": image.present?) %>" data-c-lily-pad-flow>
     <div class="see-copy" data-c-lily-pad-flow>
@@ -21,7 +21,7 @@
     </div>
     <div class="see-widget" data-c-lily-pad-flow>
       <% if image.present? %>
-        <%= tag.img src: image, alt: stella_str(data.image_alt), class: "see-shot", loading: "lazy", decoding: "async", data: {c_lily_pad_flow: ""} %>
+        <%= stella_image_tag(image, sizes: "(max-width: 760px) 100vw, 610px", alt: stella_str(data.image_alt), class: "see-shot", loading: "lazy", decoding: "async", data: {c_lily_pad_flow: ""}) %>
       <% else %>
         <%= render "website/shared/lily_widget" %>
       <% end %>

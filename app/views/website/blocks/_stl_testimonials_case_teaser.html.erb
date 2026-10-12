@@ -13,7 +13,7 @@
     <div class="grid grid-3" data-c-testimonials-case-teaser>
       <% stella_case_studies.first(3).each do |study| %>
         <a class="card card-hover cs" href="/case-studies/<%= study[:slug] %>" data-c-testimonials-case-teaser>
-          <% if study[:logo] %><%= tag.img src: study[:logo], alt: "", class: "cs-logo", loading: "lazy", data: {c_testimonials_case_teaser: ""} %><% end %>
+          <% if study[:logo] %><%= stella_image_tag(study[:logo], sizes: "320px", alt: "", class: "cs-logo", loading: "lazy", data: {c_testimonials_case_teaser: ""}) %><% end %>
           <h3 data-c-testimonials-case-teaser><%= study[:company] %></h3>
           <p data-c-testimonials-case-teaser><%= study[:summary] %></p>
           <span class="link-arrow" data-c-testimonials-case-teaser>Read the case study</span>

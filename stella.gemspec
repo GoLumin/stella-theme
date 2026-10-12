@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.version = Stella::VERSION
   spec.summary = "The Stella website (runstella.com), as a CMS theme"
   spec.authors = ["Lumin"]
-  spec.files = Dir["{app,config,lib,public}/**/*"]
+  spec.files = Dir["{app,config,lib}/**/*"]
   spec.required_ruby_version = ">= 3.3"
   spec.add_dependency "rails", ">= 8.1"
 end

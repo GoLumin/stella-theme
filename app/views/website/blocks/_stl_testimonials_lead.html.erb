@@ -8,7 +8,7 @@
         <div class="stars" aria-label="5 out of 5" data-c-testimonials-lead>★★★★★</div>
         <blockquote data-c-testimonials-lead><%= lead[:quote] %></blockquote>
         <figcaption data-c-testimonials-lead>
-          <% if lead[:logo] %><%= tag.img src: lead[:logo], alt: "", loading: "lazy", data: {c_testimonials_lead: ""} %><% end %>
+          <% if lead[:logo] %><%= stella_image_tag(lead[:logo], sizes: "12rem", alt: "", loading: "lazy", data: {c_testimonials_lead: ""}) %><% end %>
           <div data-c-testimonials-lead>
             <span class="lq-name" data-c-testimonials-lead><%= lead[:name] %></span>
             <span class="lq-meta" data-c-testimonials-lead>

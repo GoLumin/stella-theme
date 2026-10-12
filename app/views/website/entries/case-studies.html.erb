@@ -7,7 +7,7 @@
   <div class="wrap" data-c-case-study>
     <a href="/case-studies" class="back" data-c-case-study>← All case studies</a>
     <div class="hero-in" data-c-case-study>
-      <% if study[:logo] %><%= tag.img src: study[:logo], alt: "", class: "hero-logo", data: {c_case_study: ""} %><% end %>
+      <% if study[:logo] %><%= stella_image_tag(study[:logo], sizes: "12rem", alt: "", class: "hero-logo", data: {c_case_study: ""}) %><% end %>
       <div data-c-case-study>
         <span class="eyebrow" data-c-case-study>Case study</span>
         <h1 data-c-case-study><%= study[:company] %></h1>
@@ -102,7 +102,7 @@
       <div class="grid grid-3" data-c-case-study>
         <% related.each do |other| %>
           <a class="card card-hover rel" href="/case-studies/<%= other[:slug] %>" data-c-case-study>
-            <% if other[:logo] %><%= tag.img src: other[:logo], alt: "", class: "rel-logo", loading: "lazy", data: {c_case_study: ""} %><% end %>
+            <% if other[:logo] %><%= stella_image_tag(other[:logo], sizes: "12rem", alt: "", class: "rel-logo", loading: "lazy", data: {c_case_study: ""}) %><% end %>
             <h3 data-c-case-study><%= other[:company] %></h3>
             <% if other[:location] %><span class="rel-loc" data-c-case-study><%= other[:location] %></span><% end %>
             <p data-c-case-study><%= other[:summary] %></p>
