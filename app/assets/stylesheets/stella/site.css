@@ -667,7 +667,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
 }
 
 .rail-since[data-c-header] {
-  color: var(--steel-500);
+  color: var(--steel-300);
   letter-spacing: .16em;
 }
 
@@ -796,7 +796,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
   font-weight: 500;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--steel-400);
+  color: var(--steel-300);
   margin: 0 0 14px;
   padding-bottom: 12px;
   border-bottom: 1px solid #ffffff14;
@@ -840,7 +840,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
   display: block;
   font-size: .8125rem;
   line-height: 1.45;
-  color: var(--steel-400);
+  color: var(--steel-300);
   margin-top: 2px;
 }
 
@@ -1154,7 +1154,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
   font-family: var(--f-mono);
   font-size: .75rem;
   letter-spacing: .03em;
-  color: var(--steel-500);
+  color: var(--steel-400);
 }
 
 .v2f-bot[data-c-footer] p[data-c-footer] {
@@ -1164,7 +1164,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
 .v2f-disclaimer[data-c-footer] {
   font-size: .75rem;
   line-height: 1.6;
-  color: var(--steel-500);
+  color: var(--steel-400);
   max-width: 92ch;
   margin: 0 0 18px;
   padding-top: 18px;
@@ -1324,7 +1324,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
   font-weight: 500;
   letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--steel-500);
+  color: var(--steel-400);
   margin-bottom: 20px;
 }
 
@@ -1401,7 +1401,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
   font-family: var(--f-mono);
   font-size: .6875rem;
   letter-spacing: .14em;
-  color: var(--steel-400);
+  color: var(--steel-500);
   display: block;
   margin-bottom: 14px;
 }
@@ -1446,7 +1446,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
   text-align: center;
   font-family: var(--f-mono);
   font-size: .75rem;
-  color: var(--steel-400);
+  color: var(--steel-500);
   margin-top: 22px;
   letter-spacing: .02em;
 }
@@ -1522,7 +1522,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
   font-family: var(--f-mono);
   font-size: .6875rem;
   letter-spacing: .1em;
-  color: var(--steel-400);
+  color: var(--steel-500);
 }
 
 .mod[data-c-home-modules] h3[data-c-home-modules] {
@@ -1598,7 +1598,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
 
 .con-meta[data-c-home-console] {
   font-size: .75rem;
-  color: var(--steel-500);
+  color: var(--steel-300);
   margin-left: auto;
 }
 
@@ -1625,7 +1625,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
   font-size: .625rem;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--steel-500);
+  color: var(--steel-400);
   margin: 0 0 12px;
 }
 
@@ -1651,7 +1651,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
 }
 
 .d-time[data-c-home-console] {
-  color: var(--steel-500);
+  color: var(--steel-300);
 }
 
 .d-box[data-c-home-console] {
@@ -1659,7 +1659,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
 }
 
 .d-route[data-c-home-console] {
-  color: var(--steel-400);
+  color: var(--steel-300);
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -1751,7 +1751,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
   font-size: .625rem;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--steel-500);
+  color: var(--steel-300);
 }
 
 .kpi-v[data-c-home-console] {
@@ -1767,7 +1767,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
 
 .kpi-v[data-c-home-console] i[data-c-home-console] {
   font-style: normal;
-  color: var(--steel-400);
+  color: var(--steel-300);
   font-size: 1rem;
 }
 
@@ -1797,7 +1797,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
   align-items: center;
   font-family: var(--f-mono);
   font-size: .6875rem;
-  color: var(--steel-400);
+  color: var(--steel-300);
   letter-spacing: .06em;
 }
 
@@ -1845,7 +1845,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
   justify-content: space-between;
   font-family: var(--f-mono);
   font-size: .625rem;
-  color: var(--steel-500);
+  color: var(--steel-300);
 }
 
 .scan[data-c-home-console] {
@@ -2086,7 +2086,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
   position: relative;
   flex: 1;
   padding-top: 12px;
-  color: var(--steel-400);
+  color: var(--steel-500);
   text-align: center;
 }
 
@@ -2357,7 +2357,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
   position: relative;
   flex: 1;
   padding-top: 12px;
-  color: var(--steel-400);
+  color: var(--steel-500);
   text-align: center;
 }
 
@@ -3728,7 +3728,7 @@ figcaption[data-c-testimonial-card] {
   font-weight: 500;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--grey-400);
+  color: var(--grey-500);
   margin-bottom: 18px;
 }
 
@@ -4046,7 +4046,7 @@ figcaption[data-c-testimonial-card] {
   font-weight: 500;
   letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--grey-400);
+  color: var(--grey-500);
 }
 
 .tier-featured[data-c-pricing-tiers] .tier-code[data-c-pricing-tiers] {
@@ -4492,7 +4492,7 @@ figcaption[data-c-testimonial-card] {
   font-weight: 500;
   letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--steel-500);
+  color: var(--steel-400);
   margin-bottom: 18px;
 }
 
@@ -4582,7 +4582,7 @@ figcaption[data-c-testimonial-card] {
   font-size: .625rem;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--grey-400);
+  color: var(--grey-500);
   margin-bottom: 6px;
 }
 
@@ -4611,7 +4611,7 @@ figcaption[data-c-testimonial-card] {
 }
 
 .l-x[data-c-book-demo-math] {
-  color: var(--grey-300);
+  color: var(--grey-500);
 }
 
 .l-check[data-c-book-demo-math] {
@@ -4691,7 +4691,7 @@ figcaption[data-c-testimonial-card] {
     font-family: var(--f-mono);
     font-size: .5625rem;
     letter-spacing: .1em;
-    color: var(--grey-400);
+    color: var(--grey-500);
   }
 
   .ledger-cell[data-c-book-demo-math].l-stella:after {
@@ -4937,7 +4937,7 @@ figcaption[data-c-testimonial-card] {
   font-family: var(--f-mono);
   font-size: .75rem;
   letter-spacing: .04em;
-  color: var(--steel-500);
+  color: var(--steel-400);
 }
 
 .bd-mbar[data-c-book-demo-close] {
@@ -5357,7 +5357,7 @@ figcaption[data-c-testimonial-card] {
 
 .demo-field[data-c-demo-form] span[data-c-demo-form] em[data-c-demo-form] {
   font-style: normal;
-  color: var(--steel-400);
+  color: var(--steel-500);
   text-transform: none;
   letter-spacing: .02em;
 }
@@ -5379,6 +5379,10 @@ figcaption[data-c-testimonial-card] {
 }
 
 .demo-card-dark[data-c-demo-form] .demo-field[data-c-demo-form] span[data-c-demo-form] {
+  color: var(--steel-400);
+}
+
+.demo-card-dark[data-c-demo-form] .demo-field[data-c-demo-form] span[data-c-demo-form] em[data-c-demo-form] {
   color: var(--steel-400);
 }
 
@@ -5906,7 +5910,7 @@ figcaption[data-c-testimonial-card] {
   font-size: .6875rem;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--grey-400);
+  color: var(--grey-500);
   margin-bottom: 14px;
 }
 
@@ -6031,7 +6035,7 @@ figcaption[data-c-testimonial-card] {
   flex-basis: 100%;
   margin: 4px 0 0;
   font-size: .8125rem;
-  color: #8f8f8f;
+  color: var(--steel-300);
 }
 
 @media (width <= 860px) {
@@ -6238,7 +6242,7 @@ figcaption[data-c-testimonial-card] {
   font-weight: 500;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--grey-400);
+  color: var(--grey-500);
   margin-bottom: 8px;
 }
 
@@ -6510,7 +6514,7 @@ figcaption[data-c-testimonial-card] {
   font-weight: 500;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--grey-400);
+  color: var(--grey-500);
   margin-bottom: 8px;
 }
 
@@ -6783,7 +6787,7 @@ figcaption[data-c-testimonial-card] {
 .ac-dur[data-c-academy-index] {
   font-family: var(--f-mono);
   font-size: .6875rem;
-  color: var(--steel-400);
+  color: var(--steel-500);
 }
 
 .ac-open[data-c-academy-index] {
@@ -7285,7 +7289,7 @@ figcaption[data-c-testimonial-card] {
         font-weight: 600;
         letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: var(--grey-400);
+        color: var(--grey-500);
         margin: 0 0 10px;
     }
     .roi-formula[data-c-roi-app] p:where([data-c-roi-app]) {
