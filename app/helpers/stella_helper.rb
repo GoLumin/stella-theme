@@ -212,6 +212,22 @@ module StellaHelper
     {site_key: captcha[:site_key], theme: captcha[:theme] || "auto"} if captcha && captcha[:provider] == "turnstile"
   end
 
+  # ── Form emails (website/emails/form) ────────────────────────────────────
+
+  # An email_text block's body as website_rich_text draws it, with the inline
+  # styles a mail client needs on the dark card: its paragraphs spaced, its
+  # links amber and its bold white, rather than the client's own blue and
+  # margins. c: the email's colours.
+  def stella_email_rich_text(value, c)
+    fragment = Nokogiri::HTML5.fragment(website_rich_text(value).to_s)
+    paragraphs = fragment.css("p")
+    paragraphs.each { it["style"] = "margin:0 0 12px;" }
+    paragraphs.last&.set_attribute("style", "margin:0;")
+    fragment.css("a").each { it["style"] = "color:#{c[:amber]};text-decoration:underline;" }
+    fragment.css("strong, b").each { it["style"] = "color:#{c[:ink]};" }
+    fragment.to_html.html_safe # rubocop:disable Rails/OutputSafety -- website_rich_text's sanitized HTML, with our own style attributes added
+  end
+
   # ── The <head> ───────────────────────────────────────────────────────────
 
   # Layout.astro's title: the site name after a page's title, unless it's

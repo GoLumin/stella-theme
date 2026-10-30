@@ -221,6 +221,7 @@ RSpec.describe "The Stella website", type: :request, website: true do
     expect(mail.subject).to eq("Thanks, Ann")
     expect(body).to include("Thank you, Ann", NAME)
     expect(body.scan("data-cms-repeat").size + body.scan("{{").size).to eq(0)
+    expect(body).to include("/_stella/logo-stella-email.png", 'name="color-scheme" content="dark"')
   end
 
   it "lists posts at /blog/<slug> in the sitemap, and nothing from the collections without pages" do
