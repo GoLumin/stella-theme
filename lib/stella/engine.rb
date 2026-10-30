@@ -28,6 +28,8 @@ module Stella
         get "academy/login", to: "stella/website#academy_login", format: false, as: :stella_academy_login
         get "academy/signup", to: "stella/website#academy_signup", format: false, as: :stella_academy_signup
         get "academy/:slug", to: "stella/website#academy_item", format: false, as: :stella_academy_item
+        # SMS short links, resolved by Stella's API (Stella::ShortLink).
+        get "l/:hash", to: "stella/website#short_link", format: false, as: :stella_short_link
       end
     end
 

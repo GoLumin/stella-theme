@@ -24,6 +24,7 @@ calculator, a Svelte island there, is plain markup and a module here. Fonts
 | `/blog/<slug>` | a `posts` entry (`entries/posts`), with the call to action from the blog page's own fields (`post_cta_*`); the CMS's own `/posts/<slug>` redirects there, and the sitemap lists `/blog/<slug>` |
 | `/case-studies/<slug>`, `/featured-customers/<slug>` | `entries/<collection>` |
 | `/academy`, `/academy/login`, `/academy/signup`, `/academy/<slug>` | the Astro site's static Academy design preview (`app/views/website/academy`, `StellaAcademyHelper`) |
+| `/l/<hash>` | an SMS short link: Stella's API gives the work order's address and the visitor is sent there, uncached (`Stella::ShortLink`); a failure sends them to `/` |
 | anything else | Tools › Redirects, then the CMS's `not-found` page, with a 404 and noindex |
 | header, footer | the `nav`, `footer` and `general` globals |
 | `/favicon.ico`, `/favicon.svg`, `/apple-touch-icon.png` | the theme's own files (`app/assets/images/stella`); pages link Settings › Branding's favicon |
@@ -57,6 +58,20 @@ The theme serves its own stylesheet, scripts and fonts at
 `/_stella/<file>?v=<digest>` (`Stella::AssetsController`), rather than
 through the asset pipeline, so it works on an install that hasn't compiled
 a theme added from Settings › Plugins.
+
+## SMS short links
+
+Text messages from Stella link to `https://www.runstella.com/l/<hash>`, so
+the address has to keep working wherever the site is served. The theme asks
+Stella's API (a `client_credentials` token, then `POST /api/order-link`)
+with credentials from the host's environment:
+
+    API_BASE_URL=
+    AUTH_LOGIN_CLIENT_ID=
+    AUTH_LOGIN_CLIENT_SECRET=
+
+Without them, or when the API fails, every link goes to the home page and
+the reason is logged with `[sms-link]`.
 
 ## Working on it
 

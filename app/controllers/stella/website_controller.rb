@@ -3,7 +3,7 @@
 module Stella
   # The addresses the Astro site had that the CMS's own don't give: a post at
   # /blog/<slug> (the CMS would put it at /posts/<slug>, which redirects here),
-  # and the Academy's static design preview. Drawn like any website page
+  # the Academy's static design preview, and the SMS short links (/l/<hash>). Drawn like any website page
   # (Website::PagesController: cached, ?preview for editors); while another
   # theme draws the site, or none does, each address is the catch-all's again.
   class WebsiteController < Website::PagesController
@@ -33,6 +33,25 @@ module Stella
     def academy_item
       item = helpers.stella_academy_item(params[:slug])
       item ? academy_page("website/academy/item", item:) : (stella? ? not_found(Website::Address.new(request.path)) : show)
+    end
+
+    # /l/<hash>: an SMS short link, sent on to the work order it stands for.
+    # Like the old site's, any failure lands on the home page rather than an
+    # error: the person tapped a link in a text message and can do nothing
+    # about a broken API. Never cached: each hash is one customer's.
+    def short_link
+      return show unless stella?
+
+      destination = begin
+        Stella::ShortLink.resolve(params[:hash])
+      rescue Stella::ShortLink::Error => e
+        Rails.logger.error("[sms-link] #{params[:hash]}: #{e.message}")
+        "/"
+      end
+
+      response.headers["Cache-Control"] = "private, no-store"
+      response.headers["X-Robots-Tag"] = "noindex"
+      redirect_to destination, status: :found, allow_other_host: true
     end
 
     private

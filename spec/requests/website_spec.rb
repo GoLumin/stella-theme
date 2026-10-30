@@ -272,4 +272,81 @@ RSpec.describe "The Stella website", type: :request, website: true do
       expect(response).to have_http_status(:not_found), path
     end
   end
+
+  describe "SMS short links (/l/<hash>)" do
+    API = "https://api.example.test"
+
+    around do |example|
+      env = {"API_BASE_URL" => "#{API}/", "AUTH_LOGIN_CLIENT_ID" => "id", "AUTH_LOGIN_CLIENT_SECRET" => "secret"}
+      before = env.keys.to_h { [it, ENV[it]] }
+      ENV.update(env)
+      example.run
+    ensure
+      ENV.update(before)
+    end
+
+    # Stella's API: a token, then the work order's address for the hash.
+    def api(order_link:, token_status: 200)
+      Rails.cache.delete(Stella::ShortLink::TOKEN_CACHE_KEY)
+      requests = []
+      http = double("http")
+      allow(http).to receive(:post) do |path, body, headers|
+        requests << [path, body, headers]
+        case path
+        when "/oauth/token" then api_response(token_status, {access_token: "tok", expires_in: 3600})
+        when "/api/order-link" then api_response(*order_link)
+        end
+      end
+      allow(Net::HTTP).to receive(:start).with("api.example.test", 443, hash_including(use_ssl: true)).and_yield(http)
+      requests
+    end
+
+    def api_response(status, body)
+      klass = Net::HTTPResponse::CODE_TO_OBJ.fetch(status.to_s)
+      klass.new("1.1", status.to_s, "").tap do |response|
+        response.instance_variable_set(:@body, body.to_json)
+        response.instance_variable_set(:@read, true)
+      end
+    end
+
+    it "sends the person to the address Stella's API gives the hash, uncached" do
+      requests = api(order_link: [200, {link: "https://pay.example.test/orders/42?x=1"}])
+
+      get "/l/Ab12Cd34"
+
+      expect(response).to redirect_to("https://pay.example.test/orders/42?x=1")
+      expect(response).to have_http_status(:found)
+      expect(response.headers["Cache-Control"]).to eq("private, no-store")
+      expect(response.headers["X-Robots-Tag"]).to eq("noindex")
+      token, lookup = requests
+      expect(Rack::Utils.parse_query(token[1])).to eq("grant_type" => "client_credentials", "client_id" => "id", "client_secret" => "secret")
+      expect(JSON.parse(lookup[1])).to eq("hash" => "Ab12Cd34")
+      expect(lookup[2]["Authorization"]).to eq("Bearer tok")
+    end
+
+    it "sends the person home when the API has no link, refuses the token, or gives a link that isn't a web page" do
+      [
+        {order_link: [404, {error: "not found"}]},
+        {order_link: [200, {link: "https://x.test"}], token_status: 401},
+        {order_link: [200, {link: "javascript:alert(1)"}]},
+        {order_link: [200, {}]}
+      ].each do |stub|
+        api(**stub)
+        get "/l/Ab12Cd34"
+        expect(response).to redirect_to("/"), stub.inspect
+        expect(response.headers["Cache-Control"]).to eq("private, no-store")
+      end
+    end
+
+    it "sends a hash that isn't one home without asking the API, and home when the API isn't configured" do
+      expect(Net::HTTP).not_to receive(:start)
+
+      get "/l/short"
+      expect(response).to redirect_to("/")
+
+      ENV["AUTH_LOGIN_CLIENT_SECRET"] = ""
+      get "/l/Ab12Cd34"
+      expect(response).to redirect_to("/")
+    end
+  end
 end
