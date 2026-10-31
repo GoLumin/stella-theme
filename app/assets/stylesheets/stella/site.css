@@ -618,15 +618,29 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
   position: sticky;
   top: 0;
   z-index: 100;
+  border-bottom: 1px solid #ffffff14;
+  transition: box-shadow .2s;
+}
+
+/* The frosted bar is drawn behind the header rather than on it: a
+   backdrop-filter on the header itself would make it the containing block of
+   the fixed mobile menu, which would then sit inside the bar, not over the page. */
+.v2h[data-c-header]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: color-mix(in srgb, var(--steel-975) 88%, transparent);
   backdrop-filter: saturate(150%) blur(14px);
-  border-bottom: 1px solid #ffffff14;
-  transition: box-shadow .2s, background-color .2s;
+  transition: background-color .2s;
 }
 
 .v2h[data-c-header].scrolled {
-  background: color-mix(in srgb, var(--steel-975) 96%, transparent);
   box-shadow: 0 10px 30px -18px #000000e6;
+}
+
+.v2h[data-c-header].scrolled::before {
+  background: color-mix(in srgb, var(--steel-975) 96%, transparent);
 }
 
 .v2h-rail[data-c-header] {
@@ -994,6 +1008,11 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
 
   .v2h-mobile[data-c-header] {
     display: block;
+  }
+
+  /* Closed until the burger opens it (header.js sets hidden). */
+  .v2h-mobile[data-c-header][hidden] {
+    display: none;
   }
 
   .v2h-brand[data-c-header] {
