@@ -906,6 +906,21 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
   color: var(--amber);
 }
 
+/* Below 1040px the bar has room for one of the two: Login while the hero
+   (which carries its own Book a demo) is on screen, then Book a demo once the
+   hero has scrolled under the bar. header.js sets .past-hero. */
+@media (width <= 1040px) {
+  .v2h[data-c-header]:not(.past-hero) .v2h-cta[data-c-header],
+  .v2h[data-c-header].past-hero .v2h-login[data-c-header] {
+    display: none;
+  }
+
+  .v2h-login[data-c-header] {
+    color: #fff;
+    padding: 10px 4px;
+  }
+}
+
 .v2h-burger[data-c-header] {
   display: none;
   flex-direction: column;
@@ -1011,7 +1026,7 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
 }
 
 @media (width <= 1040px) {
-  .v2h-nav[data-c-header], .v2h-login[data-c-header] {
+  .v2h-nav[data-c-header] {
     display: none;
   }
 

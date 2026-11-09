@@ -19,9 +19,20 @@ if (header && burger && mobile) {
     })
   )
 
-  const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 8)
+  // .past-hero: the first block (the hero) has scrolled up under the bar, so
+  // on small screens the bar swaps Login for Book a demo. A page with no hero
+  // swaps as soon as it scrolls.
+  const hero = document.querySelector("main > :first-child")
+  const onScroll = () => {
+    header.classList.toggle("scrolled", window.scrollY > 8)
+    const past = hero
+      ? hero.getBoundingClientRect().bottom <= header.getBoundingClientRect().bottom
+      : window.scrollY > 8
+    header.classList.toggle("past-hero", past)
+  }
   onScroll()
   window.addEventListener("scroll", onScroll, { passive: true })
+  window.addEventListener("resize", onScroll, { passive: true })
 
   header.querySelectorAll(".v2h-item.has-mega").forEach((item) => {
     const link = item.querySelector(".v2h-link")
