@@ -988,6 +988,19 @@ html { scroll-padding-top: calc(var(--header-h) + 46px); }
   margin-top: 26px;
 }
 
+/* The menu is dark, so the ghost button (Login) takes its on-dark colours;
+   with the default ink it was dark text on a dark panel, i.e. invisible. */
+.v2m-actions[data-c-header] .v-btn-ghost[data-c-header] {
+  --_fg: #fff;
+  border-color: rgba(255, 255, 255, .28);
+}
+
+.v2m-actions[data-c-header] .v-btn-ghost[data-c-header]:hover {
+  background: #fff;
+  color: var(--steel-990);
+  border-color: #fff;
+}
+
 .v2m-phone[data-c-header] {
   text-align: center;
   font-family: var(--f-mono);
