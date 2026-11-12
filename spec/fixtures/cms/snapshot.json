@@ -2257,6 +2257,17 @@
           "label": "Lede"
         },
         {
+          "name": "image",
+          "type": "asset",
+          "label": "Image",
+          "help": "Shown under the lede. Leave empty for none."
+        },
+        {
+          "name": "image_alt",
+          "type": "string",
+          "label": "Image alt text"
+        },
+        {
           "name": "window_title",
           "type": "string",
           "label": "Window title"
