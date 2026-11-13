@@ -7466,3 +7466,79 @@ figcaption[data-c-testimonial-card] {
             grid-template-columns: 1fr auto;
         }
     }
+
+/* ===== src/components/blocks/MediaText.astro — [data-c-media-text] ===== */
+.mt-in[data-c-media-text] {
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  gap: clamp(36px, 5vw, 72px);
+  align-items: center;
+}
+
+.mt-img-left[data-c-media-text] {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr);
+}
+
+.mt-img-left[data-c-media-text] .mt-copy[data-c-media-text] {
+  order: 2;
+}
+
+.mt-no-img[data-c-media-text] {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: var(--wrap);
+}
+
+.mt-copy[data-c-media-text] h2[data-c-media-text] {
+  margin: 0 0 .45em;
+}
+
+.mt-copy[data-c-media-text] .v-lede[data-c-media-text] + .v-lede[data-c-media-text] {
+  margin-top: 1em;
+}
+
+.mt-copy[data-c-media-text] .v-btn-row[data-c-media-text] {
+  margin-top: 30px;
+}
+
+.mt-media[data-c-media-text] {
+  margin: 0;
+  position: relative;
+  padding: 10px;
+  background: var(--steel-975);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.mt-media[data-c-media-text]::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--amber);
+}
+
+.mt-media[data-c-media-text] img[data-c-media-text] {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: calc(var(--r-lg) - 6px);
+}
+
+.v-dark .mt-media[data-c-media-text] {
+  border-color: rgba(255, 255, 255, .1);
+}
+
+@media (width <= 980px) {
+  .mt-in[data-c-media-text], .mt-img-left[data-c-media-text] {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+  }
+
+  .mt-img-left[data-c-media-text] .mt-copy[data-c-media-text] {
+    order: 0;
+  }
+}
