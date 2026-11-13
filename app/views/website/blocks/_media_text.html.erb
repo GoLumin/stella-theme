@@ -1,0 +1,34 @@
+<%# locals: (data:) -%>
+<%# src/components/blocks/MediaText.astro: the CMS's built-in "Media + text" block in the site's section language — copy on one side, the image framed on the other.
+    side: right | left (where the image sits). background: none → paper, muted → v-alt, accent → v-dark.
+    The body is Markdown, drawn as copy: a paragraph per blank-line run, emphasis markers dropped. %>
+<%
+  heading = stella_str(data.heading)
+  image = data.image_id.presence
+  side = stella_str(data.side) == "left" ? "left" : "right"
+  tone = {"accent" => "v-dark", "muted" => "v-alt"}[stella_str(data.background)]
+  paragraphs = stella_str(data.body).split(/\n\s*\n/).map { it.gsub(/\*\*|__|\*|_|`/, "").gsub(/\s*\n\s*/, " ").strip }.reject(&:empty?)
+  cta_label = stella_str(data.cta_label)
+  cta_href = website_href(data.cta_url)
+%>
+<section class="<%= class_names("v-section", "mt-sec", tone) %>" data-c-media-text>
+  <div class="<%= class_names("v-wrap", "v-wrap-wide", "mt-in", "mt-img-#{side}", "mt-no-img": !image) %>" data-c-media-text>
+    <div class="mt-copy reveal" data-c-media-text>
+      <h2 data-c-media-text><%= heading %></h2>
+      <% paragraphs.each do |paragraph| %>
+        <p class="v-lede" data-c-media-text><%= paragraph %></p>
+      <% end %>
+      <% if cta_label.present? && cta_href %>
+        <div class="v-btn-row" data-c-media-text>
+          <a href="<%= cta_href %>" class="v-btn v-btn-primary v-btn-lg" data-c-media-text><%= cta_label %></a>
+        </div>
+      <% end %>
+    </div>
+
+    <% if image %>
+      <figure class="mt-media reveal" style="--d:120ms" data-c-media-text>
+        <%= stella_image_tag(image, sizes: "(max-width: 980px) 100vw, 780px", loading: "lazy", data: {c_media_text: ""}) %>
+      </figure>
+    <% end %>
+  </div>
+</section>
